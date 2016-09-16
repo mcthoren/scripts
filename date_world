@@ -1,0 +1,28 @@
+#!/bin/sh
+
+echo -en "Honolulu:\t"
+TZ=/usr/share/zoneinfo/Pacific/Honolulu date
+
+echo -en "Los Angeles:\t"
+TZ=/usr/share/zoneinfo/America/Los_Angeles date
+
+echo -en "New York:\t"
+TZ=/usr/share/zoneinfo/America/New_York date
+
+echo -en "UTC:\t\t"
+TZ=/usr/share/zoneinfo/UTC date
+
+echo -en "London:\t\t"
+TZ=/usr/share/zoneinfo/Europe/London date
+
+echo -en "Berlin:\t\t"
+TZ=/usr/share/zoneinfo/Europe/Berlin date
+
+echo -en "Moscow:\t\t"
+TZ=/usr/share/zoneinfo/Europe/Moscow date
+
+echo -en "Shanghai:\t"
+TZ=/usr/share/zoneinfo/Asia/Shanghai date
+
+echo -en "Tokyo:\t\t"
+TZ=/usr/share/zoneinfo/Asia/Tokyo date
