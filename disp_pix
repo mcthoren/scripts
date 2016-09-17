@@ -1,10 +1,18 @@
 #!/bin/sh
+# this script adds a pgm header to a binary file of two byte floats, and prettifies it for viewing
+# used with a headlines pibox running wspr_nogui.py to look at the spectrum
+
+WSPR_DIR="/home/ghz/builds/wspr-2"
+
+cd $WSPR_DIR || {
+	echo "$WSPR_DIR not found"
+	exit 1
+}
 
 (echo P5 500 160 65535; cat pixmap.dat) > pixmap.pgm
 
 test -f co3.png || {
-	convert -size 1x600 gradient:'#FFF-#0FF' -set colorspace HSB -colorspace RGB gradient_rainbow_2.png
-	convert gradient_rainbow_2.png -crop 1x400+0+200 co3.png
+	convert -size 20x600 gradient:'#DAFFFF-#20FFFF' -set colorspace HSB co3.png
 }
 
 convert pixmap.pgm co3.png -interpolate Spline -clut rb_pixmap.png
