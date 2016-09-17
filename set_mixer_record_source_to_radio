@@ -1,0 +1,5 @@
+#!/bin/sh
+# set the record source to my ham radio plugged into the mic jack on my thinkpad
+
+mixerctl -v inputs.sel2_source=mic2
+mixerctl -v record.adc-0:1_source=sel2
