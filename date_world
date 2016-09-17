@@ -1,4 +1,5 @@
 #!/bin/sh
+# often with the radio stuff i have no idea what time it is where. this helps
 
 echo -en "Honolulu:\t"
 TZ=/usr/share/zoneinfo/Pacific/Honolulu date
