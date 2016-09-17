@@ -1,0 +1,9 @@
+#!/bin/ksh
+# This script uses duden to lookup the rechschreibung for a word. Nouns must be capped.
+
+(($#==1)) || {
+	echo "This script takes one word as an argument."
+	exit 1
+}
+
+lynx -cookies http://www.duden.de/rechtschreibung/$1

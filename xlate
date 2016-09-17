@@ -1,0 +1,9 @@
+#!/bin/ksh
+# This script uses an online german/english dict to provide xlations.
+
+(($#==1)) || {
+	echo "This script takes one word as an argument."
+	exit 1
+}
+
+lynx -cookies http://www.dict.cc/?s=$1
