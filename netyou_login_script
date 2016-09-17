@@ -1,0 +1,10 @@
+#!/bin/sh
+# there is a horrible internet portal service that uses these crap little cards
+# they like to time out your connetion frequently, so i call this script from cron
+# check for the netyou number from toyota's site, if found, enter your most recent
+# crap card number into their silly site with the curl line there.
+
+wget -q toyota.com -O - |grep "0900-5-638873" > /dev/null && {
+	curl -sF "username=94F888BC2F" "https://wlan.net-you.de/login.php"  > /dev/null
+	date
+}
