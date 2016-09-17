@@ -1,6 +1,6 @@
 #!/bin/sh
 # there is a horrible internet portal service that uses these crap little cards
-# they like to time out your connetion frequently, so i call this script from cron
+# they like to time out your connection frequently, so i call this script from cron.
 # check for the netyou number from toyota's site, if found, enter your most recent
 # crap card number into their silly site with the curl line there.
 
