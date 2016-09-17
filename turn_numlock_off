@@ -1,0 +1,4 @@
+/bin/ksh
+# numlock can get stuck on in a way that makes fvwm (one) and a thinkpad doof
+# numlock x is found in ports. i never remember what it's called. so this script.
+numlockx off
