@@ -1,0 +1,19 @@
+#!/bin/ksh
+# every now and then i run up against some file/proc/etc limit while doing sth dumb
+# this is intended to help me find which one.
+# obsd specific.
+
+sysctl kern.maxvnodes
+sysctl kern.numvnodes
+echo
+sysctl kern.maxproc
+sysctl kern.nprocs
+echo
+sysctl kern.maxfiles
+sysctl kern.nfiles
+echo
+sysctl kern.maxthread
+sysctl kern.nthreads
+echo
+sysctl kern.tty.maxptys
+sysctl kern.tty.nptys

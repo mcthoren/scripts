@@ -1,0 +1,20 @@
+#!/usr/local/bin/bash
+# ridiculous script to check if my hosts are alive, and in pretty colors!
+# wants a file called hosts with a lists of hosts to check in the same dir
+
+test -f hosts || {
+	echo "file: hosts not found"
+	exit 1
+}
+
+clear
+j=0; wait=1; count=1; loop_wait=3600
+while true; do
+	for i in $(<hosts); do 
+	     ping -c $count -w $wait $i &>/dev/null \
+	     && echo -e $i '\t\t' $"\033[1;34m"[ $"\033[1;32m"UP$"\033[1;34m" ]$"\033[0;39m" \
+	     || echo -e $i '\t\t' $"\033[1;34m"[$"\033[1;31m"DOWN$"\033[1;34m"]$"\033[0;39m"
+	done
+      sleep $loop_wait
+      echo -en '\033[1;1H'
+done
