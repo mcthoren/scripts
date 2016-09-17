@@ -1,5 +1,5 @@
 #!/bin/sh
-# script of automatically logging in to weird cisco wireless web portal used at this building
+# script for automatically logging in to weird cisco wireless web portal used at this building
 
 # if we see this building name at toyota, we've prly gone to the web portal
 wget -qt 3 -T 45 toyota.com -O - |grep "Wirtschaftsakademie" > /dev/null && {
