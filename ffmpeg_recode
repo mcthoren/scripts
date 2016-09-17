@@ -1,0 +1,14 @@
+#!/bin/ksh
+# sometimes i wind up with a video file that was wierdly/poorly encoded
+# but not often enough that i remember the switches to ffmpeg to make it better
+# so this is here to remember for me.
+
+(($#==1)) || {
+        echo "This script takes a media file as an argument."
+        exit 1
+}
+
+OUT_B=`basename "$1"`
+OUT_F="/tmp/$OUT_B.mpg"
+
+time ffmpeg -i "$1" -target "ntsc-dvd" "$OUT_F"
