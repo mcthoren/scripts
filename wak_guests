@@ -1,0 +1,9 @@
+#!/bin/sh
+# script of automatically logging in to weird cisco wireless web portal used at this building
+
+# if we see this building name at toyota, we've prly gone to the web portal
+wget -qt 3 -T 45 toyota.com -O - |grep "Wirtschaftsakademie" > /dev/null && {
+	curl -sd "fname=wba_login&username=XXXXXXXXXXX&key=YYYYYYYYY" "http://wlanportal.wak-sh/aaa/WebPortal.html"
+
+	date
+}
