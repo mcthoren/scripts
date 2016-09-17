@@ -1,0 +1,8 @@
+#!/bin/ksh
+# the pk88 and mfj 1278b both want their clocks set with the time in diff formats
+# this script prints out the current time in said formats, so i can just paste it to them to set their clocks.
+
+echo mfj
+date -u +daytime\ %y%m%d%H%M
+echo pk88
+date -u +daytime\ %y%m%d%H%M%S
