@@ -1,0 +1,9 @@
+#!/bin/sh
+# script for locking then sleeping laptop. i have no idea why i put all the syncs in there.
+
+sync
+xlock -mode pyro &
+sync
+sleep 2
+sync
+apm -z
