@@ -1,0 +1,4 @@
+#!/bin/sh
+# grab a still frame from my little usb webcam
+
+mplayer -vo png -frames 1 tv:// -tv device=/dev/video1

@@ -1,0 +1,4 @@
+#!/bin/sh
+# grab a single frame from the internal cam on my laptop
+
+mplayer -vo png -frames 1 tv://
