@@ -1,5 +1,5 @@
 #!/bin/ksh
-# This script uses duden to lookup the rechschreibung for a word. Nouns must be capped.
+# This script uses duden to lookup the rechtschreibung for a word. Nouns must be capped.
 
 (($#==1)) || {
 	echo "This script takes one word as an argument."
