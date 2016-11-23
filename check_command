@@ -1,4 +1,5 @@
 #!/bin/sh
+# this is a script i use in authorized_keys check_command directives for backups and such
 
 test -n "$SSH_ORIGINAL_COMMAND" || exit 1
 
