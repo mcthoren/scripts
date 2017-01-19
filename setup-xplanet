@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/local/bin/zsh
 
 # XXX WARNING - very very drunk commmit. be sure to double check later.
 
@@ -8,7 +8,15 @@
 # http://visibleearth.nasa.gov/view.php?id=55167
 # http://visibleearth.nasa.gov/view.php?id=57752
 
-cd ~/.xplanet || mkdir ~/.xplanet
+# zsh is the only shell i know that does this correctly
+cd ~/.xplanet && {
+	TMPDIR=`mktemp -d /tmp/xplanet.XXXXXXXXXX`
+	cp -r ~/.xplanet $TMPDIR || exit 1
+	echo "==============back up .xplanet now in $TMPDIR=================="
+	echo "==============================================================================="
+	echo
+} || mkdir ~/.xplanet
+
 cd ~/.xplanet || {
 	echo "oh noes!"
 	exit 1
@@ -30,7 +38,6 @@ test -x `which mogrify` || {
 	echo "i need ImageMagick"
 	exit 1
 }
-
 
 # Credit: Data courtesy Marc Imhoff of NASA GSFC and Christopher Elvidge of NOAA NGDC. Image by Craig Mayhew and Robert Simmon, NASA GSFC.
 
