@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# thank you visible earth, and all the others that made these images, and their exposure, possible
+# we make a weak attempt to annotate the proper credits above the relavant links below
+# space is hard.
+# http://visibleearth.nasa.gov/view.php?id=55167
+# http://visibleearth.nasa.gov/view.php?id=57752
+
+cd ~/.xplanet || mkdir ~/.xplanet
+cd ~/.xplanet || {
+	echo "oh noes!"
+	exit 1
+}
+
+RES=`xdpyinfo|grep dim |awk '{print $2}'`
+
+test -n $RES || {
+	echo  "resolution discovery failed"
+	exit 1
+}
+
+test -x `which mogrify` || {
+	echo "i need ImageMagick"
+	exit 1
+}
+
+
+# Credit: Data courtesy Marc Imhoff of NASA GSFC and Christopher Elvidge of NOAA NGDC. Image by Craig Mayhew and Robert Simmon, NASA GSFC.
+
+wget http://eoimages.gsfc.nasa.gov/images/imagerecords/55000/55167/earth_lights_lrg.jpg -O night.jpg
+
+
+# Credit: NASA Goddard Space Flight Center Image by Reto Stöckli (land surface, shallow water, clouds). Enhancements by Robert Simmon (ocean color, compositing, 3D globes, animation). Data and technical support: MODIS Land Group; MODIS Science Data Support Team; MODIS Atmosphere Group; MODIS Ocean Group Additional data: USGS EROS Data Center (topography); USGS Terrestrial Remote Sensing Flagstaff Field Center (Antarctica); Defense Meteorological Satellite Program (city lights).
+
+wget http://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57752/land_shallow_topo_2048.jpg -O earth.jpg
+
+mogrify -resize $RES night.jpg
+mogrify -resize $RES earth.jpg
+
+echo "[earth]\nnight_map=night.jpg" >> default
