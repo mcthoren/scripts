@@ -1,6 +1,5 @@
 #!/usr/local/bin/zsh
-
-# XXX WARNING - very very drunk commmit. be sure to double check later.
+# this script has become very zsh specific. i apologize for nothing.
 
 # thank you visible earth, and all the others that made these images, and their exposure, possible
 # we make a weak attempt to annotate the proper credits above the relavant links below
@@ -8,12 +7,11 @@
 # http://visibleearth.nasa.gov/view.php?id=55167
 # http://visibleearth.nasa.gov/view.php?id=57752
 
-# zsh is the only shell i know that does this correctly
-cd ~/.xplanet && {
+cd ~/.xplanet &> /dev/null && {
+	echo ".xplanet dir found, backing up .xplanet..."
 	TMPDIR=`mktemp -d /tmp/xplanet.XXXXXXXXXX`
 	cp -r ~/.xplanet $TMPDIR || exit 1
-	echo "==============back up .xplanet now in $TMPDIR=================="
-	echo "==============================================================================="
+	echo "back up .xplanet now in $TMPDIR"
 	echo
 } || mkdir ~/.xplanet
 
@@ -34,21 +32,28 @@ test -n $RES || {
 	exit 1
 }
 
-test -x `which mogrify` || {
+which mogrify &> /dev/null || {
 	echo "i need ImageMagick"
 	exit 1
 }
 
 # Credit: Data courtesy Marc Imhoff of NASA GSFC and Christopher Elvidge of NOAA NGDC. Image by Craig Mayhew and Robert Simmon, NASA GSFC.
 
-wget http://eoimages.gsfc.nasa.gov/images/imagerecords/55000/55167/earth_lights_lrg.jpg -O night.jpg
+echo "grabbing images..."
+wget -q http://eoimages.gsfc.nasa.gov/images/imagerecords/55000/55167/earth_lights_lrg.jpg -O night.jpg
 
 
 # Credit: NASA Goddard Space Flight Center Image by Reto Stöckli (land surface, shallow water, clouds). Enhancements by Robert Simmon (ocean color, compositing, 3D globes, animation). Data and technical support: MODIS Land Group; MODIS Science Data Support Team; MODIS Atmosphere Group; MODIS Ocean Group Additional data: USGS EROS Data Center (topography); USGS Terrestrial Remote Sensing Flagstaff Field Center (Antarctica); Defense Meteorological Satellite Program (city lights).
 
-wget http://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57752/land_shallow_topo_2048.jpg -O earth.jpg
+wget -q http://eoimages.gsfc.nasa.gov/images/imagerecords/57000/57752/land_shallow_topo_2048.jpg -O earth.jpg
+
+echo "images grabbed."
+echo
+echo "transmogrifying imagines..."
 
 mogrify -resize $RES night.jpg
 mogrify -resize $RES earth.jpg
+
+echo "images transmogrified."
 
 echo "[earth]\nnight_map=night.jpg" >> default
