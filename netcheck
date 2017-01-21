@@ -1,0 +1,26 @@
+#!/bin/sh
+
+ip_list="10.128.64.1 10.128.64.2 10.128.64.3 10.128.64.33"
+
+check_conn () {
+
+	for ip in $ip_list; do
+		ping -c 3 $ip > /dev/null && return 0
+		sleep 30
+	done
+
+	return 1
+}
+
+net_restart () {
+	echo "no pings from 4 hosts over 90s, attempting network restart"
+	/etc/init.d/networking restart
+}
+
+check_conn && exit 0 || net_restart
+sleep 30
+check_conn || {
+	echo "network appears down, rebooting"
+	echo "network appears down, rebooting" | logger -t $0
+	reboot
+}
