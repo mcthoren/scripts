@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# this is run from root cron
+# the raspberry pi's sometimes just loose their net
+# sometimes a networking restart will bring it back, and sometimes not
+
 ip_list="10.128.64.1 10.128.64.2 10.128.64.3 10.128.64.33"
 
 check_conn () {
