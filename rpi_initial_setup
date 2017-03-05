@@ -1,7 +1,7 @@
 #!/bin/sh
 
 apt-get update
-apt-get install git nfs-common boinc-client zsh figlet rsync ganglia-monitor 
+apt-get install git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx
 apt-get upgrade
 
 mkdir -p /import/home/ghz
@@ -18,3 +18,5 @@ uesradd -d /import/home/ghz -s `which zsh` -u 1000 -g 1000 \
 -G ghz,adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi ghz
 
 figlet `hostname -s` > /etc/motd
+
+echo ghz@darkdata.org > /root/.forward
