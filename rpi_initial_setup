@@ -1,0 +1,16 @@
+apt-get update
+apt-get install git nfs-common boinc-client zsh figlet rsync boinc-app-milkyway boinc-app-seti ganglia-monitor 
+apt-get upgrade
+
+mkdir -p /import/home/ghz
+chown ghz:ghz /import/home/ghz
+echo -e krtek:/mnt/violet/pi/ghz\\t/import/home/ghz\\tnfs\\trw\\t0\\t0 >> /etc/fstab
+update-rc.d rpcbind enable
+update-rc.d nfs-common enable
+service rpcbind start
+service nfs-common start
+mount -a
+
+userdel pi
+uesradd -d /import/home/ghz -s `which zsh` -u 1000 -g 1000 \
+-G ghz,adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi ghz
