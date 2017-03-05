@@ -1,3 +1,5 @@
+#!/bin/sh
+
 apt-get update
 apt-get install git nfs-common boinc-client zsh figlet rsync boinc-app-milkyway boinc-app-seti ganglia-monitor 
 apt-get upgrade
