@@ -1,4 +1,7 @@
 #!/bin/sh
+# this is totally untested at this point. it will be more backed when i get another
+# rpi to test it on.
+
 
 apt-get update
 apt-get install git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx
