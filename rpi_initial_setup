@@ -4,7 +4,7 @@
 
 
 apt-get update
-apt-get install git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx
+apt-get install -y git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx
 apt-get upgrade
 
 mkdir -p /import/home/ghz
