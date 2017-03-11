@@ -23,3 +23,10 @@ uesradd -d /import/home/ghz -s `which zsh` -u 1000 -g 1000 \
 figlet `hostname -s` > /etc/motd
 
 echo ghz@darkdata.org > /root/.forward
+
+install -o root -g root -m 600 /import/home/ghz/env/rpi/root_crontab /var/spool/cron/crontabs/root
+mkdir /root/scripts/
+cp /import/home/ghz/scripts/gen_pi_bk /root/scripts/
+cp /import/home/ghz/scripts/netcheck /root/scripts/
+
+reboot
