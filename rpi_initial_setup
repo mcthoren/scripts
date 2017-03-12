@@ -2,10 +2,15 @@
 # this is totally untested at this point. it will be more baked when i get another
 # rpi to test it on.
 
+[ $(hostname -s) = "raspberrypi" ] && {
+	echo "set hostanme"
+	exit 1
+}
 
 apt-get update
-apt-get install -y git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx
+apt-get install -y git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx locate
 apt-get upgrade
+
 
 mkdir -p /import/home/ghz
 chown ghz:ghz /import/home/ghz
@@ -23,6 +28,8 @@ uesradd -d /import/home/ghz -s `which zsh` -u 1000 -g 1000 \
 figlet `hostname -s` > /etc/motd
 
 echo ghz@darkdata.org > /root/.forward
+
+service ganglia-monitor restart
 
 install -o root -g root -m 600 /import/home/ghz/env/rpi/root_crontab /var/spool/cron/crontabs/root
 mkdir /root/scripts/
