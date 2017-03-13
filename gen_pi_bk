@@ -1,0 +1,6 @@
+#!/bin/sh
+# generic raspberry pi backup script
+# to test later
+
+time /usr/bin/rsync -e "ssh -q" -ah --stats \
+/boot /home /etc /root /var/spool/cron/crontabs/ ${HNAME}_bk@krtek:/mnt/violet/backups/${HNAME}bk/
