@@ -2,6 +2,8 @@
 # this is totally untested at this point. it will be more baked when i get another
 # rpi to test it on.
 
+set -e
+
 [ $(hostname -s) = "raspberrypi" ] && {
 	echo "set hostanme"
 	exit 1
@@ -35,5 +37,7 @@ install -o root -g root -m 600 /import/home/ghz/env/rpi/root_crontab /var/spool/
 mkdir /root/scripts/
 cp /import/home/ghz/scripts/gen_pi_bk /root/scripts/
 cp /import/home/ghz/scripts/netcheck /root/scripts/
+
+sudo -u ghz /import/home/ghz/pi_setup/ghz_script
 
 reboot
