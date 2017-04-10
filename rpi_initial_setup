@@ -4,12 +4,12 @@
 
 set -e
 
-[ $(hostname -s) = "raspberrypi" ] && {
+HNAME=`hostname -s`
+
+[ $HNAME = "raspberrypi" ] && {
 	echo "set hostanme"
 	exit 1
 }
-
-HNAME=`hostname -s`
 
 apt-get update
 apt-get install -y git nfs-common boinc-client zsh figlet rsync ganglia-monitor bsd-mailx locate
@@ -29,7 +29,7 @@ service rpcbind start
 service nfs-common start
 mount -a
 
-figlet `hostname -s` > /etc/motd
+figlet $HNAME > /etc/motd
 
 echo ghz@darkdata.org > /root/.forward
 
