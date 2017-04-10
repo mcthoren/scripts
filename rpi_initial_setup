@@ -37,7 +37,7 @@ service ganglia-monitor restart
 
 install -o root -g root -m 600 /import/home/ghz/env/rpi/root_crontab /var/spool/cron/crontabs/root
 mkdir /root/scripts/
-cp /import/home/ghz/scripts/gen_pi_bk /root/scripts/
+sed "s+HHHHHH+$HNAME+g" /import/home/ghz/scripts/gen_pi_bk > /root/scripts/gen_pi_bk
 cp /import/home/ghz/scripts/netcheck /root/scripts/
 
 ssh-keygen -t ed25519 -f "$HOME/.ssh/${HNAME}.backup" -N "" -C "${HNAME}_backup_key"
