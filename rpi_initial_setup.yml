@@ -1,4 +1,5 @@
 # vim:set tabstop=2 softtabstop=2 shiftwidth=2 expandtab:
+# haha! still not tested!
 ---
 - hosts: pis
   gather_facts: yes
@@ -21,3 +22,17 @@
       - ganglia-monitor
       - bsd-mailx
       - locate
+
+  - name: pull pi user if it's still there
+    user:
+      name: pi
+      state: absent
+
+  - name: add me
+    user:
+      name: ghz
+      uid: 1000
+      home: /import/home/ghz
+      group: ghz
+      groups: adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
+      shell: /usr/bin/zsh
