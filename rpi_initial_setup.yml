@@ -1,0 +1,23 @@
+# vim:set tabstop=2 softtabstop=2 shiftwidth=2 expandtab:
+---
+- hosts: pis
+  gather_facts: yes
+
+  tasks:
+
+  - name: Update all packages to the latest version
+    apt:
+      upgrade: full
+      update_cache: yes
+      name: '{{ item }}'
+      state: present
+    with_items:
+      - git
+      - nfs-common
+      - boinc-client
+      - zsh
+      - figlet
+      - rsync
+      - ganglia-monitor
+      - bsd-mailx
+      - locate
