@@ -6,7 +6,7 @@
 
   tasks:
 
-  - name: Update all packages to the latest version
+  - name: add pakages, update, upgrade
     apt:
       upgrade: full
       update_cache: yes
@@ -36,3 +36,11 @@
       group: ghz
       groups: adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
       shell: /usr/bin/zsh
+
+  - name: add nfs mount point
+    mount:
+      path: /import/home/ghz
+      src: fs0:/mnt/violet/pi/ghz
+      fstype: nfs
+      opts: rw
+      state: present
