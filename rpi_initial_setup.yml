@@ -37,6 +37,14 @@
       groups: adm,dialout,cdrom,sudo,audio,video,plugdev,games,users,input,netdev,gpio,i2c,spi
       shell: /usr/bin/zsh
 
+  - name: add mount point dir
+    file:
+      path: /import/home/ghz
+      owner: ghz
+      group: ghz
+      state: directory
+      mode: 0755
+
   - name: add nfs mount point
     mount:
       path: /import/home/ghz
