@@ -2,5 +2,8 @@
 # generic raspberry pi backup script
 # to test later
 
+HNAME=`hostname -s`
+DEST="/import/home/ghz/pi_backups/${HNAME}/"
+
 time /usr/bin/rsync -e "ssh -q" -ah --stats \
-/boot /home /etc /root /var/spool/cron/crontabs/ HHHHHH_bk@krtek:/mnt/violet/backups/HHHHHHbk/
+/boot /home /etc /root /var/spool/cron/crontabs/
