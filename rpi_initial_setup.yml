@@ -28,6 +28,16 @@
       name: pi
       state: absent
 
+  - name: pull pi group if it exists
+    group:
+      name: pi
+      state: absent
+
+  - name: add me group
+    group:
+      name: ghz
+      state: present
+
   - name: add me
     user:
       name: ghz
