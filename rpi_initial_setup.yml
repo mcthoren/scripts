@@ -62,3 +62,14 @@
       fstype: nfs
       opts: rw
       state: present
+
+  - name: add .forward
+    lineinfile:
+      path: /root/.forward
+      line: ghz@darkdata.org
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: add figlet hostname to motd
+    shell: figlet `hostname -s` > /etc/motd
