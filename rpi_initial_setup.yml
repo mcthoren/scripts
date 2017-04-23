@@ -90,6 +90,14 @@
   - name: add figlet hostname to motd
     shell: figlet `hostname -s` > /etc/motd
 
+  - name: add root scripts dir
+    file:
+      path: /root/scripts
+      owner: root
+      group: root
+      state: directory
+      mode: 0755
+
   - name: template backup script
     template:
       src: /import/home/ghz/scripts/gen_pi_bk
