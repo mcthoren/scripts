@@ -1,9 +1,15 @@
 #!/bin/sh
 # generic raspberry pi backup script
+# since we have an nfs mount, just backup there
 # to test later
 
 HNAME=`hostname -s`
 DEST="/import/home/ghz/pi_backups/${HNAME}/"
 
+test -d /import/home/ghz/pi_backups || {
+	echo "can't find nfs backup dir"
+	exit 1
+}
+
 time /usr/bin/rsync -e "ssh -q" -ah --stats \
-/boot /home /etc /root /var/spool/cron/crontabs/
+/boot /home /etc /root /var/spool/cron/crontabs/ $DEST
