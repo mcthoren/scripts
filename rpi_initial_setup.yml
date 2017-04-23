@@ -90,24 +90,40 @@
   - name: add figlet hostname to motd
     shell: figlet `hostname -s` > /etc/motd
 
+  - name: template backup script
+    template:
+      src: /import/home/ghz/scripts/gen_pi_bk
+      dest: /root/scripts/gen_pi_bk
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: template netcheck script
+    template:
+      src: /import/home/ghz/scripts/netcheck
+      dest: /root/scripts/netcheck
+      owner: root
+      group: root
+      mode: 0755
+
   - name: add netcheck cron entry
     cron:
       name: netcheck
-      minute: */13
-      hour: *
-      day: *
-      weekday: *
-      month: *
+      minute: "*/13"
+      hour: "*"
+      day: "*"
+      weekday: "*"
+      month: "*"
       user: root
       job: "/root/scripts/netcheck"
 
   - name: add backup cron job
     cron:
       name: netcheck
-      minute: */13
-      hour: *
-      day: *
-      weekday: *
-      month: *
+      minute: 13
+      hour: 02
+      day: "*"
+      weekday: "*"
+      month: "*"
       user: root
       job: "/root/scripts/gen_pi_bk"
