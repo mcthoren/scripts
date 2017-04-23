@@ -55,6 +55,16 @@
       state: directory
       mode: 0755
 
+  - name: enable and start nfs/ganglia
+    service:
+      name: '{{ item }}'
+      state: started
+      enabled: yes
+    with_items:
+      - rpcbind
+      - nfs-common
+      - ganglia-monitor
+
   - name: add nfs mount point
     mount:
       path: /import/home/ghz
