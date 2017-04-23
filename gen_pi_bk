@@ -7,11 +7,16 @@ HNAME=`hostname -s`
 DEST="/import/home/ghz/pi_backups/${HNAME}/"
 
 test -d /import/home/ghz/pi_backups || {
-	echo "can't find nfs backup dir"
+	echo "can't find nfs dir"
 	exit 1
 }
 
 test -d $DEST || mkdir $DEST
+
+test -d $DEST || {
+	echo "can't find our nfs backup dir"
+	exit 1
+}
 
 time /usr/bin/rsync -e "ssh -q" -ah --stats \
 /boot /home /etc /root /var/spool/cron/crontabs/ $DEST
