@@ -11,5 +11,7 @@ test -d /import/home/ghz/pi_backups || {
 	exit 1
 }
 
+test -d $DEST || mkdir $DEST
+
 time /usr/bin/rsync -e "ssh -q" -ah --stats \
 /boot /home /etc /root /var/spool/cron/crontabs/ $DEST
