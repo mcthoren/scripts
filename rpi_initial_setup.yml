@@ -72,6 +72,13 @@
       regexp: 'deaf = no'
       line: 'deaf = yes'
 
+  - name: tweak ganglia config further
+    lineinfile:
+      dest: /etc/ganglia/gmond.conf
+      regexp: 'mcast_join = 239.2.11.71'
+      insertafter: 'udp_send_channel {'
+      line: 'host = muffin.darkdata.lan'
+
   - name: enable and start nfs/ganglia
     service:
       name: '{{ item }}'
