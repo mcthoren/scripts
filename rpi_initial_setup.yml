@@ -3,13 +3,17 @@
 ---
 - hosts: pis
   gather_facts: yes
+  user: root
 
   tasks:
 
-  - name: add pakages, update, upgrade
+  - name: update, upgrade
     apt:
       upgrade: full
       update_cache: yes
+
+  - name: add pakages
+    apt:
       name: '{{ item }}'
       state: present
     with_items:
