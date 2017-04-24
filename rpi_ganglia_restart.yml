@@ -1,0 +1,12 @@
+# vim:set tabstop=2 softtabstop=2 shiftwidth=2 expandtab:
+---
+- hosts: pis
+  gather_facts: no
+  user: root
+
+  tasks:
+
+  - name: restat ganglia
+    service:
+      name: ganglia-monitor
+      state: restarted
