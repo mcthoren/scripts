@@ -53,7 +53,7 @@
 
   - name: add mount point dir
     file:
-      path: /import/home/ghz
+      dest: /import/home/ghz
       owner: ghz
       group: ghz
       state: directory
@@ -61,7 +61,7 @@
 
   - name: add nfs mount point
     mount:
-      path: /import/home/ghz
+      name: /import/home/ghz
       src: fs0:/mnt/violet/pi/ghz
       fstype: nfs
       opts: rw
@@ -85,7 +85,8 @@
 
   - name: add .forward
     lineinfile:
-      path: /root/.forward
+      dest: /root/.forward
+      create: yes
       line: ghz@darkdata.org
       owner: root
       group: root
