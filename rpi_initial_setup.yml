@@ -58,14 +58,6 @@
       state: directory
       mode: 0755
 
-  - name: add nfs mount point
-    mount:
-      name: /import/home/ghz
-      src: fs0:/mnt/violet/pi/ghz
-      fstype: nfs
-      opts: rw
-      state: present
-
   - name: tweak ganglia config
     lineinfile:
       dest: /etc/ganglia/gmond.conf
@@ -88,6 +80,14 @@
       - rpcbind
       - nfs-common
       - ganglia-monitor
+
+  - name: add nfs mount point
+    mount:
+      name: /import/home/ghz
+      src: fs0:/mnt/violet/pi/ghz
+      fstype: nfs
+      opts: rw
+      state: present
 
   - name: add .forward
     lineinfile:
