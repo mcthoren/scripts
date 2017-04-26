@@ -6,7 +6,7 @@
 
   tasks:
 
-  - name: restat ganglia
+  - name: restart ganglia
     service:
       name: ganglia-monitor
       state: restarted
