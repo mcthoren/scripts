@@ -25,6 +25,7 @@
       - ganglia-monitor
       - bsd-mailx
       - locate
+      - vim
 
   - name: pull pi user if it's still there
     user:
