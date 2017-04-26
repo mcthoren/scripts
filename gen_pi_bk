@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # generic raspberry pi backup script
 # since we have an nfs mount, just backup there
 # to test later
