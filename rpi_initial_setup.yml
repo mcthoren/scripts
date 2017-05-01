@@ -70,7 +70,17 @@
       dest: /etc/ganglia/gmond.conf
       regexp: 'mcast_join = 239.2.11.71'
       insertafter: 'udp_send_channel {'
-      line: 'host = muffin.darkdata.lan'
+      line: '  # mcast_join = 239.2.11.71'
+    tags:
+      - test
+
+  - name: tweak ganglia config more further
+    lineinfile:
+      dest: /etc/ganglia/gmond.conf
+      insertafter: 'udp_send_channel {'
+      line: '  host = muffin.darkdata.lan'
+    tags:
+      - test
 
   - name: enable and start nfs/ganglia
     service:
