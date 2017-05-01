@@ -26,6 +26,7 @@
       - bsd-mailx
       - locate
       - vim
+      - postfix
 
   - name: pull pi user if it's still there
     user:
