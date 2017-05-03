@@ -4,7 +4,7 @@
 # the raspberry pi's sometimes just loose their net
 # sometimes a networking restart will bring it back, and sometimes not
 
-ip_list="10.128.64.1 10.128.64.2 10.128.64.3 10.128.64.33"
+ip_list="10.128.64.1 10.128.64.13 174.136.106.134 8.8.8.8"
 
 check_conn () {
 
