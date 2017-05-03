@@ -9,7 +9,7 @@ ip_list="10.128.64.1 10.128.64.2 10.128.64.3 10.128.64.33"
 check_conn () {
 
 	for ip in $ip_list; do
-		ping -c 3 $ip > /dev/null && return 0
+		ping -c 1 $ip > /dev/null && return 0
 		sleep 30
 	done
 
