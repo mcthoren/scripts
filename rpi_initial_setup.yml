@@ -139,6 +139,12 @@
       group: root
       mode: 0755
 
+  - name: add path to crontab
+    cron:
+      env: yes
+      name: PATH
+      value: /bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
   - name: add netcheck cron entry
     cron:
       name: netcheck
