@@ -12,6 +12,7 @@
       update_cache: yes
     tags:
       - update
+      - tricky
 
   - name: add pakages
     apt:
@@ -32,6 +33,7 @@
     tags:
       - update
       - packages
+      - tricky
 
   - name: pull pi user if it's still there
     user:
@@ -76,8 +78,11 @@
     lineinfile:
       dest: /etc/ganglia/gmond.conf
       regexp: 'mcast_join = 239.2.11.71'
-      insertafter: 'udp_send_channel {'
+      insertafter: '{{ item }}'
       line: '  # mcast_join = 239.2.11.71'
+    with_items:
+      - 'udp_send_channel {'
+      - 'udp_recv_channel {'
 
   - name: tweak ganglia config more further
     lineinfile:
@@ -94,6 +99,8 @@
       - rpcbind
       - nfs-common
       - ganglia-monitor
+    tags:
+      - tricky
 
   - name: add nfs mount point
     mount:
@@ -161,10 +168,9 @@
       name: backup
       # wait for ansible 2.3?
       # minute: "{{ 59 | random(seed=inventory_hostname)) }}"
-      # minute: "{{ 60 | random }}"
       # from https://ansibledaily.com/idempotent-random-number/
       minute: "{{ ( inventory_hostname | hash | list | map('int',0,16) | sum ) % 60 }}"
-      hour: "{{ (( inventory_hostname | hash | list | map('int',0,16) | sum ) % 3) }}"
+      hour: "{{ (( inventory_hostname | hash | list | map('int',0,16) | sum ) % 5) }}"
       day: "*"
       weekday: "*"
       month: "*"
