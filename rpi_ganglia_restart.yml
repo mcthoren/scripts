@@ -10,4 +10,4 @@
     service:
       name: ganglia-monitor
       state: restarted
-    when: when: inventory_hostname != "muffin"
+    when: inventory_hostname != "muffin"
