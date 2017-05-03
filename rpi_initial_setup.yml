@@ -10,6 +10,8 @@
     apt:
       upgrade: full
       update_cache: yes
+    tags:
+      - update
 
   - name: add pakages
     apt:
@@ -27,6 +29,9 @@
       - locate
       - vim
       - postfix
+    tags:
+      - update
+      - packages
 
   - name: pull pi user if it's still there
     user:
