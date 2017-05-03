@@ -70,6 +70,7 @@
       dest: /etc/ganglia/gmond.conf
       regexp: 'deaf ='
       line: '  deaf = yes'
+    when: inventory_hostname != "muffin"
 
   - name: tweak ganglia config further
     lineinfile:
