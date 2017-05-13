@@ -199,3 +199,9 @@
       month: "*"
       user: root
       job: "/root/scripts/gen_pi_bk"
+
+  # untested. turn off hdmi to save power
+  - name: turn off hdmi
+    lineinfile:
+      dest: /etc/rc.local
+      line: usr/bin/tvservice -o
