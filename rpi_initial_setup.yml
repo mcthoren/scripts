@@ -30,6 +30,7 @@
       - locate
       - vim
       - postfix
+      - ufw
     tags:
       - update
       - packages
@@ -205,3 +206,10 @@
     lineinfile:
       dest: /etc/rc.local
       line: usr/bin/tvservice -o
+
+  # untested attempt firewall
+#  - name: allow port 22
+#    ufw:
+#      rule: allow
+#      port: 22
+#      proto: tcp
