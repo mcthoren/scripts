@@ -46,8 +46,6 @@
       - exim4
       - hciuart
 
-  # untested. kill wlan and bt modules so we use less power
-  # and don't have a dozen devices within .5m from each other yelling across half a GHz of spectrum
   - name: blacklist wlan/bt modules
     kernel_blacklist:
       name: '{{ item }}'
@@ -60,7 +58,6 @@
       - bnep
       - bluetooth
 
-  # untested. don't wait for reboot
   - name: pull wlan/bt modules
     modprobe:
       name: '{{ item }}'
@@ -215,14 +212,12 @@
       user: root
       job: "/root/scripts/gen_pi_bk"
 
-  # untested. turn off hdmi to save power
-  - name: turn off hdmi
+  - name: turn off hdmi to save power
     lineinfile:
       dest: /etc/rc.local
       insertbefore: 'exit 0'
       line: /usr/bin/tvservice -o
 
-  # untested attempt firewall
   - name: allow port 22
     ufw:
       state: enabled
