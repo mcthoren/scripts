@@ -36,6 +36,16 @@
       - packages
       - tricky
 
+  - name: disable silly services
+    systemd:
+      name: '{{ item }}'
+      state: stopped
+      enabled: no
+    with_items:
+      - bluetooth
+      - exim4
+      - hciuart
+
   # untested. kill wlan and bt modules so we use less power
   # and don't have a dozen devices within .5m from each other yelling across half a GHz of spectrum
   - name: blacklist wlan/bt modules
@@ -205,11 +215,12 @@
   - name: turn off hdmi
     lineinfile:
       dest: /etc/rc.local
-      line: usr/bin/tvservice -o
+      line: /usr/bin/tvservice -o
 
   # untested attempt firewall
 #  - name: allow port 22
 #    ufw:
+#      state: enabled
 #      rule: allow
 #      port: 22
 #      proto: tcp
