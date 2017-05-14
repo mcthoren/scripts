@@ -219,6 +219,7 @@
   - name: turn off hdmi
     lineinfile:
       dest: /etc/rc.local
+      insertbefore: 'exit 0'
       line: /usr/bin/tvservice -o
 
   # untested attempt firewall
