@@ -12,7 +12,6 @@
       update_cache: yes
     tags:
       - update
-      - tricky
 
   - name: add pakages
     apt:
@@ -34,7 +33,6 @@
     tags:
       - update
       - packages
-      - tricky
 
   - name: disable silly services
     systemd:
@@ -134,8 +132,6 @@
       - rpcbind
       - nfs-common
       - ganglia-monitor
-    tags:
-      - tricky
 
   - name: add nfs mount point
     mount:
