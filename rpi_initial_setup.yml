@@ -41,7 +41,6 @@
       enabled: no
     with_items:
       - bluetooth
-      - exim4
       - hciuart
 
   - name: blacklist wlan/bt modules
@@ -63,8 +62,8 @@
     with_items:
       - brcmfmac
       - brcmutil
-      - btbcm
       - hci_uart
+      - btbcm
       - bnep
       - bluetooth
 
