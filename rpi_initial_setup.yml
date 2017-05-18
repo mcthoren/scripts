@@ -13,7 +13,7 @@
     tags:
       - update
 
-  - name: add pakages
+  - name: add packages
     apt:
       name: '{{ item }}'
       state: present
