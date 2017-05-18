@@ -10,3 +10,4 @@ TODO:
   - set timezone with ansible
   - set locales with ansible
   - expand fs with ansible
+  - get ipv6 going again (for what must be like the 4th time...)
