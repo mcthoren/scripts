@@ -7,7 +7,6 @@ TODO:
   - can i assign a host name from ansible based on ip?
   - debug why i have to set a pass for a user before i log in with a key (did this once, forgot)
   - figure a way to do figlet motd's w.o. a change popping up each time
-  - set timezone with ansible
   - set locales with ansible
   - expand fs with ansible
   - get ipv6 going again (for what must be like the 4th time...)

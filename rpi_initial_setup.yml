@@ -219,3 +219,7 @@
       rule: allow
       port: 22
       proto: tcp
+
+  - name: set timezone to utc
+    timezone:
+      name: UTC
