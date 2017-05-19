@@ -138,7 +138,7 @@
       src: fs0:/mnt/violet/pi/ghz
       fstype: nfs
       opts: rw,nolock
-      state: present
+      state: mounted
 
   - name: add .forward
     lineinfile:
