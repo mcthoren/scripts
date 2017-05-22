@@ -106,22 +106,6 @@
       line: '  deaf = yes'
     when: inventory_hostname != "muffin"
 
-  - name: tweak ganglia config further
-    lineinfile:
-      dest: /etc/ganglia/gmond.conf
-      regexp: 'mcast_join = 239.2.11.71'
-      insertafter: '{{ item }}'
-      line: '  # mcast_join = 239.2.11.71'
-    with_items:
-      - 'udp_send_channel {'
-      - 'udp_recv_channel {'
-
-  - name: tweak ganglia config more further
-    lineinfile:
-      dest: /etc/ganglia/gmond.conf
-      insertafter: 'udp_send_channel {'
-      line: '  host = muffin.darkdata.lan'
-
   - name: enable and start nfs/ganglia
     service:
       name: '{{ item }}'
