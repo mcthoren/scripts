@@ -1,6 +1,6 @@
 #!/bin/sh
 # this script adds a pgm header to a binary file of two byte floats, and prettifies it for viewing
-# used with a headlines pibox running wspr_nogui.py to look at the spectrum
+# used with a headless pibox running wspr_nogui.py to look at the spectrum
 
 WSPR_DIR="/home/ghz/builds/wspr-2"
 
