@@ -1,4 +1,8 @@
 # vim:set tabstop=2 softtabstop=2 shiftwidth=2 expandtab:
+
+# this is only for setting up little weather probes from raspberry pi zero w's
+# it is very similar to the rpi_initial_setup.yml. this needs to be refactored.
+# that's a project for later
 ---
 - hosts: wxps
   gather_facts: no
