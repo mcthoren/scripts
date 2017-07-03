@@ -50,7 +50,7 @@
       - bnep
       - bluetooth
 
-  - name: pull wlan/bt modules
+  - name: pull bt modules
     modprobe:
       name: '{{ item }}'
       state: absent
