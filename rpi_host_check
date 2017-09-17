@@ -1,0 +1,14 @@
+#!/bin/sh
+# ghetto replacement for ganglia
+
+TEMPFILE=$(mktemp)
+
+for i in $(<rpi_hosts); do 
+	(echo $i; ssh -q $i "uptime") |paste - - >> $TEMPFILE &
+done
+
+clear
+sleep 1 # really ghetto...
+cat $TEMPFILE
+cat $TEMPFILE | wc -l | bc
+rm $TEMPFILE
