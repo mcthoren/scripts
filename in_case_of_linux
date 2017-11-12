@@ -1,0 +1,7 @@
+#!/bin/sh
+
+apt-get install zsh fvwm imagemagick firefox-esr moreutils net-tools xorg-dev xinit git unzip xplanet vim x11-apps x11-xserver-utils ksh xterm xidle xscreensaver  xscreensaver-data  xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra
+
+dpkg-reconfigure tzdata
+
+systemctl set-default multi-user.targe
