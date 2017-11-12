@@ -7,3 +7,6 @@ apt install zsh fvwm imagemagick firefox-esr moreutils net-tools xorg-dev xinit 
 dpkg-reconfigure tzdata
 
 systemctl set-default multi-user.targe
+
+# in case of weird colors stuck on
+# echo -e "\033[0m;"
