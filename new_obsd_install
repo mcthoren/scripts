@@ -1,6 +1,11 @@
-# pkg_add wget git firefox ImageMagick nmap rsync vim figlet zsh xplanet avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full zip ssvnc
+#!/bin/sh
+
+# this is really only or laptops atm
+
+pkg_add wget git firefox ImageMagick nmap rsync vim figlet zsh xplanet avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full zip ssvnc
 
 # add to /etc/rc.conf.local
+# maybe use sed later?
 echo "ntpd_flags=\"-s\"" >> /etc/rc.conf.local
 echo "apmd_flags=\"-A\"" >> /etc/rc.conf.local
 echo "rdate_flags=\"-n pool.ntp.org\"" >> /etc/rc.conf.local
