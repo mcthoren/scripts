@@ -11,3 +11,6 @@ echo "apmd_flags=\"-A\"" >> /etc/rc.conf.local
 echo "rdate_flags=\"-n pool.ntp.org\"" >> /etc/rc.conf.local
 
 echo "machdep.lidaction=0" >> /etc/sysctl.conf
+
+echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
+echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
