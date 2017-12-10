@@ -14,3 +14,5 @@ echo "machdep.lidaction=0" >> /etc/sysctl.conf
 
 echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
 echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
+
+(uname -a ; figlet `hostname -s`) > /etc/motd
