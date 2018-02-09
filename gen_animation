@@ -1,0 +1,12 @@
+#!/usr/local/bin/zsh
+
+# display -update 1 ani.pgm
+
+while true; do {
+	(echo P2 128 128 15
+	for i in {0..16384}; do
+		echo -n "$(($RANDOM % 16)) "
+	done) > ./ani.pgm
+}
+sleep 1
+done
