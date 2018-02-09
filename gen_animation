@@ -1,8 +1,10 @@
-#!/usr/local/bin/zsh
+#!/usr/local/bin/bash
 
 # this is meant to generate a changing image one can do the following on:
 # display -update 1 /tmp/ani.pgm
 # this is more useful for graphs from z.B.: gnuplot, but wevs
+
+# for some reason in zsh this gives me the same 16 random numbers over and over again...
 
 while true; do {
 	(echo P2 128 128 15
@@ -10,5 +12,6 @@ while true; do {
 		echo -n "$(($RANDOM % 16)) "
 	done) > /tmp/ani.pgm
 }
+echo -n .
 sleep 1
 done
