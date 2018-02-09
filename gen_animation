@@ -1,12 +1,14 @@
 #!/usr/local/bin/zsh
 
-# display -update 1 ani.pgm
+# this is meant to generate a changing image one can do the following on:
+# display -update 1 /tmp/ani.pgm
+# this is more useful for graphs from z.B.: gnuplot, but wevs
 
 while true; do {
 	(echo P2 128 128 15
 	for i in {0..16384}; do
 		echo -n "$(($RANDOM % 16)) "
-	done) > ./ani.pgm
+	done) > /tmp/ani.pgm
 }
 sleep 1
 done
