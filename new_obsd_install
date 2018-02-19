@@ -16,3 +16,6 @@ echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
 echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
 
 (uname -a ; figlet `hostname -s`) > /etc/motd
+
+# needs us a few more ptys.
+cd /dev && sh MAKEDEV pty[q-z][0-9a-zA-Z]
