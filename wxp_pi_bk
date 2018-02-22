@@ -6,7 +6,7 @@
 
 
 HNAME=`hostname -s`
-DEST="bk3@localhost:/mnt/violet/backups/${HNAME}/"
+DEST="${HNAME}_bk@localhost:/mnt/violet/backups/${HNAME}/"
 
 time /usr/bin/rsync -e "ssh -q" -rltpDh --stats \
 /boot /home /etc /root /var/spool/cron/crontabs/ $DEST
