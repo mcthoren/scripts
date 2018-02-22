@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# generic raspberry pi backup script
+# since we don't have an nfs mount, backup over
+# an ssh -R tunnel from backup server
+
+
+HNAME=`hostname -s`
+DEST="bk3@localhost:/mnt/violet/backups/${HNAME}/"
+
+time /usr/bin/rsync -e "ssh -q" -rltpDh --stats \
+/boot /home /etc /root /var/spool/cron/crontabs/ $DEST
