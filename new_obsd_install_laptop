@@ -19,3 +19,6 @@ usermod -G dialer ghz
 
 # needs us a few more ptys.
 cd /dev && sh MAKEDEV pty[q-z][0-9a-zA-Z]
+
+# no root console logins
+sed -i 's/secure//' /etc/ttys
