@@ -18,4 +18,4 @@ echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
 
 usermod -G dialer ghz
 
-(uname -a ; figlet `hostname -s`) > /etc/motd
+(uname -a ; figlet `hostname -s` ; echo) > /etc/motd
