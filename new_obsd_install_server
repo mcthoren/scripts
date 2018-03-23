@@ -7,7 +7,6 @@ pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 # add to /etc/rc.conf.local
 # maybe use sed later?
 echo "ntpd_flags=\"-s\"" >> /etc/rc.conf.local
-echo "apmd_flags=\"-A\"" >> /etc/rc.conf.local
 echo "rdate_flags=\"-n pool.ntp.org\"" >> /etc/rc.conf.local
 echo "sndiod_flags=NO" >> /etc/rc.conf.local
 echo "inetd=NO" >> /etc/rc.conf.local
