@@ -9,7 +9,6 @@ pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 echo "ntpd_flags=\"-s\"" >> /etc/rc.conf.local
 echo "rdate_flags=\"-n pool.ntp.org\"" >> /etc/rc.conf.local
 echo "sndiod_flags=NO" >> /etc/rc.conf.local
-echo "inetd=NO" >> /etc/rc.conf.local
 echo "check_quotas=NO" >> /etc/rc.conf.local
 
 echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
