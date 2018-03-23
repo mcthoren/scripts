@@ -2,7 +2,7 @@
 
 # this is the server version
 
-pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
+pkg_add wget git nmap rsync-- vim--no_x11 figlet zsh bzip2 curl
 
 rcctl set ntpd flags -s
 rcctl disable sndiod
