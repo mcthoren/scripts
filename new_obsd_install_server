@@ -2,7 +2,7 @@
 
 # this is the server version
 
-pkg_add wget git nmap rsync vim figlet zsh bzip2 curl
+pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 
 # add to /etc/rc.conf.local
 # maybe use sed later?
