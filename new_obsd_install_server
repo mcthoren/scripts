@@ -1,16 +1,17 @@
 #!/bin/sh
 
-# this is really only for laptops atm
+# this is the server version
 
-pkg_add wget git firefox ImageMagick nmap rsync vim figlet zsh xplanet avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip ssvnc feh mplayer geeqie ipython xpdf ansible graphviz evince--light
+pkg_add wget git nmap rsync vim figlet zsh bzip2 curl
 
 # add to /etc/rc.conf.local
 # maybe use sed later?
 echo "ntpd_flags=\"-s\"" >> /etc/rc.conf.local
 echo "apmd_flags=\"-A\"" >> /etc/rc.conf.local
 echo "rdate_flags=\"-n pool.ntp.org\"" >> /etc/rc.conf.local
-
-echo "machdep.lidaction=0" >> /etc/sysctl.conf
+echo "sndiod_flags=NO" >> /etc/rc.conf.local
+echo "inetd=NO" >> /etc/rc.conf.local
+echo "check_quotas=NO" >> /etc/rc.conf.local
 
 echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
 echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
@@ -18,6 +19,3 @@ echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
 usermod -G dialer ghz
 
 (uname -a ; figlet `hostname -s`) > /etc/motd
-
-# needs us a few more ptys.
-cd /dev && sh MAKEDEV pty[q-z][0-9a-zA-Z]
