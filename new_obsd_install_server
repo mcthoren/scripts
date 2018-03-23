@@ -8,7 +8,6 @@ pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 # maybe use sed later?
 rcctl set ntpd flags -s
 rcctl disable sndiod
-echo "rdate_flags=\"-n pool.ntp.org\"" >> /etc/rc.conf.local
 echo "check_quotas=NO" >> /etc/rc.conf.local
 
 echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
