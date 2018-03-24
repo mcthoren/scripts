@@ -21,3 +21,6 @@ cd /dev && sh MAKEDEV pty[q-z][0-9a-zA-Z]
 
 # no root console logins
 sed -i 's/secure//' /etc/ttys
+
+# i like my visual host keys
+sed -i 's/#   VisualHostKey no/VisualHostKey yes/' /etc/ssh/ssh_config
