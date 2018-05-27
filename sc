@@ -3,6 +3,7 @@
 OS=$(uname)
 
 [ $OS = "FreeBSD" ] && {
+	sysctl hw.acpi.thermal.tz0.temperature
 	apm -l; echo $(( $(apm -t) / 60))
 	date
 }
