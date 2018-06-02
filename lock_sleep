@@ -4,7 +4,7 @@
 OS=$(uname)
 
 [ $OS = "FreeBSD" ] && {
-        date
+	date
 	apm -e 1
 	sync
 	xlock -mode pyro &
