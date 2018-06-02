@@ -1,10 +1,26 @@
 #!/bin/sh
 # syncs because i spend too much time working on old solaris boxes. ><
 
-apm -L
-sync
-xlock -mode pyro &
-sync
-sleep 2
-sync
-apm -z
+OS=$(uname)
+
+[ $OS = "FreeBSD" ] && {
+        date
+	apm -e 1
+	sync
+	xlock -mode pyro &
+	sync
+	sleep 2
+	sync
+	apm -Z
+}
+
+[ $OS = "OpenBSD" ] && {
+	date
+	apm -L
+	sync
+	xlock -mode pyro &
+	sync
+	sleep 2
+	sync
+	apm -z
+}
