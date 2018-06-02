@@ -11,7 +11,7 @@ OS=$(uname)
 	sync
 	sleep 2
 	sync
-	apm -Z
+	acpiconf -s S3
 }
 
 [ $OS = "OpenBSD" ] && {
