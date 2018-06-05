@@ -1,0 +1,15 @@
+#!/bin/sh
+# set the record source to my ham radio plugged into the mic jack on my thinkpad
+
+[ `hostname -s` = "iva" ] && {
+	mixerctl -v inputs.sel2_source=mic2
+	mixerctl -v record.adc-0:1_source=sel2
+}
+
+
+[ `hostname -s` = "socket" ] && {
+	mixer mic 10:10
+	mixer pcm 80:80
+	mixer monitor 40:40
+	mixer vol 90:90
+}
