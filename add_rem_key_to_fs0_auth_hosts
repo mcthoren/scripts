@@ -1,0 +1,13 @@
+#!/bin/ksh
+
+(($#==1)) || {
+	echo "This script takes one host as an argument."
+	exit 1
+}
+
+host $1 || {
+	echo "Host not found."
+	exit 1
+}
+
+ssh root@$1 cat /root/.ssh/id_ed25519.pub >> /space/ghz/.ssh/authorized_keys
