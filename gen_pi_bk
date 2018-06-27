@@ -18,5 +18,5 @@ test -d $DEST || {
 	exit 1
 }
 
-time /usr/bin/rsync -e "ssh -q" -rltpDh --stats \
+time /usr/bin/rsync -e "ssh -q" -rlpDh --stats \
 /boot /home /etc /root /var/spool/cron/crontabs/ $DEST
