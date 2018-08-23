@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pkg_add wget git firefox ImageMagick nmap rsync-- vim--no_x11 figlet zsh xplanet avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip-- ssvnc feh mplayer geeqie ipython xpdf ansible graphviz evince--light
+pkg_add wget git firefox ImageMagick nmap rsync-- vim--no_x11 figlet zsh xplanet avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip-- ssvnc feh mplayer geeqie ipython xpdf ansible graphviz evince--light aspell-de
 
 rcctl enable ntpd
 rcctl set ntpd flags -s
