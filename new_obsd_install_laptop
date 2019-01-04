@@ -16,7 +16,7 @@ usermod -G dialer ghz
 
 (uname -a ; figlet `hostname -s` ; echo) > /etc/motd
 
-# needs us a few more ptys.
+# needs us a few more ptys.  still not 100% on this...
 /usr/local/bin/zsh -c "cd /dev && for i in pty{q..z}{a..z} pty{q..z}{A..Z} pty{q..z}{0..9}; do sh ./MAKEDEV $i; done"
 
 # no root console logins
