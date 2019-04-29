@@ -1,1 +1,6 @@
 just a collection of small simple shell scripts i wind up using often.
+
+TODO:
+	unify new_obsd_* scripts
+	add new obsd workstation to the mix
+	take username as arg from new obsd scripts
