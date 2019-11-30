@@ -1,0 +1,32 @@
+#!/bin/sh
+
+ts () {
+	date -u +%FT%T%Z
+}
+
+rw () {
+	cat /usr/share/dict/words |perl -e 'rand $. < 1 && ($x = $_) while <>; print $x' ;
+}
+
+tag () {
+	echo -en "$(hostname -s) $(ts) $(rw)\n";
+}
+
+echo "From: root <root@$(hostname)>"
+echo "To: howdy@$(hostname)"
+echo "Subject: $(tag)"
+echo "Date: $(date "+%a, %d %b %Y %T %z")"
+echo "User-Agent: $SHELL"
+echo "Message-Id: <$(date +%Y%m%d%H%M%S).$(echo -n $RANDOM)@$(hostname)>"
+echo "MIME-Version: 1.0"
+echo "Content-Type: text/plain; charset=utf-8"
+echo "Content-Transfer-Encoding: 8bit"
+echo
+
+rw
+rw
+rw
+rw
+rw
+rw
+echo
