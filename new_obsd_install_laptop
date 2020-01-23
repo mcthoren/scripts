@@ -25,3 +25,6 @@ sed -i 's/secure//' /etc/ttys
 
 # i like my visual host keys
 sed -i 's/#   VisualHostKey no/VisualHostKey yes/' /etc/ssh/ssh_config
+
+# don't really need a log full of "syslog restarted"
+sed -i 's/syslog.info/syslog.notice/' /etc/syslog.conf
