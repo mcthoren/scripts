@@ -1,4 +1,7 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -T
+use strict;
+use warnings;
+
 # produce general statistics on data from stdin
 # often used with my weather data, but then i found i used it for any file
 # with data in the following format:
@@ -7,17 +10,19 @@
 
 #Thanks to Mike Muuss for the math ;)
 
-$num=0;
-$tsumsq=0;
-$tsum=0;
-$min=9999999;
-$max=0;
+my $num=0;
+my $tsumsq=0;
+my $tsum=0;
+my $min=9999999;
+my $max=0;
 
-$threshmul=4.0;
+my $threshmul=4.0;
+
+my @dat;
 
 while(<>){
 	chomp;
-	($x, $y)=split;
+	my ($x, $y)=split;
 	if($y ne "??"){
 	   push @dat, [ $x, $y ];
 	   $num++;
@@ -28,9 +33,9 @@ while(<>){
 	}
 }
 
-$avg=$tsum / $num;
-$dev=sqrt($tsumsq / $num - $avg * $avg); 
-$thresh= $dev * $threshmul;
+my $avg=$tsum / $num;
+my $dev=sqrt($tsumsq / $num - $avg * $avg); 
+my $thresh= $dev * $threshmul;
 
 print "Num: ", $num, "\n";
 print "Tsum: ", $tsum, "\n";
