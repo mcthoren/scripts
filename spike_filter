@@ -1,26 +1,23 @@
-#!/usr/bin/perl
+#!/usr/bin/perl -T
+use strict;
+use warnings;
 
-#Thanks to Mike Muuss for the math ;)
+# Thanks to Mike Muuss for the math ;)
 
-$num=0;
-$tsumsq=0;
-$tsum=0;
-$ded=0;
+my ($num, $tsumsq, $tsum, $ded, $thresmul) = (0, 0, 0, 0, 3.0);
+my @dat;
 
-$thresmul=3.0;
-
-while(<>){
+while(<>) {
 	chomp;
-	($x, $y)=split;
-	if($y ne "??"){
-	   push @dat, [ $x, $y ];
-	   $num++;
-	   $tsum+=$y;
-	   $tsumsq+=($y*$y);
-	}
-	else {
-	   push @dat, [ $x, $y ];
-	   $ded++;
+	my ($x, $y) = split;
+	if ($y ne "??") {
+		push @dat, [ $x, $y ];
+		$num++;
+		$tsum += $y;
+		$tsumsq += ($y * $y);
+	} else {
+		push @dat, [ $x, $y ];
+		$ded++;
 	}
 }
 
@@ -28,15 +25,15 @@ if ($num <= 0) {
         exit(1);
 }
 
-$avg=$tsum / $num;
-$dev=sqrt($tsumsq / $num - $avg * $avg); 
-$thresh= $dev * $thresmul;
+my $avg = $tsum / $num;
+my $dev = sqrt($tsumsq / $num - $avg * $avg); 
+my $thresh = $dev * $thresmul;
 
-for($j=0; $j<($num+$ded); $j++){
-	if($dat[$j][1] ne "??"){
-		if(abs($dat[$j][1] - $avg) > $thresh){
-		  $dat[$j][1]="??";
-   		}
+for (my $j = 0; $j < ($num + $ded); $j++) {
+	if ($dat[$j][1] ne "??"){
+		if (abs( $dat[$j][1] - $avg ) > $thresh){
+			$dat[$j][1] = "??";
+		}
 	}
-   print $dat[$j][0], " ", $dat[$j][1], "\n";
+	print $dat[$j][0], " ", $dat[$j][1], "\n";
 }
