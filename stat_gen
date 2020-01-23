@@ -10,32 +10,27 @@ use warnings;
 
 #Thanks to Mike Muuss for the math ;)
 
-my $num=0;
-my $tsumsq=0;
-my $tsum=0;
-my $min=9999999;
-my $max=0;
-
-my $threshmul=4.0;
-
+my ($num, $tsumsq, $tsum, $max) = (0, 0, 0, 0);
+my $min = 9999999;
+my $threshmul = 4.0;
 my @dat;
 
 while(<>){
 	chomp;
-	my ($x, $y)=split;
+	my ($x, $y) = split;
 	if($y ne "??"){
 	   push @dat, [ $x, $y ];
 	   $num++;
-	   $tsum+=$y;
-	   $tsumsq+=($y*$y);
-	   if($y>$max){ $max=$y; }
-	   if($y<$min){ $min=$y; }
+	   $tsum += $y;
+	   $tsumsq += ($y * $y);
+	   if($y > $max){ $max = $y; }
+	   if($y < $min){ $min = $y; }
 	}
 }
 
-my $avg=$tsum / $num;
-my $dev=sqrt($tsumsq / $num - $avg * $avg); 
-my $thresh= $dev * $threshmul;
+my $avg = $tsum / $num;
+my $dev = sqrt($tsumsq / $num - $avg * $avg); 
+my $thresh = $dev * $threshmul;
 
 print "Num: ", $num, "\n";
 print "Tsum: ", $tsum, "\n";
