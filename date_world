@@ -1,8 +1,9 @@
 #!/bin/sh
 # often with the radio stuff i have no idea what time it is where. this helps
 
-tz_list=":Pacific/Honolulu :America/Los_Angeles :America/New_York \
-UTC :Europe/London :Europe/Berlin :Europe/Moscow :Asia/Shanghai :Asia/Tokyo"
+tz_list=":Pacific/Honolulu :America/Los_Angeles :America/New_York UTC \
+:Europe/London :Europe/Berlin :Europe/Moscow :Asia/Shanghai :Asia/Tokyo \
+:Australia/Sydney NZ"
 
 for i in $tz_list; do
 	basename $i
