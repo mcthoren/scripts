@@ -8,5 +8,11 @@ dpkg-reconfigure tzdata
 
 systemctl set-default multi-user.target
 
+# tf?
+alsactl init
+
+ln -s /usr/bin/zsh /usr/local/bin/zsh
+ln -s /usr/bin/xplanet /usr/local/bin/xplanet
+
 # in case of weird colors stuck on
 # echo -e "\033[0m;"
