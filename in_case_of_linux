@@ -2,7 +2,7 @@
 
 # a scripted collection of notes and such for when i find myself on linux boxes
 
-apt install zsh fvwm imagemagick firefox-esr moreutils net-tools xorg-dev xinit git unzip xplanet vim x11-apps x11-xserver-utils ksh xterm xidle xscreensaver  xscreensaver-data  xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput xpdf
+apt install zsh fvwm imagemagick firefox-esr moreutils net-tools xorg-dev xinit git unzip xplanet vim x11-apps x11-xserver-utils ksh xterm xidle xscreensaver  xscreensaver-data  xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput rsync xpdf
 
 # in case of radio
 apt install fldigi ipython ipython3
