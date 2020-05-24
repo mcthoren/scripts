@@ -4,7 +4,6 @@
 
 pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 
-rcctl enable ntpd
 rcctl disable sndiod
 echo "check_quotas=NO" >> /etc/rc.conf.local
 
