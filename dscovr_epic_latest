@@ -1,0 +1,24 @@
+#!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
+
+import urllib.request, json, uuid
+
+urls = ('https://epic.gsfc.nasa.gov/api/enhanced', 'https://epic.gsfc.nasa.gov/api/natural')
+
+for url in urls:
+	try:
+		urldata = urllib.request.urlopen(url)
+	except:
+		print("Failed to open url.")
+		exit()
+
+	try:
+		data = json.loads(urldata.read())
+	except:
+		print("Failed to parse urldata.")
+		exit()
+
+	for i in data:
+		latest = i['image']
+
+	print(latest)
