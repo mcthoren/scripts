@@ -1,6 +1,11 @@
 #!/usr/local/bin/python3
 # -*- coding: utf-8 -*-
 
+# this is a script to print out the names of the most recent images from the
+# DSCOVR satellite's EPIC camera
+# api documented here:
+# https://epic.gsfc.nasa.gov/about/api
+
 import urllib.request, json, uuid
 
 urls = ('https://epic.gsfc.nasa.gov/api/enhanced', 'https://epic.gsfc.nasa.gov/api/natural')
