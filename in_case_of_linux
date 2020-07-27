@@ -2,7 +2,7 @@
 
 # a scripted collection of notes and such for when i find myself on linux boxes
 
-apt install zsh fvwm imagemagick firefox-esr moreutils net-tools xorg-dev xinit git unzip xplanet vim x11-apps x11-xserver-utils ksh xterm xidle xscreensaver  xscreensaver-data  xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput rsync xpdf strace
+apt install zsh fvwm imagemagick firefox-esr moreutils net-tools xorg-dev xinit git unzip xplanet vim x11-apps x11-xserver-utils ksh xterm xidle xscreensaver  xscreensaver-data  xscreensaver-data-extra xscreensaver-gl xscreensaver-gl-extra nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput rsync xpdf strace whois
 
 # in case of radio
 apt install fldigi ipython ipython3 xastir
@@ -25,8 +25,8 @@ ln -s /usr/bin/xplanet /usr/local/bin/xplanet
 # in case of weird colors stuck on
 # echo -e "\033[0m;"
 
-# this is the amazing using friendly way brightness is done
-# way the damn kb keys don't just work out of the box i don't know
+# this is the amazing user friendly way brightness is done.
+# why the damn kb keys don't just work out of the box i don't know.
 # cat /sys/class/backlight/intel_backlight/brightness
 # echo 2000 > /sys/class/backlight/intel_backlight/brightness
 
