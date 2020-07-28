@@ -17,6 +17,7 @@ dpkg-reconfigure tzdata
 systemctl set-default multi-user.target
 
 echo 'kernel.dmesg_restrict=0' >> /etc/sysctl.d/local.conf
+systemctl kernel.dmesg_restrict=0
 
 # tf?
 alsactl init
