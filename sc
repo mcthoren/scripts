@@ -21,5 +21,5 @@ OS=$(uname)
 	lscpu | grep "^CPU MHz:"
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0 | egrep 'percentage|battery$'
 	upower -i /org/freedesktop/UPower/devices/line_power_AC | grep line
-	date
+	date +%FT%T%Z
 }
