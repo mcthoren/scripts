@@ -25,6 +25,12 @@ alsactl init
 ln -s /usr/bin/zsh /usr/local/bin/zsh
 ln -s /usr/bin/xplanet /usr/local/bin/xplanet
 
+# this hopefully winds up in the [Login] section of this file.
+# as of this wrting [Login] is the only section of this file.
+echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf
+echo 'HandleLidSwitchDocked=ignore' >> /etc/systemd/logind.conf
+systemctl restart systemd-logind.service
+
 ################ notes ################
 
 # in case of weird colors stuck on
