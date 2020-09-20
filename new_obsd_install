@@ -1,9 +1,15 @@
 #!/bin/ksh
 
-(($#==1)) || {
-	echo "This script takes either \"laptop\" or \"server\" as an argument."
+usage() {
+	echo "usage: $0: laptop|server username"
 	exit 1
 }
+
+(($#==2)) || usage
+
+[[ "${1}" == "laptop" || "${1}" == "server" ]] ||  usage
+
+id "${2}"> /dev/null || usage
 
 [[ "${1}" == "laptop" ]] && {
 	pkg_add wget git firefox ImageMagick nmap rsync--iconv vim--no_x11 figlet zsh xplanet \
@@ -31,7 +37,7 @@ rcctl disable check_quotas
 echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
 echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
 
-usermod -G dialer ghz
+usermod -G dialer "${2}"
 
 (uname -a ; figlet `hostname -s` ; echo) > /etc/motd
 echo '(uname -a; hostname -s |figlet) > /etc/motd' >> /etc/rc.local
