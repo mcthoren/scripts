@@ -18,7 +18,6 @@
 
 	# needs us a few more ptys.
 	zsh -c "cd /dev && sh ./MAKEDEV pty{0..15}"
-
 }
 
 [[ "${1}" == "server" ]] && {
