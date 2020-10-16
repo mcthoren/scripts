@@ -6,4 +6,4 @@
         exit 1
 }
 
-lynx -cookies http://dictionary.reference.com/browse/$1\?jss=0
+lynx http://dictionary.reference.com/browse/$1\?jss=0
