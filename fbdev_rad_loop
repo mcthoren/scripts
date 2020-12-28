@@ -1,12 +1,21 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 DDIR="$(mktemp -d)" || {
 	echo "mktmp failed"
 	exit 1
 }
 
+# catch 1 2 3 15
+trap cleanup SIGHUP SIGINT SIGQUIT SIGTERM
+
 cd "${DDIR}" || {
 	exit 1
+}
+
+cleanup () {
+	trap - SIGHUP SIGINT SIGQUIT SIGTERM
+	[ -d "${DDIR}" ] && rm -rf "${DDIR}"
+	exit 0
 }
 
 while true; do 
@@ -14,5 +23,8 @@ while true; do
 	wget https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
+	# 1 loops takes us > 40s. the image updates every 5min (i think).
 	mplayer -loop 8 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
 done
+
+cleanup
