@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /tmp || exit 1
+
+while true; do 
+	[ -e radfilm_brd_akt.gif ] && rm radfilm_brd_akt.gif
+	wget https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
+	mplayer -loop 8 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
+done
