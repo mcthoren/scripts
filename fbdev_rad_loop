@@ -1,9 +1,18 @@
 #!/bin/sh
 
-cd /tmp || exit 1
+DDIR="$(mktemp -d)" || {
+	echo "mktmp failed"
+	exit 1
+}
+
+cd "${DDIR}" || {
+	exit 1
+}
 
 while true; do 
 	[ -e radfilm_brd_akt.gif ] && rm radfilm_brd_akt.gif
 	wget https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
+
+	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
 	mplayer -loop 8 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
 done
