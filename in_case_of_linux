@@ -9,7 +9,7 @@ apt install moreutils net-tools xorg-dev xinit xplanet x11-apps x11-xserver-util
 apt install zsh fvwm imagemagick firefox-esr git unzip vim xpdf
 
 # in case of radio
-apt install fldigi ipython ipython3 xastir
+apt install fldigi ipython ipython3 xastir rtl-sdr gqrx-sdr gpredict xlog
 usermod -aG dialout ghz
 
 dpkg-reconfigure tzdata
