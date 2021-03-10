@@ -1,11 +1,16 @@
 #!/usr/bin/perl -T
 use strict;
 use warnings;
+use utf8;
+use open qw(:std :utf8);
+use Encode qw(encode decode);
 
 # Thanks to Mike Muuss for the math ;)
 
 my ($num, $tsumsq, $tsum, $ded, $thresmul) = (0, 0, 0, 0, 3.0);
 my @dat;
+
+@ARGV = map { decode("UTF-8", $_) } @ARGV;
 
 while(<>) {
 	chomp;
