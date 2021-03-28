@@ -19,6 +19,14 @@ cleanup () {
 }
 
 while true; do 
+	[ -e latest.jpg ] && rm latest.jpg
+	wget https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
+	fim  -a latest.jpg -c 'sleep 8; quit;'
+
+	[ -e planetary-k-index.gif ] && rm planetary-k-index.gif
+	wget https://services.swpc.noaa.gov/images/planetary-k-index.gif
+	fim  -a planetary-k-index.gif -c 'sleep 8; quit;'
+
 	[ -e radfilm_brd_akt.gif ] && rm radfilm_brd_akt.gif
 	wget https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 
