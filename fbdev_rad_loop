@@ -28,6 +28,9 @@ while true; do
 	wget -N https://services.swpc.noaa.gov/images/planetary-k-index.gif
 	fim  -a planetary-k-index.gif -c 'sleep 8; quit;'
 
+	wget -N https://services.swpc.noaa.gov/images/suvi-primary-284.png
+	fim  -a suvi-primary-284.png -c 'sleep 8; quit;'
+
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
