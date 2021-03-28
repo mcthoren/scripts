@@ -22,6 +22,9 @@ while true; do
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
 	fim  -a latest.jpg -c 'sleep 8; quit;'
 
+	wget -N https://services.swpc.noaa.gov/images/animations/ctipe/tec/latest.png
+	fim  -a latest.png -c 'sleep 8; quit;'
+
 	wget -N https://services.swpc.noaa.gov/images/planetary-k-index.gif
 	fim  -a planetary-k-index.gif -c 'sleep 8; quit;'
 
