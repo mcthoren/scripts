@@ -5,6 +5,12 @@ DDIR="$(mktemp -d)" || {
 	exit 1
 }
 
+# just avoid overlapping filenames with separate dirs
+EDIR="$(mktemp -d)" || {
+	echo "mktmp failed"
+	exit 1
+}
+
 # catch 1 2 3 15
 trap cleanup SIGHUP SIGINT SIGQUIT SIGTERM
 
@@ -12,13 +18,23 @@ cd "${DDIR}" || {
 	exit 1
 }
 
+cd "${EDIR}" || {
+	exit 1
+}
+
 cleanup () {
 	trap - SIGHUP SIGINT SIGQUIT SIGTERM
 	[ -d "${DDIR}" ] && rm -rf "${DDIR}"
+	[ -d "${EDIR}" ] && rm -rf "${EDIR}"
 	exit 0
 }
 
 while true; do 
+	cd "${EDIR}"
+	wget -N https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
+	fim  -a latest.png -c 'sleep 8; quit;'
+
+	cd "${DDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
 	fim  -a latest.jpg -c 'sleep 8; quit;'
 
