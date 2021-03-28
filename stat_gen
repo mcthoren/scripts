@@ -1,6 +1,9 @@
 #!/usr/bin/perl -T
 use strict;
 use warnings;
+use utf8;
+use open qw(:std :utf8);
+use Encode qw(encode decode);
 
 # produce general statistics on data from stdin
 # often used with my weather data, but then i found i used it for any file
@@ -14,6 +17,8 @@ my ($num, $tsumsq, $tsum, $max) = (0, 0, 0, 0);
 my $min = 9999999;
 my $threshmul = 4.0;
 my @dat;
+
+@ARGV = map { decode("UTF-8", $_) } @ARGV;
 
 while(<>){
 	chomp;
