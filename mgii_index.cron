@@ -1,10 +1,12 @@
 #!/bin/sh
+# http://www.iup.uni-bremen.de/UVSAT/Datasets/mgii
+# https://www.iup.uni-bremen.de/UVSAT_material/papers/2014/snow_jswsc_2014.pdf
 
 # just stomp on things in /tmp
 cd /tmp || exit 1
 wget -N http://www.iup.uni-bremen.de/gome/solar/GOME2C_Index_classic.dat
 
-tail -40 GOME2C_Index_classic.dat | sed 's/\.[0-9]*\ /\ /g'  | \
+tail -60 GOME2C_Index_classic.dat | sed 's/\.[0-9]*\ /\ /g'  | \
 awk '{print $1"-"$2"-"$3"T"$4":"$5":"$6"Z\t"$7}' > /tmp/mgii_index_last_40.dat
 
 gnuplot ~/scripts/mgii_index.gnuplot

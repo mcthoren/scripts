@@ -10,14 +10,14 @@ set format x "%F\n%TZ"
 set timefmt "%Y-%m-%dT%H:%M:%SZ"
 set grid xtics
 set grid y2tics
-set term pngcairo size 1824, 984 font ",10"
+set term pngcairo size 900, 490 font ",10"
 
 set format y "%.4f"
 set format y2 "%.4f"
 
 dat_f='/tmp/mgii_index_last_40.dat'
 
-set ylabel "MgII Index (ratio)"
-set y2label "MgII Index (ratio)"
+set ylabel "Mg II Index (ratio)"
+set y2label "Mg II Index (ratio)"
 set output '/tmp/mgii_index.png'
-plot dat_f using 1:2 title 'MgII Index' with lines lw 2 linecolor rgb "#dddd00"
+plot dat_f using 1:2 title 'Mg II Index' with lines lw 2 linecolor rgb "#0000aa"
