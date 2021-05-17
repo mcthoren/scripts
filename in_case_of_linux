@@ -6,10 +6,10 @@
 apt install moreutils net-tools xorg-dev xinit xplanet x11-apps x11-xserver-utils ksh xterm xidle nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput rsync strace whois build-essential manpages-dev tmux
 
 # add packages
-apt install zsh fvwm imagemagick firefox-esr git unzip vim xpdf
+apt install zsh fvwm imagemagick firefox git unzip vim xpdf feh gnuplot
 
 # in case of radio
-apt install fldigi ipython ipython3 xastir rtl-sdr gqrx-sdr gpredict xlog
+apt install fldigi ipython3 xastir rtl-sdr gqrx-sdr gpredict xlog xnec2c
 usermod -aG dialout ghz
 
 dpkg-reconfigure tzdata
