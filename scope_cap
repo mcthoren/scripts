@@ -1,0 +1,7 @@
+#!/bin/ksh
+
+# thanks to:
+# https://hackaday.io/project/6857-master-your-rigol-from-command-line
+
+TS="$(date -u +%FT%T%Z)"
+echo ":DISPLAY:DATA? ON,OFF,PNG" | nc -w1 scope 5555  | dd bs=1 skip=11 of="/tmp/DS1054Z.${TS}.png"
