@@ -5,7 +5,7 @@ DDIR="$(mktemp -d)" || {
 	exit 1
 }
 
-# just avoid overlapping filenames with separate dirs
+# just avoid overlapping filenames with separate dir
 EDIR="$(mktemp -d)" || {
 	echo "mktmp failed"
 	exit 1
@@ -36,6 +36,9 @@ while true; do
 
 	wget -N https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png
 	fim  -a geospace_1_day.png -c 'sleep 8; quit;'
+
+	wget -N https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
+	fim  -a latest.jpg -c 'sleep 8; quit;'
 
 	cd "${DDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
