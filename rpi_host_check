@@ -9,7 +9,7 @@ for i in $(<$HOSTLIST); do
 done
 
 clear
-sleep 3 # really ghetto...
+sleep 6 # really ghetto...
 cat $TEMPFILE
 cat $TEMPFILE | wc -l | bc
 rm $TEMPFILE

@@ -2,7 +2,13 @@
 # to run from cron, to make sure the wx pages are updating
 
 for i in {1..8}; do
-	find /var/www/htdocs/wx$i/data -mmin -20 |grep . > /dev/null || {
+	find "/var/www/htdocs/wx${i}/data" -mmin -20 |grep . > /dev/null || {
 		echo "No new data in wx$i/data in the last 20min!"
+	}
+done
+
+for j in wx/data wx0/dust_wx/data wx0/power_weather/data wx0/wx/data; do
+	find "/var/www/htdocs/${j}" -mmin -20 |grep . > /dev/null || {
+		echo "No new data in ${j} in the last 20min!"
 	}
 done
