@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /tmp || exit 1
+# s for screen shot
+
+# mpv av://v4l2:/dev/video1
+mpv av://v4l2:/dev/video1 --profile=low-latency --untimed
+
+[ -f mpv.core ] && rm mpv.core
