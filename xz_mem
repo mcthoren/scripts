@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# this script adds up all the memory my xterm and zsh instances are using.
+# with my large scroll/history buffers, after about 100 sessions i start to wonder where my ram went.
+
+ps -alx | egrep 'xterm|zsh' | \
+awk 'BEGIN { rsum = 0; vsum = 0 }
+{ vsum += $7; rsum += $8 }
+END { print "VSZ:", vsum / 1024, "MB", "\tRSS:", rsum / 1024,"MB" }'
