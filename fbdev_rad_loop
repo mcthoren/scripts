@@ -1,5 +1,13 @@
 #!/usr/bin/bash
 
+hsn_lech="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12003500&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false"
+
+seb_kap_wert0="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12402007&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
+
+b_hof_wert1="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12405005&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
+
+trk_wert2="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12406008&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
+
 DDIR="$(mktemp -d)" || {
 	echo "mktmp failed"
 	exit 1
@@ -32,35 +40,55 @@ cleanup () {
 while true; do 
 	cd "${EDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
-	fim  -a latest.png -c 'sleep 8; quit;'
+	fim -a latest.png -c 'sleep 8; quit;'
 
 	wget -N https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png
-	fim  -a geospace_1_day.png -c 'sleep 8; quit;'
+	fim -a geospace_1_day.png -c 'sleep 8; quit;'
 
 	wget -N https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
-	fim  -a latest.jpg -c 'sleep 8; quit;'
+	fim -a latest.jpg -c 'sleep 8; quit;'
 
 	cd "${DDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
-	fim  -a latest.jpg -c 'sleep 8; quit;'
+	fim -a latest.jpg -c 'sleep 8; quit;'
 
 	wget -N https://services.swpc.noaa.gov/images/animations/ctipe/tec/latest.png
-	fim  -a latest.png -c 'sleep 8; quit;'
+	fim -a latest.png -c 'sleep 8; quit;'
 
 	wget -N https://services.swpc.noaa.gov/images/planetary-k-index.gif
-	fim  -a planetary-k-index.gif -c 'sleep 8; quit;'
+	fim -a planetary-k-index.gif -c 'sleep 8; quit;'
 
 	wget -N https://services.swpc.noaa.gov/images/suvi-primary-284.png
-	fim  -a suvi-primary-284.png -c 'sleep 8; quit;'
+	fim -a suvi-primary-284.png -c 'sleep 8; quit;'
 
 	# this is updated with a cron job
-	fim  -a /tmp/mgii_index.png -c 'sleep 8; quit;'
+	fim -a /tmp/mgii_index.png -c 'sleep 8; quit;'
+
+	wget "${hsn_lech}" -O lech.png
+	convert lech.png -font arial -pointsize 16 label:'Wasserstand Haunstetten / Lech' \
+		-gravity Center -append lech_label.png
+	fim -a lech_label.png -c 'sleep 8; quit;'
+
+	wget "${seb_kap_wert0}" -O wert0.png
+	convert wert0.png -font arial -pointsize 16 label:'Wasserstand Sebastianskapelle / Wertach' \
+		-gravity Center -append wert0_label.png
+	fim -a wert0_label.png -c 'sleep 8; quit;'
+
+	wget "${b_hof_wert1}" -O wert1.png
+	convert wert1.png -font arial -pointsize 16 label:'Wasserstand Biessenhofen / Wertach' \
+		-gravity Center -append wert1_label.png
+	fim -a wert1_label.png -c 'sleep 8; quit;'
+
+	wget "${trk_wert2}" -O wert2.png
+	convert wert2.png -font arial -pointsize 16 label:'Wasserstand Türkheim / Wertach' \
+		-gravity Center -append wert2_label.png
+	fim -a wert2_label.png -c 'sleep 8; quit;'
 
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
-	mplayer -loop 7 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
+	mplayer -loop 6 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
 done
 
 cleanup
