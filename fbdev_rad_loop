@@ -84,6 +84,11 @@ while true; do
 		-gravity Center -append wert2_label.png
 	fim -a wert2_label.png -c 'sleep 8; quit;'
 
+	wget -N "https://www.yr.no/nb/utskrift/værvarsel/2-2954172/Tyskland/Bayern/Swabia/Augsburg"
+	pdftocairo -png Augsburg aux
+	convert -crop 1190x600+20+220 aux-1.png out1190.600.20.220.png
+	fim -a out1190.600.20.220.png -c 'sleep 8; quit;'
+
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
