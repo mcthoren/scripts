@@ -43,3 +43,6 @@ systemctl restart systemd-logind.service
 
 # this should suspend
 # systemctl suspend
+
+# what the hell has been enabled on this box?
+# systemctl list-unit-files --state=enabled
