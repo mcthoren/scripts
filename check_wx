@@ -1,8 +1,8 @@
 #!/usr/local/bin/zsh
 # to run from cron, to make sure the wx pages are updating
 
-for i in {1..8}; do
-	find "/var/www/htdocs/wx${i}/data" -mmin -20 |grep . > /dev/null || {
+for i in wx{1..9} wx_0x0a; do
+	find "/var/www/htdocs/${i}/data" -mmin -20 |grep . > /dev/null || {
 		echo "No new data in wx$i/data in the last 20min!"
 	}
 done
