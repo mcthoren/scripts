@@ -8,6 +8,12 @@ b_hof_wert1="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=
 
 trk_wert2="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12406008&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
 
+rgb_nat="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:rgb_natural&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
+
+rgb_nat_enh="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:rgb_naturalenhncd&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
+
+ir_039="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:ir039&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
+
 DDIR="$(mktemp -d)" || {
 	echo "mktmp failed"
 	exit 1
@@ -87,13 +93,24 @@ while true; do
 	wget -N "https://www.yr.no/nb/utskrift/værvarsel/2-2954172/Tyskland/Bayern/Swabia/Augsburg"
 	pdftocairo -png Augsburg aux
 	convert -crop 1190x600+20+220 aux-1.png out1190.600.20.220.png
-	fim -a out1190.600.20.220.png -c 'sleep 8; quit;'
+	fim -a out1190.600.20.220.png -c 'sleep 12; quit;'
+
+	wget "${ir_039}" -O ir_039.png
+	fim -a ir_039.png -c 'sleep 8; quit;'
+
+	wget "${rgb_nat}" -O rgb_nat.png
+	fim -a rgb_nat.png -c 'sleep 8; quit;'
+
+	wget "${rgb_nat_enh}" -O rgb_nat_enh.png
+	fim -a rgb_nat_enh.png -c 'sleep 8; quit;'
 
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
-
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
-	mplayer -loop 6 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
+	mplayer -loop 2 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
+
+	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
+	mplayer -loop 2 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_bay_akt.gif
 done
 
 cleanup
