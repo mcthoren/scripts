@@ -46,3 +46,5 @@ systemctl restart systemd-logind.service
 
 # what the hell has been enabled on this box?
 # systemctl list-unit-files --state=enabled
+
+# is firewalld enabled?
