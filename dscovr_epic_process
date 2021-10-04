@@ -1,0 +1,28 @@
+#!/bin/ksh
+
+usage() {
+        echo "usage ${0}: nat|enh"
+        exit 1
+}
+
+(($#==1)) || usage
+
+[ -d "/tmp/epic" ] || mkdir "/tmp/epic"
+[ -d "/tmp/epic" ] || {
+	echo "directory creation failed"
+	exit 1
+}
+
+cd "/tmp/epic" || exit 1 # cd will print an error
+
+[ "${1}" = 'nat' -o  "${1}" = 'enh' ] || usage
+[ "${1}" = 'nat' -o  "${1}" = 'enh' ] && {
+	image="$(~/repos/scripts/dscovr_epic_latest --"${1}")"
+	[ ! -z "${image}" -a ! -e "${image}.png" ] && {
+		wget -N "https://epic.gsfc.nasa.gov/epic-archive/png/${image}.png"
+		[ -e "${image}.png" ] && { # did it work? it doesn't always.
+			# just let tmpwatch clear out old images.
+			ln -f "${image}.png" "epic_${1}_latest.png"
+		}
+	}
+}
