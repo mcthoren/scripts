@@ -19,7 +19,7 @@ cd "/tmp/epic" || exit 1 # cd will print an error
 [ "${1}" = 'nat' -o  "${1}" = 'enh' ] && {
 	image="$(~/repos/scripts/dscovr_epic_latest --"${1}")"
 	[ ! -z "${image}" -a ! -e "${image}.png" ] && {
-		wget -N "https://epic.gsfc.nasa.gov/epic-archive/png/${image}.png"
+		wget -qN "https://epic.gsfc.nasa.gov/epic-archive/png/${image}.png"
 		[ -e "${image}.png" ] && { # did it work? it doesn't always.
 			# just let tmpwatch clear out old images.
 			ln -f "${image}.png" "epic_${1}_latest.png"
