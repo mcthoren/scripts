@@ -104,6 +104,10 @@ while true; do
 	wget "${rgb_nat_enh}" -O rgb_nat_enh.png
 	fim -a rgb_nat_enh.png -c 'sleep 8; quit;'
 
+	# from a cron job
+	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim -a "/tmp/epic/epic_nat_latest.png" -c 'sleep 8; quit;'
+	[ -s "/tmp/epic/epic_enh_latest.png" ] && fim -a "/tmp/epic/epic_enh_latest.png" -c 'sleep 8; quit;'
+
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
