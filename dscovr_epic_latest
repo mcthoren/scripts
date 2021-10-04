@@ -6,11 +6,30 @@
 # api documented here:
 # https://epic.gsfc.nasa.gov/about/api
 
-import urllib.request, json, uuid
+import argparse, json, sys, urllib.request, uuid
 
-urls = ('https://epic.gsfc.nasa.gov/api/enhanced', 'https://epic.gsfc.nasa.gov/api/natural')
+if __name__ == "__main__":
 
-for url in urls:
+	parser = argparse.ArgumentParser(description='Grab the latest DSCOVR EPIC image name.')
+
+	group = parser.add_mutually_exclusive_group()
+	group.add_argument('--enh', dest = 'enh', action = 'store_true', help = 'print the latest enhanced image name')
+	group.add_argument('--nat', dest = 'nat', action = 'store_true', help = 'print the latest natural color image name')
+	args = parser.parse_args()
+
+	if ((args.enh | args.nat) == 0):
+		print("One of ethier --nat or --enh is required.")
+		sys.exit(1)
+
+	if (args.enh & args.nat):
+		print("This shouldn't happen. Please choose only one of --nat or --enh.")
+		sys.exit(1)
+
+	if (args.enh):
+		url = 'https://epic.gsfc.nasa.gov/api/enhanced'
+	if (args.nat):
+		url = 'https://epic.gsfc.nasa.gov/api/natural'
+
 	try:
 		urldata = urllib.request.urlopen(url)
 	except:
@@ -26,4 +45,5 @@ for url in urls:
 	for i in data:
 		latest = i['image']
 
+	#print("https://epic.gsfc.nasa.gov/epic-archive/png/" + latest + ".png")
 	print(latest)
