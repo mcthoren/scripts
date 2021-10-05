@@ -1,18 +1,16 @@
 #!/usr/bin/bash
 
 hsn_lech="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12003500&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false"
-
 seb_kap_wert0="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12402007&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
-
 b_hof_wert1="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12405005&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
-
 trk_wert2="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12406008&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
 
 rgb_nat="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:rgb_natural&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
-
 rgb_nat_enh="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:rgb_naturalenhncd&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
-
 ir_039="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:ir039&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
+
+noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg"
+noaa_fd_west="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/1808x1808.jpg"
 
 DDIR="$(mktemp -d)" || {
 	echo "mktmp failed"
@@ -54,7 +52,14 @@ while true; do
 	wget -N https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
 	fim -a latest.jpg -c 'sleep 8; quit;'
 
+	# thanks to noaa for making this so easy
+	wget -N "${noaa_fd_east}"
+	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
+
 	cd "${DDIR}"
+	wget -N "${noaa_fd_west}"
+	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
+
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
 	fim -a latest.jpg -c 'sleep 8; quit;'
 
@@ -104,7 +109,7 @@ while true; do
 	wget "${rgb_nat_enh}" -O rgb_nat_enh.png
 	fim -a rgb_nat_enh.png -c 'sleep 8; quit;'
 
-	# from a cron job
+	# from a cron job. fim displays the description at the bottom, so the image is automatically attributed.
 	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim -a "/tmp/epic/epic_nat_latest.png" -c 'sleep 8; quit;'
 	[ -s "/tmp/epic/epic_enh_latest.png" ] && fim -a "/tmp/epic/epic_enh_latest.png" -c 'sleep 8; quit;'
 
