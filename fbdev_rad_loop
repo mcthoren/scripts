@@ -1,13 +1,21 @@
-#!/usr/bin/bash
+#!/usr/local/bin/zsh
 
 hsn_lech="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12003500&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false"
 seb_kap_wert0="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12402007&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
 b_hof_wert1="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12405005&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
 trk_wert2="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12406008&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
 
-rgb_nat="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:rgb_natural&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
-rgb_nat_enh="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:rgb_naturalenhncd&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
-ir_039="https://view.eumetsat.int/geoserver/msg_fes/wms?service=WMS&version=1.1.0&request=GetMap&layers=msg_fes:ir039&bbox=-50.0,30.0,55.0,70.0&width=1824&height=984&format=image/png"
+eumetsat_u="https://eumetview.eumetsat.int/static-images/latestImages/"
+eumetsat_a=( \
+# EUMETSAT_MSG_RGBAirmass_WesternEurope.jpg \
+EUMETSAT_MSG_VIS006_WesternEurope.jpg \
+EUMETSAT_MSG_IR039_WesternEurope.jpg \
+EUMETSAT_MSG_WV062_WesternEurope.jpg \
+EUMETSAT_MSG_IR108_WesternEurope.jpg \
+EUMETSAT_MSG_H03B_WesternEurope.png \
+# EUMETSAT_MSG_RGBNatColour_WesternEurope.jpg \
+EUMETSAT_MSG_RGBNatColourEnhncd_WesternEurope.jpg \
+)
 
 noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg"
 noaa_fd_west="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/1808x1808.jpg"
@@ -100,14 +108,10 @@ while true; do
 	convert -crop 1190x600+20+220 aux-1.png out1190.600.20.220.png
 	fim -a out1190.600.20.220.png -c 'sleep 12; quit;'
 
-	wget "${ir_039}" -O ir_039.png
-	fim -a ir_039.png -c 'sleep 8; quit;'
-
-	wget "${rgb_nat}" -O rgb_nat.png
-	fim -a rgb_nat.png -c 'sleep 8; quit;'
-
-	wget "${rgb_nat_enh}" -O rgb_nat_enh.png
-	fim -a rgb_nat_enh.png -c 'sleep 8; quit;'
+	for m in $eumetsat_a; do
+		wget -N "${eumetsat_u}/${m}"
+		[ -s "${m}" ] && fim -a "${m}" -c 'sleep 8; quit;'
+	done
 
 	# from a cron job. fim displays the description at the bottom, so the image is automatically attributed.
 	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim -a "/tmp/epic/epic_nat_latest.png" -c 'sleep 8; quit;'
