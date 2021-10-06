@@ -15,6 +15,7 @@ EUMETSAT_MSG_IR108_WesternEurope.jpg \
 EUMETSAT_MSG_H03B_WesternEurope.png \
 # EUMETSAT_MSG_RGBNatColour_WesternEurope.jpg \
 EUMETSAT_MSG_RGBNatColourEnhncd_WesternEurope.jpg \
+EUMETSAT_MSGIODC_RGBNatColourEnhncd_FullResolution.jpg \
 )
 
 noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg"
