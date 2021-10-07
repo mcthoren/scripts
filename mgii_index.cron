@@ -16,6 +16,6 @@ cd /tmp || exit 1
 wget -qN http://www.iup.uni-bremen.de/gome/solar/GOME2C_Index_classic.dat
 
 tail -60 GOME2C_Index_classic.dat | sed 's/\.[0-9]*\ /\ /g'  | \
-awk '{print $1"-"$2"-"$3"T"$4":"$5":"$6"Z\t"$7}' > /tmp/mgii_index_last_40.dat
+awk '{print $1"-"$2"-"$3"T"$4":"$5":"$6"Z\t"$7}' | grep -v '\-0.990000' > /tmp/mgii_index_last_40.dat
 
 gnuplot /home/ghz/scripts/mgii_index.gnuplot
