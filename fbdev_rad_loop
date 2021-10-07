@@ -16,6 +16,7 @@ EUMETSAT_MSG_H03B_WesternEurope.png \
 # EUMETSAT_MSG_RGBNatColour_WesternEurope.jpg \
 EUMETSAT_MSG_RGBNatColourEnhncd_WesternEurope.jpg \
 EUMETSAT_MSGIODC_RGBNatColourEnhncd_FullResolution.jpg \
+EUMETSAT_MSG_RGBNatColourEnhncd_FullResolution.jpg \
 )
 
 noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg"
@@ -45,9 +46,9 @@ cd "${EDIR}" || {
 
 cleanup () {
 	trap - SIGHUP SIGINT SIGQUIT SIGTERM
+	exit 0 # leave the dirs for now so we don't keep redownloading everything during development.
 	[ -d "${DDIR}" ] && rm -rf "${DDIR}"
 	[ -d "${EDIR}" ] && rm -rf "${EDIR}"
-	exit 0
 }
 
 while true; do 
