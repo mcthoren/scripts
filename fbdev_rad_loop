@@ -21,6 +21,7 @@ EUMETSAT_MSG_RGBNatColourEnhncd_FullResolution.jpg \
 
 noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg"
 noaa_fd_west="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/1808x1808.jpg"
+himawari_8="https://rammb.cira.colostate.edu/ramsdis/online/images/latest_hi_res/himawari-8/full_disk_ahi_true_color.jpg"
 
 DDIR="$(mktemp -d)" || {
 	echo "mktmp failed"
@@ -62,14 +63,7 @@ while true; do
 	wget -N https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
 	fim -a latest.jpg -c 'sleep 8; quit;'
 
-	# thanks to noaa for making this so easy
-	wget -N "${noaa_fd_east}"
-	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
-
 	cd "${DDIR}"
-	wget -N "${noaa_fd_west}"
-	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
-
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
 	fim -a latest.jpg -c 'sleep 8; quit;'
 
@@ -114,6 +108,18 @@ while true; do
 		wget -N "${eumetsat_u}/${m}"
 		[ -s "${m}" ] && fim -a "${m}" -c 'sleep 8; quit;'
 	done
+
+	# thanks to noaa for making this so easy
+	wget -N "${noaa_fd_east}"
+	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
+
+	cd "${EDIR}"
+	wget -N "${noaa_fd_west}"
+	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
+	cd "${DDIR}"
+
+	wget -N "${himawari_8}"
+	[ -s full_disk_ahi_true_color.jpg ] && fim -a full_disk_ahi_true_color.jpg -c 'sleep 8; quit;'
 
 	# from a cron job. fim displays the description at the bottom, so the image is automatically attributed.
 	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim -a "/tmp/epic/epic_nat_latest.png" -c 'sleep 8; quit;'
