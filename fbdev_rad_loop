@@ -60,7 +60,7 @@ while true; do
 
 	cd "${FDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
-	fim -a suvi-primary-284.png -c 'sleep 8; quit;'
+	fim -a latest.png -c 'sleep 8; quit;'
 	cd "${DDIR}"
 
 	# this is updated with a cron job
