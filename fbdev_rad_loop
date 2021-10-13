@@ -98,15 +98,15 @@ while true; do
 
 	# thanks to noaa for making this so easy
 	wget -N "${noaa_fd_east}"
-	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
+	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 16; quit;'
 
 	cd "${EDIR}"
 	wget -N "${noaa_fd_west}"
-	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 8; quit;'
+	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 16; quit;'
 	cd "${DDIR}"
 
 	wget -N "${himawari_8}"
-	[ -s full_disk_ahi_true_color.jpg ] && fim -a full_disk_ahi_true_color.jpg -c 'sleep 8; quit;'
+	[ -s full_disk_ahi_true_color.jpg ] && fim -a full_disk_ahi_true_color.jpg -c 'sleep 16; quit;'
 
 	# from a cron job. fim displays the description at the bottom, so the image is automatically attributed.
 	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim -a "/tmp/epic/epic_nat_latest.png" -c 'sleep 8; quit;'
@@ -115,7 +115,7 @@ while true; do
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
-	mplayer -loop 2 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
+	mplayer -loop 1 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
 
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
 	mplayer -loop 2 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_bay_akt.gif
