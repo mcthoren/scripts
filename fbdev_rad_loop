@@ -23,6 +23,8 @@ noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.
 noaa_fd_west="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/1808x1808.jpg"
 himawari_8="https://rammb.cira.colostate.edu/ramsdis/online/images/latest_hi_res/himawari-8/full_disk_ahi_true_color.jpg"
 
+# let tmpwatch clean up if necessary.
+# used fixed dir names. this is a raspberry pi zero whose whole job is this loop.
 DDIR="/tmp/loop_dir_a"
 EDIR="/tmp/loop_dir_b"
 FDIR="/tmp/loop_dir_c"
@@ -34,24 +36,6 @@ for t_dir in "${DDIR}" "${EDIR}" "${FDIR}"; do
 		exit 1
 	}
 done
-
-# catch 1 2 3 15
-trap cleanup SIGHUP SIGINT SIGQUIT SIGTERM
-
-cd "${DDIR}" || {
-	exit 1
-}
-
-cd "${EDIR}" || {
-	exit 1
-}
-
-cleanup () {
-	trap - SIGHUP SIGINT SIGQUIT SIGTERM
-	exit 0 # leave the dirs for now so we don't keep redownloading everything during development.
-	[ -d "${DDIR}" ] && rm -rf "${DDIR}"
-	[ -d "${EDIR}" ] && rm -rf "${EDIR}"
-}
 
 while true; do 
 	cd "${EDIR}"
@@ -136,5 +120,3 @@ while true; do
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
 	mplayer -loop 2 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_bay_akt.gif
 done
-
-cleanup
