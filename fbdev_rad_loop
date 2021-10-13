@@ -23,16 +23,17 @@ noaa_fd_east="https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.
 noaa_fd_west="https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/1808x1808.jpg"
 himawari_8="https://rammb.cira.colostate.edu/ramsdis/online/images/latest_hi_res/himawari-8/full_disk_ahi_true_color.jpg"
 
-DDIR="$(mktemp -d)" || {
-	echo "mktmp failed"
-	exit 1
-}
+DDIR="/tmp/loop_dir_a"
+EDIR="/tmp/loop_dir_b"
+FDIR="/tmp/loop_dir_c"
 
-# just avoid overlapping filenames with separate dir
-EDIR="$(mktemp -d)" || {
-	echo "mktmp failed"
-	exit 1
-}
+for t_dir in "${DDIR}" "${EDIR}" "${FDIR}"; do
+	[ -d "${t_dir}" ] || mkdir "${t_dir}"
+	[ -d "${t_dir}" ] || {
+		echo "${t_dir} not found."
+		exit 1
+	}
+done
 
 # catch 1 2 3 15
 trap cleanup SIGHUP SIGINT SIGQUIT SIGTERM
@@ -73,8 +74,10 @@ while true; do
 	wget -N https://services.swpc.noaa.gov/images/planetary-k-index.gif
 	fim -a planetary-k-index.gif -c 'sleep 8; quit;'
 
-	wget -N https://services.swpc.noaa.gov/images/suvi-primary-284.png
+	cd "${FDIR}"
+	wget -N https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
 	fim -a suvi-primary-284.png -c 'sleep 8; quit;'
+	cd "${DDIR}"
 
 	# this is updated with a cron job
 	fim -a /tmp/mgii_index.png -c 'sleep 8; quit;'
