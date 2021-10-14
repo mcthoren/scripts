@@ -1,0 +1,34 @@
+#!/usr/local/bin/zsh
+
+# only use a diff res for GOES-17 so it has a diff name and then -N works.
+earths=( \
+# 0°
+https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSG_RGBNatColourEnhncd_FullResolution.jpg \
+# 75.2° West
+https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg \
+# 137.2° West 
+https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/5424x5424.jpg \
+# 219.3° West
+https://rammb.cira.colostate.edu/ramsdis/online/images/latest_hi_res/himawari-8/full_disk_ahi_true_color.jpg \
+# 318.5° West
+https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_RGBNatColourEnhncd_FullResolution.jpg \
+)
+
+# the americans and the japanese update every 10 min
+# the europeans are very european about it. sometimes the image is only _one_ hour old.
+# .us/.jp have a geocolor product (or sth like it) see:
+# https://journals.ametsoc.org/view/journals/atot/37/3/JTECH-D-19-0134.1.xml
+# the europeans do not have anything like a pretty geocolor product that i've found so far.
+# they all do date headers however, so tune the loop for 10min.
+loop_wait=120 # 10min / 5 pics
+
+[ -e /tmp/sats ] || mkdir /tmp/sats
+cd /tmp/sats || exit 1
+
+while true; do
+	for pic in $earths; do
+		wget -qN "${pic}"
+		feh --bg-max "$(basename "${pic}")"
+		sleep $loop_wait
+	done
+done
