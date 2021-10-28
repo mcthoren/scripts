@@ -17,6 +17,14 @@ earths=( \
 'https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_RGBNatColourEnhncd_FullResolution.jpg' \
 )
 
+usage() {
+	echo "usage: $(basename "$0"): [-hnv]"
+	echo -e "\t-h: usage"
+	echo -e "\t-n: display the currently sunniest side of earth (follow noon)"
+	echo -e "\t-v: verbose"
+	exit 1
+}
+
 # sats:			  g17    h8     iodc   eu     g16    g17
 # sat noon times:	21:52z 03:20z 09:57z 12:43z 17:44z 21:52z
 # sat boundry times:	   00:36z 06:38z 11:20z 15:13z 19:48z 00:36z
@@ -45,14 +53,25 @@ noon_pic () {
 # they all do date headers however, so tune the loop for 10min.
 loop_wait=120 # 10min / 5 pics
 noon_follow=0
+verbose=0
 
 [ -e /tmp/sats ] || mkdir /tmp/sats
 cd /tmp/sats || exit 1
 
+while getopts hnv OPT; do
+        case "$OPT" in
+                n) noon_follow=1 ;;
+                v) verbose=1 ;;
+                h) usage ;;
+                *) usage ;;
+        esac
+done
+
 while true; do
 	for pic in $earths; do
-		(( $noon_follow )) && { pic="$(noon_pic)"; loop_wait=600; }
-		wget -qN "${pic}"
+		[[ $noon_follow == "1" ]] && { pic="$(noon_pic)"; loop_wait=600; }
+		[[ $verbose == "1" ]] && wget -qN "${pic}"
+		[[ $verbose == "0" ]] || wget -N "${pic}"
 		feh --bg-max "$(basename "${pic}")"
 		sleep $loop_wait
 	done
