@@ -70,7 +70,7 @@ done
 while true; do
 	for pic in $earths; do
 		[[ $noon_follow == "1" ]] && { pic="$(noon_pic)"; loop_wait=600; }
-		[[ $verbose == "1" ]] && wget -qN "${pic}"
+		[[ $verbose == "0" ]] && wget -qN "${pic}"
 		[[ $verbose == "0" ]] || wget -N "${pic}"
 		feh --bg-max "$(basename "${pic}")"
 		sleep $loop_wait
