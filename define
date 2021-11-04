@@ -6,4 +6,4 @@
         exit 1
 }
 
-lynx http://dictionary.reference.com/browse/$1\?jss=0
+lynx https://dictionary.reference.com/browse/$1\?jss=0

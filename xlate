@@ -6,4 +6,4 @@
 	exit 1
 }
 
-lynx -cookies http://www.dict.cc/?s=$1
+lynx -cookies https://www.dict.cc/?s=$1
