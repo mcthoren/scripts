@@ -30,6 +30,8 @@ id "${2}"> /dev/null || usage
 	pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 
 	rcctl disable sndiod
+	rcctl disable resolvd
+	rcctl disable dhcpleased
 }
 
 rcctl disable check_quotas
