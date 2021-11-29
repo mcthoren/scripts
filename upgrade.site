@@ -1,0 +1,2 @@
+echo 'pkg_add -Iu' >> /etc/rc.firsttime
+echo 'syspatch' >> /etc/rc.firsttime
