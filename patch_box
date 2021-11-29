@@ -1,10 +1,18 @@
 #!/bin/sh
 
+# this is meant to be run from cron.
+
+# the idea here is: when i'm on vacation my OpenBSD boxes take care of themselves.
+# XXX todo: only restart daemons when necessary
+#	until we figure out how to do that, just restart all the daemons
+# 	in case a crypto lib, the daemon itsself or sth important updated.
+
 echo "$0[$$]: checking for patches..."
 
 restart_daemons() {
 	echo "\n$0[$$]: patches detected, restarting daemons"
 
+	# if we resstart smtpd at the same time, we don't the mail :x
 	echo "/usr/sbin/rcctl restart smtpd" | /usr/bin/at now +1 min
 
 	/usr/sbin/rcctl restart sshd
