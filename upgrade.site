@@ -1,2 +1,8 @@
+# basically straight out of install.site(5)
+# copy to / to make OpenBSD sysupgrade(8) more automatic
+# don't forget to do a chmod +x /upgrade.site
+
 echo 'pkg_add -Iu' >> /etc/rc.firsttime
+
+# is this already in the newer upgrades?
 echo 'syspatch' >> /etc/rc.firsttime
