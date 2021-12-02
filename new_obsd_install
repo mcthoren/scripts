@@ -1,37 +1,45 @@
 #!/bin/ksh
+# this is a list of the stuff i most often do after a new OpenBSD install
+# scriptified so i can be _even_ _lazier_
 
 usage() {
-	echo "usage: $0: laptop|server username"
+	echo "usage: $0: laptop|server|workstation username"
 	exit 1
 }
 
 (($#==2)) || usage
 
-[[ "${1}" == "laptop" || "${1}" == "server" ]] ||  usage
+[[ "${1}" == "laptop" || "${1}" == "server" || "${1}" == "workstation" ]] ||  usage
 
 id "${2}"> /dev/null || usage
 
-[[ "${1}" == "laptop" ]] && {
+[[ "${1}" == "laptop" || "${1}" == "workstation" ]] && {
 	pkg_add wget git firefox ImageMagick nmap rsync--iconv vim--no_x11 figlet zsh xplanet \
 	avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip-- \
 	ssvnc feh mplayer geeqie ipython xpdf ansible graphviz evince--light aspell-de lynx \
 	py-matplotlib fvwm2
 	
-	rcctl enable apmd
-	rcctl set apmd flags -A
+	[[ "${1}" == "laptop" ]] && {
+		rcctl enable apmd
+		rcctl set apmd flags -A
 
-	echo "machdep.lidaction=0" >> /etc/sysctl.conf
+		echo "machdep.lidaction=0" >> /etc/sysctl.conf
+	}
 
 	# needs us a few more ptys.
 	zsh -c "cd /dev && sh ./MAKEDEV pty{0..15}"
 }
 
 [[ "${1}" == "server" ]] && {
+	# vim for UTF-8 support
 	pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
 
-	rcctl disable sndiod
-	rcctl disable resolvd
-	rcctl disable dhcpleased
+	# dhcpleased and slaacd don't do anything w.o. an IF marked AUTO,
+	# but start with the assumption that we don't need them if our IFs are static
+	# and that our upstream routers are dumb/hostile and give us garbage if our IFs are AUTO.
+	# the later often being the case with many of the local providers, which is why we
+	# turn off resolvd as well.
+	rcctl disable sndiod resolvd dhcpleased slaacd
 }
 
 rcctl disable check_quotas
@@ -47,7 +55,7 @@ echo '(uname -a; hostname -s |figlet) > /etc/motd' >> /etc/rc.local
 # no root console logins
 sed -i 's/secure//' /etc/ttys
 
-# i like my visual host keys
+# i like my visual host key fingerprints
 sed -i 's/#   VisualHostKey no/VisualHostKey yes/' /etc/ssh/ssh_config
 
 # don't really need a log full of "syslog restarted"
