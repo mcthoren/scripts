@@ -1,0 +1,78 @@
+#!/usr/local/bin/zsh
+
+# t_noon[h] = (long + 10.75° / 15[°/h]) + 12[h]
+# long = 15[°/h](t[h] - 12[h]) - 10.75°
+
+# only use a diff res for GOES-17 so it has a diff name and then -N works.
+earths=( \
+# 0°		noon = 12:43z
+'https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSG_RGBNatColourEnhncd_FullResolution.jpg' \
+# 75.2° West	noon = 17:44z
+'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg' \
+# 137.2° West	noon = 21:52z
+'https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/5424x5424.jpg' \
+# 219.3° West	noon = 03:20z
+'https://rammb.cira.colostate.edu/ramsdis/online/images/latest_hi_res/himawari-8/full_disk_ahi_true_color.jpg' \
+# 318.5° West	noon = 09:57z
+'https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_RGBNatColourEnhncd_FullResolution.jpg' \
+)
+
+usage() {
+	echo "usage: $(basename "$0"): [-hnv]"
+	echo -e "\t-h: usage"
+	echo -e "\t-n: display the currently sunniest side of earth (follow noon)"
+	echo -e "\t-v: verbose"
+	exit 1
+}
+
+# sats:			  g17    h8     iodc   eu     g16    g17
+# sat noon times:	21:52z 03:20z 09:57z 12:43z 17:44z 21:52z
+# sat boundry times:	   00:36z 06:38z 11:20z 15:13z 19:48z 00:36z
+# 01-07: h8
+# 07-12: iodc
+# 12-16: eu
+# 16-20: g16
+# 20-01: g17
+noon_pic () {
+	DH="$(date +%H)"
+	(( $DH >= 01 && $DH < 07 )) && n_pic=$earths[4]
+	(( $DH >= 07 && $DH < 12 )) && n_pic=$earths[5]
+	(( $DH >= 12 && $DH < 16 )) && n_pic=$earths[1]
+	(( $DH >= 16 && $DH < 20 )) && n_pic=$earths[2]
+	(( $DH >= 20 && $DH < 24 )) && n_pic=$earths[3]
+	(( $DH >= 00 && $DH < 01 )) && n_pic=$earths[3]
+
+	echo "${n_pic}"
+}
+
+# the americans and the japanese update every 10 min
+# the europeans are very european about it. sometimes the image is only _one_ hour old.
+# .us/.jp have a geocolor product (or sth like it) see:
+# https://journals.ametsoc.org/view/journals/atot/37/3/JTECH-D-19-0134.1.xml
+# the europeans do not have anything like a pretty geocolor product that i've found so far.
+# they all do date headers however, so tune the loop for 10min.
+loop_wait=120 # 10min / 5 pics
+noon_follow=0
+verbose=0
+
+[ -e /tmp/sats ] || mkdir /tmp/sats
+cd /tmp/sats || exit 1
+
+while getopts hnv OPT; do
+        case "$OPT" in
+                n) noon_follow=1 ;;
+                v) verbose=1 ;;
+                h) usage ;;
+                *) usage ;;
+        esac
+done
+
+while true; do
+	for pic in $earths; do
+		[[ $noon_follow == "1" ]] && { pic="$(noon_pic)"; loop_wait=600; }
+		[[ $verbose == "0" ]] && wget -qN "${pic}"
+		[[ $verbose == "0" ]] || wget -N "${pic}"
+		feh --bg-max "$(basename "${pic}")"
+		sleep $loop_wait
+	done
+done

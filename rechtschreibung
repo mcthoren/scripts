@@ -1,9 +1,10 @@
 #!/bin/ksh
 # This script uses duden to lookup the rechtschreibung for a word. Nouns must be capped.
+# As of 2021-11-03 duden.de, like most of germany, doesn't do UTF-8, which means ä needs to ae, etc.
 
 (($#==1)) || {
 	echo "This script takes one word as an argument."
 	exit 1
 }
 
-lynx -cookies http://www.duden.de/rechtschreibung/$1
+lynx -cookies https://www.duden.de/rechtschreibung/$1
