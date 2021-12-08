@@ -64,10 +64,6 @@ fim_disp() {
 	[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
 }
 
-fim_unlock() {
-	[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
-}
-
 m_disp() {
 	touch "${D_LOCK}"
 	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
@@ -144,37 +140,43 @@ while true; do
 
 	for m in $eumetsat_a; do
 		wget -N "${eumetsat_u}/${m}"
-		fim_bar
-		[ -s "${m}" ] && fim_disp "${m}" 8 &
-		[ -s "${m}" ] || fim_unlock
+		[ -s "${m}" ] && {
+			fim_bar
+			fim_disp "${m}" 8 &
+		}
 	done
 
 	# thanks to noaa for making this so easy
 	wget -N "${noaa_fd_east}"
-	fim_bar
-	[ -s 1808x1808.jpg ] && fim_disp 1808x1808.jpg 16 &
-	[ -s 1808x1808.jpg ] || fim_unlock
+	[ -s 1808x1808.jpg ] && {
+		fim_bar
+		fim_disp 1808x1808.jpg 16 &
+	}
 
 	cd "${EDIR}"
 	wget -N "${noaa_fd_west}"
-	fim_bar
-	[ -s 1808x1808.jpg ] && fim_disp 1808x1808.jpg 16 &
-	[ -s 1808x1808.jpg ] || fim_unlock
+	[ -s 1808x1808.jpg ] && {
+		fim_bar
+		fim_disp 1808x1808.jpg 16 &
+	}
 	cd "${DDIR}"
 
 	wget -N "${himawari_8}"
-	fim_bar
-	[ -s full_disk_ahi_true_color.jpg ] && fim_disp full_disk_ahi_true_color.jpg 16 &
-	[ -s full_disk_ahi_true_color.jpg ] || fim_unlock
+	[ -s full_disk_ahi_true_color.jpg ] && {
+		fim_bar
+		fim_disp full_disk_ahi_true_color.jpg 16 &
+	}
 
 	# from a cron job. fim displays the description at the bottom, so the image is automatically attributed.
-	fim_bar
-	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim_disp "/tmp/epic/epic_nat_latest.png" 8 &
-	[ -s "/tmp/epic/epic_nat_latest.png" ] || fim_unlock
+	[ -s "/tmp/epic/epic_nat_latest.png" ] && {
+		fim_bar
+		fim_disp "/tmp/epic/epic_nat_latest.png" 8 &
+	}
 
-	fim_bar
-	[ -s "/tmp/epic/epic_enh_latest.png" ] && fim_disp "/tmp/epic/epic_enh_latest.png" 8 &
-	[ -s "/tmp/epic/epic_enh_latest.png" ] || fim_unlock
+	[ -s "/tmp/epic/epic_enh_latest.png" ] && {
+		fim_bar
+		fim_disp "/tmp/epic/epic_enh_latest.png" 8 &
+	}
 
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
