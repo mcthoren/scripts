@@ -37,86 +37,151 @@ for t_dir in "${DDIR}" "${EDIR}" "${FDIR}"; do
 	}
 done
 
+D_LOCK="${FDIR}/dlock"
+[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
+
+# catch 1 2 3 15
+trap cleanup SIGHUP SIGINT SIGQUIT SIGTERM
+
+cleanup () {
+	[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
+	trap - SIGHUP SIGINT SIGQUIT SIGTERM
+	exit 0
+}
+
+fim_bar() {
+	while [ -e "${D_LOCK}" ]; do
+		sleep 1
+	done
+	# we always call fim_bar before fim_disp
+	# the script can actually make a lot of progress before fim_disp locks so relock here
+	touch "${D_LOCK}"
+}
+
+fim_disp() {
+	touch "${D_LOCK}"
+	fim -a "${1}" -c "sleep ${2}; quit;"
+	[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
+}
+
+fim_unlock() {
+	[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
+}
+
+m_disp() {
+	touch "${D_LOCK}"
+	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
+	mplayer -loop "${2}" -vo fbdev -fs -zoom -x 1824 -y 984 "${1}"
+	[ -e "${D_LOCK}" ] && rm "${D_LOCK}"
+}
+
 while true; do 
 	cd "${EDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
-	fim -a latest.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp latest.png 8 &
 
 	wget -N https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png
-	fim -a geospace_1_day.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp geospace_1_day.png 8 &
 
 	wget -N https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
-	fim -a latest.jpg -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp latest.jpg 8 &
 
 	cd "${DDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
-	fim -a latest.jpg -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp latest.jpg 8 &
 
 	wget -N https://services.swpc.noaa.gov/images/animations/ctipe/tec/latest.png
-	fim -a latest.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp latest.png 8 &
 
 	wget -N https://services.swpc.noaa.gov/images/planetary-k-index.gif
-	fim -a planetary-k-index.gif -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp planetary-k-index.gif 8 &
 
 	cd "${FDIR}"
 	wget -N https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
-	fim -a latest.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp latest.png 8 &
 	cd "${DDIR}"
 
 	# this is updated with a cron job
-	fim -a /tmp/mgii_index.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp /tmp/mgii_index.png 8 &
 
 	wget "${hsn_lech}" -O lech.png
 	convert lech.png -font arial -pointsize 16 label:'Wasserstand Haunstetten / Lech' \
 		-gravity Center -append lech_label.png
-	fim -a lech_label.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp lech_label.png 8 &
 
 	wget "${seb_kap_wert0}" -O wert0.png
 	convert wert0.png -font arial -pointsize 16 label:'Wasserstand Sebastianskapelle / Wertach' \
 		-gravity Center -append wert0_label.png
-	fim -a wert0_label.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp wert0_label.png 8 &
 
 	wget "${b_hof_wert1}" -O wert1.png
 	convert wert1.png -font arial -pointsize 16 label:'Wasserstand Biessenhofen / Wertach' \
 		-gravity Center -append wert1_label.png
-	fim -a wert1_label.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp wert1_label.png 8 &
 
 	wget "${trk_wert2}" -O wert2.png
 	convert wert2.png -font arial -pointsize 16 label:'Wasserstand Türkheim / Wertach' \
 		-gravity Center -append wert2_label.png
-	fim -a wert2_label.png -c 'sleep 8; quit;'
+	fim_bar
+	fim_disp wert2_label.png 8 &
 
 	wget -N "https://www.yr.no/nb/utskrift/værvarsel/2-2954172/Tyskland/Bayern/Swabia/Augsburg"
 	pdftocairo -png Augsburg aux
 	convert -crop 1190x600+20+220 aux-1.png out1190.600.20.220.png
-	fim -a out1190.600.20.220.png -c 'sleep 12; quit;'
+	fim_bar
+	fim_disp out1190.600.20.220.png 12 &
 
 	for m in $eumetsat_a; do
 		wget -N "${eumetsat_u}/${m}"
-		[ -s "${m}" ] && fim -a "${m}" -c 'sleep 8; quit;'
+		fim_bar
+		[ -s "${m}" ] && fim_disp "${m}" 8 &
+		[ -s "${m}" ] || fim_unlock
 	done
 
 	# thanks to noaa for making this so easy
 	wget -N "${noaa_fd_east}"
-	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 16; quit;'
+	fim_bar
+	[ -s 1808x1808.jpg ] && fim_disp 1808x1808.jpg 16 &
+	[ -s 1808x1808.jpg ] || fim_unlock
 
 	cd "${EDIR}"
 	wget -N "${noaa_fd_west}"
-	[ -s 1808x1808.jpg ] && fim -a 1808x1808.jpg -c 'sleep 16; quit;'
+	fim_bar
+	[ -s 1808x1808.jpg ] && fim_disp 1808x1808.jpg 16 &
+	[ -s 1808x1808.jpg ] || fim_unlock
 	cd "${DDIR}"
 
 	wget -N "${himawari_8}"
-	[ -s full_disk_ahi_true_color.jpg ] && fim -a full_disk_ahi_true_color.jpg -c 'sleep 16; quit;'
+	fim_bar
+	[ -s full_disk_ahi_true_color.jpg ] && fim_disp full_disk_ahi_true_color.jpg 16 &
+	[ -s full_disk_ahi_true_color.jpg ] || fim_unlock
 
 	# from a cron job. fim displays the description at the bottom, so the image is automatically attributed.
-	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim -a "/tmp/epic/epic_nat_latest.png" -c 'sleep 8; quit;'
-	[ -s "/tmp/epic/epic_enh_latest.png" ] && fim -a "/tmp/epic/epic_enh_latest.png" -c 'sleep 8; quit;'
+	fim_bar
+	[ -s "/tmp/epic/epic_nat_latest.png" ] && fim_disp "/tmp/epic/epic_nat_latest.png" 8 &
+	[ -s "/tmp/epic/epic_nat_latest.png" ] || fim_unlock
+
+	fim_bar
+	[ -s "/tmp/epic/epic_enh_latest.png" ] && fim_disp "/tmp/epic/epic_enh_latest.png" 8 &
+	[ -s "/tmp/epic/epic_enh_latest.png" ] || fim_unlock
 
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
-	# i don't know where this resolution came from. but it's what my 1024x600 7" pi panel wants to see.
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
-	mplayer -loop 1 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_brd_akt.gif
+	fim_bar
+	m_disp radfilm_brd_akt.gif 1 &
 
 	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
-	mplayer -loop 2 -vo fbdev -fs -zoom -x 1824 -y 984 radfilm_bay_akt.gif
+	fim_bar
+	m_disp radfilm_bay_akt.gif 2 &
 done
