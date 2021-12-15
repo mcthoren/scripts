@@ -1,0 +1,8 @@
+#!/usr/local/bin/zsh
+setopt extended_glob
+
+cd ~/repos || exit 1
+
+for i in ~/repos/^(cv|mystuff); do
+	(cd $i; git pull && echo -e "${i}\n") &
+done
