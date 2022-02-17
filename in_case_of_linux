@@ -3,7 +3,7 @@
 # a scripted collection of notes and such for when i find myself on linux boxes
 
 # add normal unix things
-apt install moreutils net-tools xorg-dev xinit xplanet x11-apps x11-xserver-utils ksh xterm xidle nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput rsync strace whois build-essential manpages-dev tmux bc aspell
+apt install moreutils net-tools xorg-dev xinit xplanet x11-apps x11-xserver-utils ksh xterm xidle nmap locate lynx lsof bsd-mailx binutils openntpd alsa-utils figlet upower suckless-tools tcpdump xinput rsync strace whois build-essential manpages-dev tmux bc aspell dnsutils freeglut3-dev
 
 # add packages
 apt install zsh fvwm imagemagick firefox git unzip vim xpdf feh gnuplot
