@@ -1,0 +1,19 @@
+#!/usr/local/bin/python3
+
+from datetime import datetime
+from astral import LocationInfo
+from astral.sun import sun
+
+
+aux = LocationInfo("Augsburg", "Germany", "Europe/Berlin", 48.356, 10.897)
+aux_sun = sun(aux.observer, datetime.now(), tzinfo=aux.timezone)
+print("Sun Data for Augsburg:")
+print("Sunrise:\t", aux_sun["sunrise"].strftime("%F %T%Z"))
+print("Sunset:\t\t", aux_sun["sunset"].strftime("%F %T%Z"))
+
+dt = (aux_sun["sunset"] - aux_sun["sunrise"])
+dt_h = int(dt.seconds / 3600)
+dt_min = int(dt.seconds % 3600 / 60)
+dt_sec = dt.seconds - dt_h * 3600 - dt_min * 60
+
+print("Daylength:\t", dt_h, "hours", dt_min, "min", dt_sec, "sec")
