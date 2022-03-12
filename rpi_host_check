@@ -5,7 +5,7 @@ HOSTLIST="$HOME/scripts/rpi_hosts"
 TEMPFILE=$(mktemp)
 
 for i in $(<$HOSTLIST); do 
-	(echo $i; ssh -q $i "uptime") |paste - - >> $TEMPFILE &
+	(echo "${i}"; ssh -q $i "uptime") |paste - - >> $TEMPFILE &
 done
 
 clear
