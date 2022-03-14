@@ -138,12 +138,13 @@ while true; do
 	fim_bar
 	fim_disp out1190.600.20.220.png 12 &
 
-	TZ=":Europe/Berlin" xplanet -geometry 1824x984 -output /tmp/aux_sun.png -label \
-		-projection rectangular -date_format '%F %T %Z' -num_times 1
-	convert /tmp/aux_sun.png -fill yellow -pointsize 36 -annotate +670+730 \
-		"$(/home/ghz/scripts/py_sun_times)" /tmp/aux_sun_label.png
+	xplanet -geometry 1824x984 -output /tmp/aux_sun.png -projection rectangular -num_times 1
+	convert /tmp/aux_sun.png -fill yellow -pointsize 36 -annotate +650+720 \
+		"$(/home/ghz/scripts/py_sun_times)" -fill red -annotate +10+40 \
+		"$(date "+%F %T%Z")" -annotate +1400+40 \
+		"$(TZ=":Europe/Berlin" date "+%F %T%Z")" /tmp/aux_sun_label.png
 	fim_bar
-	fim_disp /tmp/aux_sun_label.png 8 &
+	fim_disp /tmp/aux_sun_label.png 10 &
 
 	for m in $eumetsat_a; do
 		wget -N "${eumetsat_u}/${m}"
