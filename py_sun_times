@@ -1,19 +1,29 @@
 #!/usr/local/bin/python3
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from astral import LocationInfo
 from astral.sun import sun
 
-
 aux = LocationInfo("Augsburg", "Germany", "Europe/Berlin", 48.356, 10.897)
 aux_sun = sun(aux.observer, datetime.now(), tzinfo=aux.timezone)
-print("Sun Data for Augsburg:")
-print("Sunrise:\t", aux_sun["sunrise"].strftime("%F %T%Z"))
-print("Sunset:\t\t", aux_sun["sunset"].strftime("%F %T%Z"))
+aux_sun_y = sun(aux.observer, datetime.now() - timedelta(days=1), tzinfo=aux.timezone)
 
+# total daytime
 dt = (aux_sun["sunset"] - aux_sun["sunrise"])
 dt_h = int(dt.seconds / 3600)
 dt_min = int(dt.seconds % 3600 / 60)
 dt_sec = dt.seconds - dt_h * 3600 - dt_min * 60
 
+# total daytime yesterday
+dt_y = (aux_sun_y["sunset"] - aux_sun_y["sunrise"])
+
+# change in daytime since yesterday
+del_dt = dt.seconds - dt_y.seconds
+del_dt_min = int(del_dt / 60)
+del_dt_sec = del_dt % 60
+
+print("Sun Data for Augsburg:")
+print("Sunrise:\t", aux_sun["sunrise"].strftime("%F %T%Z"))
+print("Sunset:\t\t", aux_sun["sunset"].strftime("%F %T%Z"))
 print("Daylength:\t", dt_h, "hours", dt_min, "min", dt_sec, "sec")
+print("Δ Daylength:\t", del_dt_min, "min", del_dt_sec, "sec")
