@@ -1,0 +1,35 @@
+#!/usr/local/bin/zsh
+
+# this is stupid, but much less complicated than trying to make
+# thinkpad keys work in linux.
+#
+# i've been spoiled by OpenBSD where they all just work by default.
+#
+# this works with the following in /etc/rc.local
+# for which there is plry also some better linuxy way of doing things.
+# BTNG="/sys/class/backlight/intel_backlight/brightness"
+# [ -f "${BTNG}" ] && {
+#	# let the admin user set the brightness
+#	/usr/bin/chgrp adm "${BTNG}"
+#	/usr/bin/chmod g+w "${BTNG}"
+# }
+
+usage() {
+	echo "$0 [up|down|full]"
+	exit 1
+}
+
+(($#==1)) || usage
+[[ "${1}" == "up" || "${1}" == "down" || "${1}" == "full" ]] ||  usage
+
+BTNG="/sys/class/backlight/intel_backlight/brightness"
+BNESS="$(cat "${BTNG}")"
+
+echo -n "${BNESS} -> "
+
+[ $1 = "up" ] && BNESS="$(( $BNESS + 100 ))"
+[ $1 = "down" ] && BNESS="$(( $BNESS - 100 ))"
+[ $1 = "full" ] && BNESS=3000
+
+echo "${BNESS}" > "${BTNG}"
+echo "${BNESS}"
