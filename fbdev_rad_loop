@@ -122,6 +122,14 @@ while true; do
 	wait
 	fim_disp /tmp/aux_sun_label.png 10 &
 
+	wget -N "https://wttr.in/Augsburg.png?m"
+	wait
+	fim_disp "Augsburg.png?m" 10 &
+
+	wget -N "https://wttr.in/Moon.png"
+	wait
+	fim_disp "Moon.png" 8 &
+
 	for m in $eumetsat_a; do
 		wget -N "${eumetsat_u}/${m}"
 		[ -s "${m}" ] && {
