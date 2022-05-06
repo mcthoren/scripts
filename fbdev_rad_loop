@@ -153,7 +153,7 @@ while true; do
 	}
 	cd "${DDIR}"
 
-	wget -N "${himawari_8}"
+	wget -t2 -T 15 -N "${himawari_8}"
 	[ -s full_disk_ahi_true_color.jpg ] && {
 		wait
 		fim_disp full_disk_ahi_true_color.jpg 16 &
