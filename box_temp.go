@@ -1,8 +1,10 @@
 #!/bin/sh
+# vim: set syntax=sh:
 
 OS="$(uname -s)"
 HOST_N="$(hostname -s)"
 tmp_f="$(mktemp)" || exit 1
+chmod 0644 "${tmp_f}"
 
 MYHOME="/home/ghz"
 [ "${OS}" = "Linux" ] && {
@@ -10,7 +12,7 @@ MYHOME="/home/ghz"
 }
 
 dst_d="${MYHOME}/box_temp/"
-dst_f="${dst_d}/${HOST_N}_temp.48h"
+dst_f="${dst_d}/${HOST_N}_temp.24h"
 
 arch_d="${dst_d}/${HOST_N}/$(date -u +"%Y")"
 arch_f="${arch_d}/${HOST_N}_temp.$(date -u +"%F")"
@@ -34,6 +36,6 @@ dat_s="$(date -u +"%FT%TZ")\t${temp}\n"
 printf "${dat_s}" >> "${dst_f}"
 printf "${dat_s}" >> "${arch_f}"
 
-# 48h * 60min/h = 2880
-tail -2880 "${dst_f}" > "${tmp_f}"
+# 24h * 60min/h = 1440
+tail -1440 "${dst_f}" > "${tmp_f}"
 mv "${tmp_f}" "${dst_f}"
