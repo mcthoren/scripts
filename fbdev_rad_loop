@@ -47,35 +47,43 @@ m_disp() {
 	mplayer -loop "${2}" -vo fbdev -fs -zoom -x 1824 -y 984 "${1}"
 }
 
+wdl() {
+	# Wget DownLoad so i can change options in one place
+	# -t: retries [count]
+	# -T: network timeout [s]
+	# -N check date header to not re-dl the same data over and over
+	wget -t 2 -T 8 -N "${@}"
+}
+
 while true; do 
 	cd "${EDIR}"
-	wget -N https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
+	wdl https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
 	wait
 	fim_disp latest.png 8 &
 
-	wget -N https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png
+	wdl https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png
 	wait
 	fim_disp geospace_1_day.png 8 &
 
-	wget -N https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
+	wdl https://services.swpc.noaa.gov/images/animations/enlil/latest.jpg
 	wait
 	fim_disp latest.jpg 8 &
 
 	cd "${DDIR}"
-	wget -N https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
+	wdl https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg
 	wait
 	fim_disp latest.jpg 8 &
 
-	wget -N https://services.swpc.noaa.gov/images/animations/ctipe/tec/latest.png
+	wdl https://services.swpc.noaa.gov/images/animations/ctipe/tec/latest.png
 	wait
 	fim_disp latest.png 8 &
 
-	wget -N https://services.swpc.noaa.gov/images/planetary-k-index.gif
+	wdl https://services.swpc.noaa.gov/images/planetary-k-index.gif
 	wait
 	fim_disp planetary-k-index.gif 8 &
 
 	cd "${FDIR}"
-	wget -N https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
+	wdl https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
 	wait
 	fim_disp latest.png 8 &
 	cd "${DDIR}"
@@ -84,31 +92,31 @@ while true; do
 	wait
 	fim_disp /tmp/mgii_index.png 8 &
 
-	wget "${hsn_lech}" -O lech.png
+	wdl "${hsn_lech}" -O lech.png
 	convert lech.png -font arial -pointsize 16 label:'Wasserstand Haunstetten / Lech' \
 		-gravity Center -append lech_label.png
 	wait
 	fim_disp lech_label.png 8 &
 
-	wget "${seb_kap_wert0}" -O wert0.png
+	wdl "${seb_kap_wert0}" -O wert0.png
 	convert wert0.png -font arial -pointsize 16 label:'Wasserstand Sebastianskapelle / Wertach' \
 		-gravity Center -append wert0_label.png
 	wait
 	fim_disp wert0_label.png 8 &
 
-	wget "${b_hof_wert1}" -O wert1.png
+	wdl "${b_hof_wert1}" -O wert1.png
 	convert wert1.png -font arial -pointsize 16 label:'Wasserstand Biessenhofen / Wertach' \
 		-gravity Center -append wert1_label.png
 	wait
 	fim_disp wert1_label.png 8 &
 
-	wget "${trk_wert2}" -O wert2.png
+	wdl "${trk_wert2}" -O wert2.png
 	convert wert2.png -font arial -pointsize 16 label:'Wasserstand Türkheim / Wertach' \
 		-gravity Center -append wert2_label.png
 	wait
 	fim_disp wert2_label.png 8 &
 
-	wget -N "https://www.yr.no/nb/utskrift/værvarsel/2-2954172/Tyskland/Bayern/Swabia/Augsburg"
+	wdl "https://www.yr.no/nb/utskrift/værvarsel/2-2954172/Tyskland/Bayern/Swabia/Augsburg"
 	pdftocairo -png Augsburg aux
 	convert -crop 1190x600+20+220 aux-1.png out1190.600.20.220.png
 	wait
@@ -122,16 +130,16 @@ while true; do
 	wait
 	fim_disp /tmp/aux_sun_label.png 10 &
 
-	wget -N "https://wttr.in/Augsburg.png?m"
+	wdl "https://wttr.in/Augsburg.png?m"
 	wait
 	fim_disp "Augsburg.png?m" 10 &
 
-	wget -N "https://wttr.in/Moon.png"
+	wdl "https://wttr.in/Moon.png"
 	wait
 	fim_disp "Moon.png" 8 &
 
 	for m in $eumetsat_a; do
-		wget -N "${eumetsat_u}/${m}"
+		wdl "${eumetsat_u}/${m}"
 		[ -s "${m}" ] && {
 			wait
 			fim_disp "${m}" 8 &
@@ -139,21 +147,21 @@ while true; do
 	done
 
 	# thanks to noaa for making this so easy
-	wget -N "${noaa_fd_east}"
+	wdl "${noaa_fd_east}"
 	[ -s 1808x1808.jpg ] && {
 		wait
 		fim_disp 1808x1808.jpg 16 &
 	}
 
 	cd "${EDIR}"
-	wget -N "${noaa_fd_west}"
+	wdl "${noaa_fd_west}"
 	[ -s 1808x1808.jpg ] && {
 		wait
 		fim_disp 1808x1808.jpg 16 &
 	}
 	cd "${DDIR}"
 
-	wget -t2 -T 15 -N "${himawari_8}"
+	wdl "${himawari_8}"
 	[ -s full_disk_ahi_true_color.jpg ] && {
 		wait
 		fim_disp full_disk_ahi_true_color.jpg 16 &
@@ -170,12 +178,12 @@ while true; do
 		fim_disp "/tmp/epic/epic_enh_latest.png" 8 &
 	}
 
-	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
+	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
 	wait
 	m_disp radfilm_brd_akt.gif 1 &
 
-	wget -N https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
+	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
 	wait
 	m_disp radfilm_bay_akt.gif 2 &
 done
