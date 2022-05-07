@@ -48,3 +48,7 @@ systemctl restart systemd-logind.service
 # systemctl list-unit-files --state=enabled
 
 # is firewalld enabled?
+
+# sounds is absolutley FUBAR in linux.
+# + alsactl init winds up helping sometimes, for some reason.
+# + pavucontrol lets you unfuck what some apps are doing to your diff sound devices.
