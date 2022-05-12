@@ -116,11 +116,10 @@ while true; do
 	wait
 	fim_disp wert2_label.png 8 &
 
-	wdl "https://www.yr.no/nb/utskrift/værvarsel/2-2954172/Tyskland/Bayern/Swabia/Augsburg"
-	pdftocairo -png Augsburg aux
-	convert -crop 1190x600+20+220 aux-1.png out1190.600.20.220.png
+	wdl "https://www.yr.no/en/content/2-2954172/meteogram.svg"
+	convert meteogram.svg meteogram.png
 	wait
-	fim_disp out1190.600.20.220.png 12 &
+	fim_disp meteogram.png 12 &
 
 	xplanet -geometry 1824x984 -output /tmp/aux_sun.png -projection rectangular -num_times 1
 	convert /tmp/aux_sun.png -fill yellow -pointsize 36 -annotate +650+720 \
