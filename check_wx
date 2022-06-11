@@ -8,3 +8,4 @@ for i in wx wx{1..9} wx_0x0a wx0/dust_wx wx0/power_weather wx0/wx wx0/mqs; do
 done
 
 # find "/wx_0x0a/plots"  -mmin -20 | grep . > /dev/null || echo "No new data in wx_0x0a/plots in the last 20min!"
+find /box_temps/*.24h -mmin +20 -ls | grep . && echo "Haven't updated in at least 20 minutes."
