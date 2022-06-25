@@ -2,6 +2,23 @@
 
 # thanks to:
 # https://hackaday.io/project/6857-master-your-rigol-from-command-line
+#
+# dump the current image on the screen of my o-scope to a .png.
+# takes an optional file name. works surprisingly well for how janky it looks.
 
 TS="$(date -u +%FT%T%Z)"
-echo ":DISPLAY:DATA? ON,OFF,PNG" | nc -w1 scope 5555  | dd bs=1 skip=11 of="/tmp/DS1054Z.${TS}.png"
+FN="/tmp/DS1054Z.${TS}.png"
+
+usage() {
+	echo "$0 [output_file]"
+	exit 1
+}
+
+(( $# > 1 )) && usage
+
+[ "$1" = '-h' ] && usage
+
+(( $# == 1 )) && {
+	FN="${1}"
+}
+echo ":DISPLAY:DATA? ON,OFF,PNG" | nc -w1 scope 5555  | dd bs=1 skip=11 of="${FN}"
