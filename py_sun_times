@@ -20,10 +20,11 @@ dt_y = (aux_sun_y["sunset"] - aux_sun_y["sunrise"])
 # change in daytime since yesterday
 del_dt = dt.seconds - dt_y.seconds
 del_dt_min = int(del_dt / 60)
-del_dt_sec = del_dt % 60
+del_dt_sec = abs(del_dt) % 60
+del_dt_min = del_dt_min * (abs(del_dt) / del_dt)
 
 print("Sun Data for Augsburg:")
 print("Sunrise:\t", aux_sun["sunrise"].strftime("%F %T%Z"))
 print("Sunset:\t\t", aux_sun["sunset"].strftime("%F %T%Z"))
 print("Daylength:\t", dt_h, "hours", dt_min, "min", dt_sec, "sec")
-print("Δ Daylength:\t", del_dt_min, "min", del_dt_sec, "sec")
+print("Δ Daylength:\t {:.0f} min {:.0f} sec".format(del_dt_min, del_dt_sec))
