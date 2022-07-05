@@ -19,7 +19,7 @@ dt_y = (aux_sun_y["sunset"] - aux_sun_y["sunrise"])
 
 # change in daytime since yesterday
 del_dt = dt.seconds - dt_y.seconds
-del_dt_min = int(del_dt / 60)
+del_dt_min = abs(int(del_dt / 60))
 del_dt_sec = abs(del_dt) % 60
 del_dt_min = del_dt_min * (abs(del_dt) / del_dt)
 
