@@ -1,9 +1,13 @@
 #!/usr/bin/perl -T
+
 use strict;
 use warnings;
 use utf8;
 use open qw(:std :utf8);
 use Encode qw(encode decode);
+
+# this is meant to generate stats from the wstjx.log file left by WSTJT-X
+# it will accept the file either on standard in, or as an arg
 
 @ARGV = map { decode("UTF-8", $_) } @ARGV;
 
@@ -16,6 +20,7 @@ while(<>){
 	print "Sent: ", $ws_dat[8], "\t";
 	print "Rcvd: ", $ws_dat[9], "\t";
 	$num++;
+	# XXX is this the right way round, or have i confused myself?
 	if( $ws_dat[9] <= $ws_dat[8] ){
 		print "OK";
 		$num_ok++;
