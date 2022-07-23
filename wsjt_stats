@@ -1,0 +1,28 @@
+#!/usr/bin/perl -T
+use strict;
+use warnings;
+use utf8;
+use open qw(:std :utf8);
+use Encode qw(encode decode);
+
+@ARGV = map { decode("UTF-8", $_) } @ARGV;
+
+my ($num, $num_ok) = (0, 0);
+
+while(<>){
+	chomp;
+	my @ws_dat = split(/,/);
+	print $ws_dat[4], "\t";
+	print "Sent: ", $ws_dat[8], "\t";
+	print "Rcvd: ", $ws_dat[9], "\t";
+	$num++;
+	if( $ws_dat[9] <= $ws_dat[8] ){
+		print "OK";
+		$num_ok++;
+	}
+	print "\n";
+}
+
+print "\nTotal Contacts: ", $num, "\n";
+print "Contacts you heard as well as or better than they heard you: ", $num_ok, "\n";
+print "Percent OK: ", $num_ok / $num, "\n";
