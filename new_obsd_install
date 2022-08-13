@@ -63,7 +63,8 @@ sed -i 's/syslog,/syslog.notice,/' /etc/syslog.conf
 
 # almost straight out of install.site(5)
 cat <<- EOF >> /upgrade.site
-	echo 'pkg_add -IVu' >> /etc/rc.firsttime
 	echo 'syspatch' >> /etc/rc.firsttime
+	echo 'syspatch' >> /etc/rc.firsttime
+	echo 'pkg_add -IVvum' >> /etc/rc.firsttime
 EOF
 chmod +x /upgrade.site
