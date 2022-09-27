@@ -50,7 +50,7 @@ echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
 usermod -G dialer "${2}"
 
 (uname -a ; figlet `hostname -s` ; echo) > /etc/motd
-echo '(uname -a; hostname -s |figlet) > /etc/motd' >> /etc/rc.local
+echo '(uname -a; hostname -s | /usr/local/bin/figlet) > /etc/motd' >> /etc/rc.local
 
 # no root console logins
 sed -i 's/secure//' /etc/ttys
