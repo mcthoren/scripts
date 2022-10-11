@@ -48,6 +48,8 @@ echo "keyboard.repeat.del1=150" >> /etc/wsconsctl.conf
 echo "keyboard.repeat.deln=50" >> /etc/wsconsctl.conf
 
 usermod -G dialer "${2}"
+echo "${2}" > /root/.forward
+echo "set ${2}'s .forward"
 
 (uname -a ; figlet `hostname -s` ; echo) > /etc/motd
 echo '(uname -a; hostname -s | /usr/local/bin/figlet) > /etc/motd' >> /etc/rc.local
@@ -61,7 +63,11 @@ sed -i 's/#   VisualHostKey no/VisualHostKey yes/' /etc/ssh/ssh_config
 # don't really need a log full of "syslog restarted"
 sed -i 's/syslog,/syslog.notice,/' /etc/syslog.conf
 
+# enable soft dependencies on non-root, non-swap file systems
+sed -i 's/ 1 2/,softdep 1 2/g' /etc/fstab
+
 # almost straight out of install.site(5)
+# runs syspatch twice, incase it needs to patch itself first
 cat <<- EOF >> /upgrade.site
 	echo 'syspatch' >> /etc/rc.firsttime
 	echo 'syspatch' >> /etc/rc.firsttime
