@@ -78,9 +78,9 @@ while true; do
 	wait
 	fim_disp latest.png 8 &
 
-	wdl https://services.swpc.noaa.gov/images/planetary-k-index.gif
+	wdl https://services.swpc.noaa.gov/images/station-k-index.png
 	wait
-	fim_disp planetary-k-index.gif 8 &
+	fim_disp station-k-index.png 8 &
 
 	cd "${FDIR}"
 	wdl https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
