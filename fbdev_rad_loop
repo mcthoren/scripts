@@ -116,22 +116,22 @@ while true; do
 	wait
 	fim_disp wert2_label.png 8 &
 
-	wdl "https://www.yr.no/en/content/2-2954172/meteogram.svg"
+	wdl "https://www.yr.no/en/content/2-2950159/meteogram.svg"
 	convert meteogram.svg meteogram.png
 	wait
 	fim_disp meteogram.png 12 &
 
-	xplanet -geometry 1824x984 -output /tmp/aux_sun.png -projection rectangular -num_times 1
-	convert /tmp/aux_sun.png -fill yellow -pointsize 36 -annotate +650+720 \
+	xplanet -geometry 1824x984 -output /tmp/ber_sun.png -projection rectangular -num_times 1
+	convert /tmp/ber_sun.png -fill yellow -pointsize 36 -annotate +650+720 \
 		"$(/home/ghz/scripts/py_sun_times)" -fill red -annotate +10+40 \
 		"$(date "+%F %T%Z")" -annotate +1400+40 \
-		"$(TZ=":Europe/Berlin" date "+%F %T%Z")" /tmp/aux_sun_label.png
+		"$(TZ=":Europe/Berlin" date "+%F %T%Z")" /tmp/ber_sun_label.png
 	wait
-	fim_disp /tmp/aux_sun_label.png 10 &
+	fim_disp /tmp/ber_sun_label.png 10 &
 
-	wdl "https://wttr.in/Augsburg.png?m"
+	wdl "https://wttr.in/Berlin.png?m"
 	wait
-	fim_disp "Augsburg.png?m" 10 &
+	fim_disp "Berlin.png?m" 10 &
 
 	wdl "https://wttr.in/Moon.png"
 	wait
@@ -182,7 +182,7 @@ while true; do
 	wait
 	m_disp radfilm_brd_akt.gif 1 &
 
-	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif
+	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_bbb_akt.gif
 	wait
-	m_disp radfilm_bay_akt.gif 2 &
+	m_disp radfilm_bbb_akt.gif 2 &
 done
