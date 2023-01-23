@@ -51,6 +51,8 @@ usermod -G dialer "${2}"
 echo "${2}" > /root/.forward
 echo "set ${2}'s .forward"
 
+chsh -s /usr/local/bin/zsh "${2}"
+
 (uname -a ; figlet `hostname -s` ; echo) > /etc/motd
 echo '(uname -a; hostname -s | /usr/local/bin/figlet) > /etc/motd' >> /etc/rc.local
 
