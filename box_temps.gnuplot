@@ -24,14 +24,14 @@ fn = "atom blast brink burn crater cutie doomy"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps0.png'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
 
-fn = "dot elf glow golly holly infinity keen"
+fn = "dot elf fizzy glow golly holly infinity"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps1.png'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
 
-fn = "linty pepe pickles scooty scuttle spiffy squiggle"
+fn = "keen linty pepe pickles scooty scuttle spiffy"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps2.png'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
 
-fn = "straylight tab teddy up wave zero"
+fn = "squiggle straylight tab teddy up wave zero"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps3.png'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
