@@ -1,3 +1,3 @@
 #!/bin/sh
-dig +dnssec sigok.verteiltesysteme.net
-dig +dnssec sigfail.verteiltesysteme.net
+dig +dnssec cloudflare.net
+dig +dnssec brokendnssec.net
