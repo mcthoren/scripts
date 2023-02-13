@@ -16,6 +16,15 @@ use Encode qw(encode decode);
 
 my ($num, $num_ok) = (0, 0);
 
+sub usage() {
+	print STDERR "usage: $0 wsjtx_logfile\n";
+}
+
+if ($#ARGV == 0 && $ARGV[0] eq '-h') {
+	usage();
+	exit 1;
+}
+
 while(<>){
 	chomp;
 	my @ws_dat = split(/,/);
