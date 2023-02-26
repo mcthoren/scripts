@@ -82,6 +82,10 @@ while true; do
 	wait
 	fim_disp station-k-index.png 8 &
 
+	wdl https://services.swpc.noaa.gov/images/station-a-index.png
+	wait
+	fim_disp station-a-index.png 8 &
+
 	wdl https://services.swpc.noaa.gov/images/swx-overview-large.gif
 	wait
 	fim_disp swx-overview-large.gif 8 &
