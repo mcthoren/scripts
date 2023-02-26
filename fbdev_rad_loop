@@ -1,10 +1,5 @@
 #!/usr/local/bin/zsh
 
-hsn_lech="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12003500&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false"
-seb_kap_wert0="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12402007&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
-b_hof_wert1="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12405005&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
-trk_wert2="https://www.hnd.bayern.de/webservices/graphik.php?cache=hnd&statnr=12406008&thema=hochwasser.meldestufen&wert=wasserstand&vhs=false&days=2"
-
 eumetsat_u="https://eumetview.eumetsat.int/static-images/latestImages/"
 eumetsat_a=( \
 # EUMETSAT_MSG_RGBAirmass_WesternEurope.jpg \
@@ -112,29 +107,17 @@ while true; do
 	wait
 	fim_disp /tmp/mgii_index.png 8 &
 
-	wdl "${hsn_lech}" -O lech.png
-	convert lech.png -font arial -pointsize 16 label:'Wasserstand Haunstetten / Lech' \
-		-gravity Center -append lech_label.png
+	wdl "https://www.berlin.de/webcams/rathaus/webcam.jpg"
+	convert webcam.jpg -fill yellow -pointsize 16 -annotate +1103+45 "Roten Rathaus" rathaus_label.jpg
 	wait
-	fim_disp lech_label.png 8 &
+	fim_disp rathaus_label.jpg 8 &
 
-	wdl "${seb_kap_wert0}" -O wert0.png
-	convert wert0.png -font arial -pointsize 16 label:'Wasserstand Sebastianskapelle / Wertach' \
-		-gravity Center -append wert0_label.png
+	cd "${FDIR}"
+	wdl "https://www.berlin.de/webcams/fsz/webcam.jpg"
+	convert webcam.jpg -fill yellow -pointsize 16 -annotate +1103+45 "Fernsehzentrum" fsz_label.jpg
 	wait
-	fim_disp wert0_label.png 8 &
-
-	wdl "${b_hof_wert1}" -O wert1.png
-	convert wert1.png -font arial -pointsize 16 label:'Wasserstand Biessenhofen / Wertach' \
-		-gravity Center -append wert1_label.png
-	wait
-	fim_disp wert1_label.png 8 &
-
-	wdl "${trk_wert2}" -O wert2.png
-	convert wert2.png -font arial -pointsize 16 label:'Wasserstand Türkheim / Wertach' \
-		-gravity Center -append wert2_label.png
-	wait
-	fim_disp wert2_label.png 8 &
+	fim_disp fsz_label.jpg 8 &
+	cd "${DDIR}"
 
 	wdl "https://www.yr.no/en/content/2-2950159/meteogram.svg"
 	convert meteogram.svg meteogram.png
