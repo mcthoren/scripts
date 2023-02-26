@@ -94,6 +94,10 @@ while true; do
 	wait
 	fim_disp swx-overview-large.gif 8 &
 
+	wdl https://services.swpc.noaa.gov/images/notifications-in-effect-timeline.png
+	wait
+	fim_disp notifications-in-effect-timeline.png 8 &
+
 	cd "${FDIR}"
 	wdl https://services.swpc.noaa.gov/images/animations/suvi/primary/284/latest.png
 	wait
