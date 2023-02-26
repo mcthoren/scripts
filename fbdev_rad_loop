@@ -65,6 +65,10 @@ while true; do
 	wait
 	fim_disp geospace_1_day.png 8 &
 
+	wdl https://services.swpc.noaa.gov/images/ace-mag-swepam-3-day.gif
+	wait
+	fim_disp ace-mag-swepam-3-day.gif 8 &
+
 	wdl https://services.swpc.noaa.gov/images/ace-epam-3-day.gif
 	wait
 	fim_disp ace-epam-3-day.gif 8 &
