@@ -107,6 +107,12 @@ while true; do
 	wait
 	fim_disp /tmp/mgii_index.png 8 &
 
+	wdl "https://www.seattle.gov/trafficcams/images/5_Pine_EW.jpg"
+	convert 5_Pine_EW.jpg -fill yellow -pointsize 24 -annotate +1000+40 \
+		"$(TZ=:America/Los_Angeles date "+%F %T%Z")" 5_Pine_EW.sea_date.jpg
+	wait
+	fim_disp 5_Pine_EW.sea_date.jpg 8 &
+
 	wdl "https://www.berlin.de/webcams/rathaus/webcam.jpg"
 	convert webcam.jpg -fill yellow -pointsize 16 -annotate +1103+45 "Roten Rathaus" rathaus_label.jpg
 	wait
@@ -117,14 +123,11 @@ while true; do
 	convert webcam.jpg -fill yellow -pointsize 16 -annotate +1103+45 "Fernsehzentrum" fsz_label.jpg
 	wait
 	fim_disp fsz_label.jpg 8 &
-
-	wdl "https://www.seattle.gov/trafficcams/images/5_Pine_EW.jpg"
-	convert 5_Pine_EW.jpg -fill yellow -pointsize 24 -annotate +1000+40 \
-		"$(TZ=:America/Los_Angeles date "+%F %T%Z")" 5_Pine_EW.sea_date.jpg
-	wait
-	fim_disp 5_Pine_EW.sea_date.jpg 8 &
-
 	cd "${DDIR}"
+
+	wdl "http://www.aurora.dti.ne.jp/odaiba-papa/images/image.jpg"
+	wait
+	fim_disp image.jpg 8 &
 
 	wdl "https://www.yr.no/en/content/2-2950159/meteogram.svg"
 	convert meteogram.svg meteogram.png
