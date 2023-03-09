@@ -3,7 +3,7 @@
 MY_CALL="$(grep "^MyCall" ~/.config/WSJT-X.ini | cut -d '=' -f 2)"
 
 while true; do
-	LAST_CALL="$(tail -20 ~/.local/share/WSJT-X/ALL.TXT | grep CQ | tail -1 | awk '{print $9}')"
+	LAST_CALL="$(tail -20 ~/.local/share/WSJT-X/ALL.TXT | grep 'CQ ' | tail -1 | awk '{print $9}')"
 	[[ "${LAST_CALL}" != "${MY_CALL}" && "${LAST_CALL}" != 'TEST' ]] && {
 		grep -q "${LAST_CALL}" ~/.local/share/WSJT-X/wsjtx.log || {
 			echo "${LAST_CALL}"
