@@ -17,7 +17,7 @@ id "${2}"> /dev/null || usage
 	pkg_add wget git firefox ImageMagick nmap rsync--iconv vim--no_x11 figlet zsh xplanet \
 	avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip-- \
 	feh mplayer geeqie ipython xpdf ansible graphviz evince--light aspell-de lynx \
-	py-matplotlib fvwm2
+	py3-matplotlib fvwm2
 	
 	[[ "${1}" == "laptop" ]] && {
 		rcctl enable apmd
