@@ -3,9 +3,12 @@
 # scratch script rev0 to remind me where to get this damn file.
 # todo: write correctly
 
+URL='http://ftp.de.debian.org/debian/pool/main/i/igerman98/wngerman_20161207-11_all.deb'
+
 TMPDIR=`mktemp -d /tmp/ng.XXXXXXXXXX`
 cd $TMPDIR || exit 1
-wget http://ftp.de.debian.org/debian/pool/main/i/igerman98/wngerman_20120607-1_all.deb
-dd if=wngerman_20120607-1_all.deb of=second.tgz skip=1706 bs=1
-tar xzvf second.tgz ./usr/share/dict/ngerman
+wget "${URL}"
+dd if="$(basename "${URL}")" of=second.tar.xz skip=1876 bs=1
+unxz second.tar.xz
+tar xvf second.tar ./usr/share/dict/ngerman
 cp $TMPDIR/usr/share/dict/ngerman ./
