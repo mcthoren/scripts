@@ -125,6 +125,10 @@ while true; do
 	fim_disp fsz_label.jpg 8 &
 	cd "${DDIR}"
 
+	wdl "https://www.softed.de/webcam/spreebogen.jpg"
+	wait
+	fim_disp spreebogen.jpg 8 &
+
 	wdl "http://www.aurora.dti.ne.jp/odaiba-papa/images/image.jpg"
 	wait
 	fim_disp image.jpg 8 &
