@@ -129,6 +129,10 @@ while true; do
 	wait
 	fim_disp spreebogen.jpg 8 &
 
+	wdl "https://webcam.finanzen.de/spreecam.jpg"
+	wait
+	fim_disp spreecam.jpg 8 &
+
 	wdl "http://www.aurora.dti.ne.jp/odaiba-papa/images/image.jpg"
 	wait
 	fim_disp image.jpg 8 &
