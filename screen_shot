@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# because yes, i am too lazy to type this out every time.
+xwd | convert xwd:- "/tmp/screen_shot.$(date -u +%FT%T%Z).png" 
