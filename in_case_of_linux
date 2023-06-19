@@ -31,6 +31,15 @@ echo 'HandleLidSwitch=ignore' >> /etc/systemd/logind.conf
 echo 'HandleLidSwitchDocked=ignore' >> /etc/systemd/logind.conf
 systemctl restart systemd-logind.service
 
+# in case of bash
+cat <<- EOF >> ~/.inputrc
+	set show-all-if-ambiguous on
+	set show-all-if-unmodified on
+	set menu-complete-display-prefix on
+	"\t": menu-complete
+	"\e[Z": menu-complete-backward
+EOF
+
 ################ notes ################
 
 # in case of weird colors stuck on
