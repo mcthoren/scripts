@@ -51,6 +51,8 @@ wdl() {
 }
 
 while true; do 
+	date +%T%Z | figlet -k
+
 	cd "${EDIR}"
 	wdl https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
 	wait
@@ -197,6 +199,18 @@ while true; do
 		wait
 		fim_disp "/tmp/epic/epic_enh_latest.png" 8 &
 	}
+
+	wdl "https://vistar-capture.s3.cern.ch/lhc1.png"
+	wait
+	fim_disp "lhc1.png" 8 &
+
+	wdl "https://vistar-capture.s3.cern.ch/lhc2.png"
+	wait
+	fim_disp "lhc2.png" 8 &
+
+	wdl "https://vistar-capture.s3.cern.ch/lhc3.png"
+	wait
+	fim_disp "lhc3.png" 8 &
 
 	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif
 	# 1 loops takes us > 40s. the image updates every 5min (i think).
