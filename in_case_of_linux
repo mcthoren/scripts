@@ -64,3 +64,12 @@ EOF
 # + the following lets me hear radios and such that i plug in, if i screw around in pavucontrol enough.
 #	pacmd load-module module-loopback latency_msec=1
 #	pacmd unload-module module-loopback
+#
+# so arch does this:
+# Lock out user after three failed login attempts
+# to unlock:
+#	faillock --user username --reset
+# locks are kept in:
+#	/run/faillock/
+# conf is in:
+#	/etc/security/faillock.conf
