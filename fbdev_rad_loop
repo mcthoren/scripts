@@ -135,9 +135,21 @@ while true; do
 	wait
 	fim_disp spreecam.jpg 8 &
 
-	wdl "http://www.aurora.dti.ne.jp/odaiba-papa/images/image.jpg"
+	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-o.jpg"
 	wait
-	fim_disp image.jpg 8 &
+	fim_disp wkam1-10962-o.jpg 8 &
+
+	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-s.jpg"
+	wait
+	fim_disp wkam1-10962-s.jpg 8 &
+
+	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-w.jpg"
+	wait
+	fim_disp wkam1-10962-w.jpg 8 &
+
+	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/webcam_sfh.jpg"
+	wait
+	fim_disp webcam_sfh.jpg 8 &
 
 	wdl "https://www.yr.no/en/content/2-2950159/meteogram.svg"
 	convert meteogram.svg meteogram.png
