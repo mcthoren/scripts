@@ -16,7 +16,7 @@ PRV_KEY_B32="$(python3 -c "import base64; print(base64.b32encode(bytes.fromhex('
 
 echo "otpauth://totp/${USER}@$(hostname)?secret=${PRV_KEY_B32}&issuer=${USER}" | qrencode -t ANSIUTF8
 
-# stomp in env var just
+# stomp on env var
 PRV_KEY="$(openssl rand -base64 32)"
 
 # this will let you see if it worked.
