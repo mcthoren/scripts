@@ -6,18 +6,21 @@
 # and the oathtool comes from the oath-toolkit package
 # pkg_add libqrencode oath-toolkit
 
-PRV_KEY="$(openssl rand -hex 20)"
 PK_FILE="/${HOME}/.totp-key"
 
-echo  "${PRV_KEY}" >> "${PK_FILE}"
+[ -f "${PK_FILE}" ] && mv "${PK_FILE}" "${PK_FILE}.bak.$(date -u "+%FT%TZ")"
+
+PRV_KEY="$(openssl rand -hex 20)"
+echo  "${PRV_KEY}" > "${PK_FILE}"
 chmod 400 "${PK_FILE}"
 
 PRV_KEY_B32="$(python3 -c "import base64; print(base64.b32encode(bytes.fromhex('${PRV_KEY}')).decode('utf-8'))")"
 
 echo "otpauth://totp/${USER}@$(hostname)?secret=${PRV_KEY_B32}&issuer=${USER}" | qrencode -t ANSIUTF8
 
-# stomp on env var
+# stomp on env vars
 PRV_KEY="$(openssl rand -base64 32)"
+PRV_KEY_B32="$(openssl rand -base64 32)"
 
 # this will let you see if it worked.
 oathtool --totp "$(cat ~/.totp-key)"
