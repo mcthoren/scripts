@@ -156,13 +156,14 @@ while true; do
 	wait
 	fim_disp /tmp/ber_sun_label.png 10 &
 
-	wdl "https://wttr.in/Berlin.png?m"
-	wait
-	fim_disp "Berlin.png?m" 10 &
+	# "PNG support temporary disabled" for a long while now. 2024-05-07
+	# wdl "https://wttr.in/Berlin.png?m"
+	# wait
+	# fim_disp "Berlin.png?m" 10 &
 
-	wdl "https://wttr.in/Moon.png"
-	wait
-	fim_disp "Moon.png" 8 &
+	# wdl "https://wttr.in/Moon.png"
+	# wait
+	# fim_disp "Moon.png" 8 &
 
 	for m in $eumetsat_a; do
 		wdl "${eumetsat_u}/${m}"
