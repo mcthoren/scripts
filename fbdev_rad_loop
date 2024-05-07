@@ -110,7 +110,7 @@ while true; do
 	fim_disp /tmp/mgii_index.png 8 &
 
 	wdl "https://www.seattle.gov/trafficcams/images/5_Pine_EW.jpg"
-	convert 5_Pine_EW.jpg -fill yellow -pointsize 24 -annotate +1000+40 \
+	convert 5_Pine_EW.jpg -fill yellow -pointsize 24 -annotate +450+25 \
 		"$(TZ=:America/Los_Angeles date "+%F %T%Z")" 5_Pine_EW.sea_date.jpg
 	wait
 	fim_disp 5_Pine_EW.sea_date.jpg 8 &
@@ -126,14 +126,6 @@ while true; do
 	wait
 	fim_disp fsz_label.jpg 8 &
 	cd "${DDIR}"
-
-	wdl "https://www.softed.de/webcam/spreebogen.jpg"
-	wait
-	fim_disp spreebogen.jpg 8 &
-
-	wdl "https://webcam.finanzen.de/spreecam.jpg"
-	wait
-	fim_disp spreecam.jpg 8 &
 
 	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-o.jpg"
 	wait
