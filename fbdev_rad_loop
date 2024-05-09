@@ -54,6 +54,11 @@ while true; do
 	date +%T%Z | figlet -k
 
 	cd "${EDIR}"
+
+	wdl https://www.hamqsl.com/solar101pic.php
+	wait
+	fim_disp solar101pic.php 8 &
+
 	wdl https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
 	wait
 	fim_disp latest.png 8 &
