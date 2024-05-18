@@ -134,6 +134,7 @@ while true; do
 
 	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-o.jpg"
 	wait
+	wget -t 1 -T 4 -qO - "https://wttr.in/Berlin?m" > /dev/tty0
 	fim_disp wkam1-10962-o.jpg 8 &
 
 	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-s.jpg"
@@ -160,15 +161,6 @@ while true; do
 		"$(TZ=":Europe/Berlin" date "+%F %T%Z")" /tmp/ber_sun_label.png
 	wait
 	fim_disp /tmp/ber_sun_label.png 10 &
-
-	# "PNG support temporary disabled" for a long while now. 2024-05-07
-	# wdl "https://wttr.in/Berlin.png?m"
-	# wait
-	# fim_disp "Berlin.png?m" 10 &
-
-	# wdl "https://wttr.in/Moon.png"
-	# wait
-	# fim_disp "Moon.png" 8 &
 
 	for m in $eumetsat_a; do
 		wdl "${eumetsat_u}/${m}"
@@ -229,5 +221,6 @@ while true; do
 
 	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_bbb_akt.gif
 	wait
+	wget -t 1 -T 4 -qO - "https://wttr.in/Moon?m" > /dev/tty0
 	m_disp radfilm_bbb_akt.gif 2 &
 done
