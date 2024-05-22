@@ -1,0 +1,27 @@
+#!/usr/local/bin/zsh
+
+# limit in nGy/h
+lim=350
+datd_0='/wx0/dev/data'
+datd_1='/wx5/data/'
+
+site_0='https://wx5.slackology.net/particles.html'
+site_1='https://wx0.slackology.net/dev/particles.html'
+
+for datd in "${datd_0}" "${datd_1}"; do
+	line="$( tail -1 "${datd}/$(date +%Y)/particle.dat.$(date +%F)" )"
+	rad="$( echo "${line}" | awk '{print $2 * 1000 / 108}' )"
+	ts="$( echo "${line}" | awk '{print $1}' )"
+
+	[[ "${rad}" -ge "${lim}" ]] && {
+		[ -n "${out}" ] && out+="\n\n"
+		[[ "${datd}" =~ "wx0" ]] && out+="pepe (indoor):\n"
+		[[ "${datd}" =~ "wx5" ]] && out+="glow (outdoor):\n"
+		out+="${ts}\t${rad} nGy/h"
+	}
+done
+
+[ -n "${out}" ] && {
+	out+="\n\n${site_0}\n${site_1}"
+	echo -e "${out}" | mail -s "Rad Levels $(hostname -s) $(date -u +%FT%T%Z)" rad_alert
+}
