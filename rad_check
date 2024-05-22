@@ -1,4 +1,7 @@
 #!/usr/local/bin/zsh
+# this is intended to be run from cron, to send
+# a mail when measured absorbed does exceeds a
+# particular threshold.
 
 # limit in nGy/h
 lim=350
