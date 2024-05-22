@@ -54,6 +54,11 @@ while true; do
 	date +%T%Z | figlet -k
 
 	cd "${EDIR}"
+
+	wdl https://www.hamqsl.com/solar101pic.php
+	wait
+	fim_disp solar101pic.php 8 &
+
 	wdl https://services.swpc.noaa.gov/images/animations/d-rap/global/d-rap/latest.png
 	wait
 	fim_disp latest.png 8 &
@@ -110,7 +115,7 @@ while true; do
 	fim_disp /tmp/mgii_index.png 8 &
 
 	wdl "https://www.seattle.gov/trafficcams/images/5_Pine_EW.jpg"
-	convert 5_Pine_EW.jpg -fill yellow -pointsize 24 -annotate +1000+40 \
+	convert 5_Pine_EW.jpg -fill yellow -pointsize 24 -annotate +450+25 \
 		"$(TZ=:America/Los_Angeles date "+%F %T%Z")" 5_Pine_EW.sea_date.jpg
 	wait
 	fim_disp 5_Pine_EW.sea_date.jpg 8 &
@@ -127,16 +132,9 @@ while true; do
 	fim_disp fsz_label.jpg 8 &
 	cd "${DDIR}"
 
-	wdl "https://www.softed.de/webcam/spreebogen.jpg"
-	wait
-	fim_disp spreebogen.jpg 8 &
-
-	wdl "https://webcam.finanzen.de/spreecam.jpg"
-	wait
-	fim_disp spreecam.jpg 8 &
-
 	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-o.jpg"
 	wait
+	wget -t 1 -T 4 -qO - "https://wttr.in/Berlin?m" > /dev/tty0
 	fim_disp wkam1-10962-o.jpg 8 &
 
 	wdl "https://www.dwd.de/DWD/wetter/aktuell/deutschland/webcam/wkam1-10962-s.jpg"
@@ -163,14 +161,6 @@ while true; do
 		"$(TZ=":Europe/Berlin" date "+%F %T%Z")" /tmp/ber_sun_label.png
 	wait
 	fim_disp /tmp/ber_sun_label.png 10 &
-
-	wdl "https://wttr.in/Berlin.png?m"
-	wait
-	fim_disp "Berlin.png?m" 10 &
-
-	wdl "https://wttr.in/Moon.png"
-	wait
-	fim_disp "Moon.png" 8 &
 
 	for m in $eumetsat_a; do
 		wdl "${eumetsat_u}/${m}"
@@ -231,5 +221,6 @@ while true; do
 
 	wdl https://www.dwd.de/DWD/wetter/radar/radfilm_bbb_akt.gif
 	wait
+	wget -t 1 -T 4 -qO - "https://wttr.in/Moon?m" > /dev/tty0
 	m_disp radfilm_bbb_akt.gif 2 &
 done
