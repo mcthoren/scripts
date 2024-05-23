@@ -12,15 +12,18 @@ site_0='https://wx5.slackology.net/particles.html'
 site_1='https://wx0.slackology.net/dev/particles.html'
 
 for datd in "${datd_0}" "${datd_1}"; do
-	line="$( tail -1 "${datd}/$(date +%Y)/particle.dat.$(date +%F)" )"
-	rad="$( echo "${line}" | awk '{print $2 * 1000 / 108}' )"
-	ts="$( echo "${line}" | awk '{print $1}' )"
+	file="${datd}/$(date +%Y)/particle.dat.$(date +%F)"
+	[ -s ${file} ] && {
+		line="$( tail -1 "${file}" )"
+		rad="$( echo "${line}" | awk '{print $2 * 1000 / 108}' )"
+		ts="$( echo "${line}" | awk '{print $1}' )"
 
-	[[ "${rad}" -ge "${lim}" ]] && {
-		[ -n "${out}" ] && out+="\n\n"
-		[[ "${datd}" =~ "wx0" ]] && out+="pepe (indoor):\n"
-		[[ "${datd}" =~ "wx5" ]] && out+="glow (outdoor):\n"
-		out+="${ts}\t${rad} nGy/h"
+		[[ "${rad}" -ge "${lim}" ]] && {
+			[ -n "${out}" ] && out+="\n\n"
+			[[ "${datd}" =~ "wx0" ]] && out+="pepe (wx0: indoor):\n"
+			[[ "${datd}" =~ "wx5" ]] && out+="glow (wx5: outdoor):\n"
+			out+="${ts}\t${rad} nGy/h"
+		}
 	}
 done
 
