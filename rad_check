@@ -4,7 +4,7 @@
 # particular threshold.
 
 # limit in nGy/h
-lim=360
+lim=370
 datd_0='/wx0/dev/data'
 datd_1='/wx5/data/'
 
