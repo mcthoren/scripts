@@ -120,6 +120,20 @@ while true; do
 	wait
 	fim_disp 5_Pine_EW.sea_date.jpg 8 &
 
+	wdl "https://www.seattle.gov/trafficcams/images/2_Pike_NS.jpg"
+	convert 2_Pike_NS.jpg -font DejaVu-Sans -fill "#ffffff" -stroke black -strokewidth 1 \
+		-pointsize 48 -annotate +572+90 "$(TZ=:America/Los_Angeles date "+%F %T%Z")" \
+		2_Pike_NS.sea_date.jpg
+	wait
+	fim_disp 2_Pike_NS.sea_date.jpg 8 &
+
+	wdl "https://www.seattle.gov/trafficcams/images/1_Yesler_EW.jpg"
+	convert 1_Yesler_EW.jpg -fill white -font DejaVu-Sans-Bold -fill "#ffffff" -stroke black \
+		-strokewidth 1 -pointsize 24 -annotate +370+55 \
+		"$(TZ=:America/Los_Angeles date "+%F %T%Z")" 1_Yesler_EW.sea_date.jpg
+	wait
+	fim_disp 1_Yesler_EW.sea_date.jpg 8 &
+
 	wdl "https://www.berlin.de/webcams/rathaus/webcam.jpg"
 	convert webcam.jpg -fill yellow -pointsize 16 -annotate +1103+45 "Roten Rathaus" rathaus_label.jpg
 	wait
