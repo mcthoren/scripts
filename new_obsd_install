@@ -17,7 +17,7 @@ id "${2}"> /dev/null || usage
 	pkg_add wget git firefox ImageMagick nmap rsync--iconv vim--no_x11 figlet zsh xplanet \
 	avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip-- \
 	feh mplayer geeqie ipython xpdf ansible graphviz aspell-de lynx py3-matplotlib fvwm2 \
-	got mutt-- noto-cjk slock
+	got mutt-- noto-cjk slock xmem
 	
 	[[ "${1}" == "laptop" ]] && {
 		rcctl enable apmd
@@ -66,7 +66,7 @@ sed -i 's/#   VisualHostKey no/VisualHostKey yes/' /etc/ssh/ssh_config
 sed -i 's/syslog,/syslog.notice,/' /etc/syslog.conf
 
 # enable soft dependencies on non-root, non-swap file systems
-# softdep's have gone away for the time beeing
+# softdep's have gone away for the time being
 # sed -i 's/ 1 2/,softdep 1 2/g' /etc/fstab
 
 # almost straight out of install.site(5)
