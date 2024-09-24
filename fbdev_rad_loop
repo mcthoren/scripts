@@ -39,7 +39,7 @@ fim_disp() {
 m_disp() {
 	# i don't know where this resolution came from.
 	# but it's what my 1024x600 7" pi panel wants to see.
-	mplayer -loop "${2}" -vo fbdev -fs -zoom -x 1824 -y 984 "${1}"
+	mplayer -loop "${2}" -vo fbdev2 -fs -zoom -x 1824 -y 984 "${1}"
 }
 
 wdl() {
