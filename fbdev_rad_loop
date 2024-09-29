@@ -1,5 +1,14 @@
 #!/usr/local/bin/zsh
 
+# this displays a loop of images on the kernelframe buffer of a raspberry pi
+# installing the following dependencies will get one startedr:
+#	apt install ksh mplayer inkscape lolcat gnuplot fim imagemagick xplanet python3-pip zsh
+#	(as display user) pip3 install astral
+#
+# this will set up permissions to allow the display user to write to the terminal and framebuffer
+#	usermod -aG tty,video "${display_user}"
+#	chmod 620 /dev/tty0
+
 eumetsat_u="https://eumetview.eumetsat.int/static-images/latestImages/"
 eumetsat_a=( \
 # EUMETSAT_MSG_RGBAirmass_WesternEurope.jpg \
