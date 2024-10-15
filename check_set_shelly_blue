@@ -1,0 +1,27 @@
+#!/bin/ksh
+
+# this script is meant to be run from cron and control a shelly color bulb.
+# the main purpose is to check to make sure i haven't already turned the thing off
+# so the next cron job doesn't wake me up from my nap or what have you.
+# the color is just fixed to cyan, cuz that's all i use atm.
+
+stat_u='http://bbulb/status'
+blue_u='http://bbulb/color/0?turn=on&green=255&blue=255&red=0&gain='
+
+usage() {
+	echo "$0 [gain]"
+	exit 1
+}
+
+[ "$1" = '-h' ] && usage
+(( $# == 1 )) || usage
+(( $1 <= 100 )) || usage
+(( $1 > 1 )) || usage
+
+gain=${1}
+
+is_on() {
+	wget -qO - "${stat_u}" | jq '.lights[].ison' | grep -q true
+}
+
+is_on && wget -qO /dev/null "${blue_u}${gain}"
