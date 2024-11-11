@@ -16,7 +16,6 @@ use Encode qw(encode decode);
 my ($num, $tsumsq, $tsum, $max) = (0, 0, 0, 0);
 my $min = 9999999;
 my $threshmul = 4.0;
-my @dat;
 
 @ARGV = map { decode("UTF-8", $_) } @ARGV;
 
@@ -24,7 +23,6 @@ while(<>){
 	chomp;
 	my ($x, $y) = split;
 	if($y ne "??"){
-	   push @dat, [ $x, $y ];
 	   $num++;
 	   $tsum += $y;
 	   $tsumsq += ($y * $y);
