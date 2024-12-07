@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# this script is based around using this tool:
+# https://pypi.org/project/adif-merge/
+# to merge all my different wsjt-x log instances into one 
+
+# let normal temp clean routines deal with the cleanup
+W_DIR="$(mktemp -d)"
+TS="$(date -u +%FT%T%Z)"
+
+SRC_ADI="${HOME}/.local/share/WSJT-X/wsjtx_log.adi"
+SRC_LOG="${HOME}/.local/share/WSJT-X/wsjtx.log"
+DST_ADI="${HOME}/.local/share/WSJT-X/wsjtx_log.${ts}.adi"
+DST_LOG="${HOME}/.local/share/WSJT-X/wsjtx.${ts}.log"
+
+cd "${W_DIR}" || exit 1
+
+[ -f "${HOME}/.local/bin/adif_merge" ] || {
+	echo "adif_merge not found"
+	exit 1
+}
+
+scp taco:~/.local/share/WSJT-X/wsjtx_log.adi ./taco.adi
+scp "ragtime:/import/home/ghz/.local/share/WSJT-X - 10m/wsjtx_log.adi" ./rag_10.adi
+scp "ragtime:/import/home/ghz/.local/share/WSJT-X - tr751/wsjtx_log.adi" ./rag_2m.adi
+scp "ragtime:/import/home/ghz/.local/share/WSJT-X/wsjtx_log.adi" ./rag_70.adi
+cp "${SRC_ADI}" ./socket_log.adi
+
+${HOME}/.local/bin/adif_merge -o out.adi -c out.log -p probs.json \
+	taco.adi rag_10.adi rag_2m.adi socket_log.adi rag_70.adi || {
+	echo "merge failed"
+	exit 1
+}
+
+[ -f "${SRC_ADI}" ] && cp "${SRC_ADI}" "${DST_ADI}" || {
+	echo "backup adif failed"
+	exit 1
+}
+
+[ -f "${SRC_LOG}" ] && cp "${SRC_LOG}" "${DST_LOG}" || {
+	echo "backup adif failed"
+	exit 1
+}
+
+cp ${W_DIR}/out.adi "${SRC_ADI}"
+cp ${W_DIR}/out.log "${SRC_LOG}"
