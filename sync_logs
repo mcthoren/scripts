@@ -2,7 +2,9 @@
 
 # this script is based around using this tool:
 # https://pypi.org/project/adif-merge/
-# to merge all my different wsjt-x log instances into one 
+# to merge all my different wsjt-x log instances into one.
+# if one wants to run this more than once, one needs
+# to comment out the duplicate check in the tool.
 
 # let normal temp clean routines deal with the cleanup
 W_DIR="$(mktemp -d)"
@@ -20,15 +22,16 @@ cd "${W_DIR}" || exit 1
 	exit 1
 }
 
+# scp "ragtime:/import/home/ghz/.local/share/WSJT-X - 10m/wsjtx_log.adi" ./rag_10.adi
+# scp "ragtime:/import/home/ghz/.local/share/WSJT-X - tr751/wsjtx_log.adi" ./rag_2m.adi
+
 scp taco:~/.local/share/WSJT-X/wsjtx_log.adi ./taco.adi
-scp "ragtime:/import/home/ghz/.local/share/WSJT-X - 10m/wsjtx_log.adi" ./rag_10.adi
-scp "ragtime:/import/home/ghz/.local/share/WSJT-X - tr751/wsjtx_log.adi" ./rag_2m.adi
 scp "ragtime:/import/home/ghz/.local/share/WSJT-X/wsjtx_log.adi" ./rag_70.adi
 cp "${SRC_ADI}" ./socket_log.adi
 
+#	rag_10.adi rag_2m.adi \
 ${HOME}/.local/bin/adif_merge -o out.adi -c out.log -p probs.json \
-	taco.adi socket_log.adi \
-	rag_10.adi rag_2m.adi rag_70.adi \
+	taco.adi socket_log.adi rag_70.adi \
 || {
 	echo "merge failed"
 	exit 1
