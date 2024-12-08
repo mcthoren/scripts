@@ -10,8 +10,8 @@ TS="$(date -u +%FT%T%Z)"
 
 SRC_ADI="${HOME}/.local/share/WSJT-X/wsjtx_log.adi"
 SRC_LOG="${HOME}/.local/share/WSJT-X/wsjtx.log"
-DST_ADI="${HOME}/.local/share/WSJT-X/wsjtx_log.${ts}.adi"
-DST_LOG="${HOME}/.local/share/WSJT-X/wsjtx.${ts}.log"
+DST_ADI="${HOME}/.local/share/WSJT-X/wsjtx_log.${TS}.adi"
+DST_LOG="${HOME}/.local/share/WSJT-X/wsjtx.${TS}.log"
 
 cd "${W_DIR}" || exit 1
 
@@ -27,7 +27,9 @@ scp "ragtime:/import/home/ghz/.local/share/WSJT-X/wsjtx_log.adi" ./rag_70.adi
 cp "${SRC_ADI}" ./socket_log.adi
 
 ${HOME}/.local/bin/adif_merge -o out.adi -c out.log -p probs.json \
-	taco.adi rag_10.adi rag_2m.adi socket_log.adi rag_70.adi || {
+	taco.adi socket_log.adi \
+	rag_10.adi rag_2m.adi rag_70.adi \
+|| {
 	echo "merge failed"
 	exit 1
 }
