@@ -36,11 +36,7 @@ dat_s="$(date -u +"%FT%TZ")\t${temp}\n"
 printf "${dat_s}" >> "${dst_f}"
 printf "${dat_s}" >> "${arch_f}"
 
-# 24h * 60min/h = 1440
-tail -1440 "${dst_f}" > "${tmp_f}"
-mv "${tmp_f}" "${dst_f}"
-
-# migrate over to the new mechanism
+# use our weather tools script to more better grab the last 24h of data
 dat_f_24="${HOME}/box_temp/${HOST_N}/${HOST_N}_temp.24_hours"
 "${HOME}/repos/weather_tools/grab_n_hours" -n 24 -d "${HOME}/box_temp/${HOST_N}" -f "${HOST_N}_temp"
 [ -e "${dat_f_24}" ] && mv "${dat_f_24}" "${dst_d}"
