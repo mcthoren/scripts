@@ -23,20 +23,20 @@ set y2label "Pi Temp (°C)"
 
 fn = "atom blast brink burn crater cutie"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps0.png'
-plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
+plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
 fn = "doomy dot elf fizzy glow golly"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps1.png'
-plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
+plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
 fn = "holly infinity jazz keen linty pepe"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps2.png'
-plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
+plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
 fn = "pickles ragtime scooty scuttle spiffy squiggle"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps3.png'
-plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
+plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
 fn = "straylight tab teddy up wave zero"
 set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps4.png'
-plot for [ f in fn ] '/box_temps/'.f.'_temp.24h' u 1:2 t f w lines lw 2
+plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
