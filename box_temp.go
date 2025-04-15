@@ -11,7 +11,7 @@ MYHOME="/home/ghz"
 	[ -d "/import/home/ghz" ] && MYHOME="/import/home/ghz"
 }
 
-dst_d="${MYHOME}/box_temp/"
+dst_d="${MYHOME}/box_temp"
 dst_f="${dst_d}/${HOST_N}_temp.24h"
 
 arch_d="${dst_d}/${HOST_N}/$(date -u +"%Y")"
@@ -39,4 +39,4 @@ printf "${dat_s}" >> "${arch_f}"
 # use our weather tools script to more better grab the last 24h of data
 dat_f_24="${HOME}/box_temp/${HOST_N}/${HOST_N}_temp.24_hours"
 "${HOME}/repos/weather_tools/grab_n_hours" -n 24 -d "${HOME}/box_temp/${HOST_N}" -f "${HOST_N}_temp"
-[ -e "${dat_f_24}" ] && mv "${dat_f_24}" "${dst_d}"
+[ -f "${dat_f_24}" ] && mv "${dat_f_24}" "${dst_d}/"
