@@ -1,3 +1,13 @@
 #!/bin/ksh
-# turn the projector/hdmi on on my thinkpad x220
-xrandr --output LVDS-1 --auto --output HDMI-1 --auto --same-as LVDS-1
+
+HOST_N="$(hostname -s)"
+
+# turn the projector/hdmi on on my thinkpad x220s
+[ "${HOST_N}" = 'iva' -o "${HOST_N}" = 'socket' -o "${HOST_N}" = 'bolt' ] && {
+	xrandr --output LVDS-1 --auto --output HDMI-1 --auto --same-as LVDS-1
+}
+
+# on sand and dust i'm prly just going to use the one display
+[ "${HOST_N}" = 'dust' -o "${HOST_N}" = 'sand' ] && {
+	xrandr --output eDP-1 --off --output HDMI-1 --primary --auto
+}
