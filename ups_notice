@@ -1,0 +1,23 @@
+#!/bin/ksh
+
+ups_d='/tmp/ups_notice'
+tmp_old="${ups_d}"/sensors_old
+tmp_new="${ups_d}"/sensors_new
+
+[ -d "${ups_d}" ] || mkdir -p "${ups_d}"
+[ -d "${ups_d}" ] || {
+	echo "can't create ${ups_d}"
+	exit 1
+}
+
+/usr/sbin/sysctl hw.sensors.upd0 | grep -v 'hw.sensors.upd0.timedelta0' > "${tmp_new}"
+
+[ -f "${tmp_old}" -a -f "${tmp_new}" ] && {
+	diff -u "${tmp_old}" "${tmp_new}" | grep . && 
+	{
+		echo
+		/usr/sbin/sysctl hw.sensors.upd0
+	}
+}
+
+[ -f "${tmp_new}" ] && mv "${tmp_new}" "${tmp_old}"
