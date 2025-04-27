@@ -1,5 +1,9 @@
 #!/bin/ksh
 
+# this script is meant to be run from cron.
+# this way i will be emailed of any changes that happen in
+# power/ups status.
+
 ups_d='/tmp/ups_notice'
 tmp_old="${ups_d}"/sensors_old
 tmp_new="${ups_d}"/sensors_new
