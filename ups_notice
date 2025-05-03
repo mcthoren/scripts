@@ -14,7 +14,7 @@ tmp_new="${ups_d}"/sensors_new
 	exit 1
 }
 
-/usr/sbin/sysctl hw.sensors.upd0 | grep -v 'hw.sensors.upd0.timedelta0' > "${tmp_new}"
+/usr/sbin/sysctl hw.sensors.upd0 | egrep -v 'timedelta0|percent2' > "${tmp_new}"
 
 [ -f "${tmp_old}" -a -f "${tmp_new}" ] && {
 	diff -u "${tmp_old}" "${tmp_new}" | grep . && 
