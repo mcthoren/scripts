@@ -64,6 +64,22 @@ while true; do
 
 	cd "${EDIR}"
 
+	wdl https://wx0.slackology.net/mqs/plots/all_gasses.png
+	wait
+	fim_disp all_gasses.png 8 &
+
+	wdl https://wx4.slackology.net/plots/room_co2.png
+	wait
+	fim_disp room_co2.png 8 &
+
+	wdl https://wx0.slackology.net/dust_wx/plots/pm_25.png
+	wait
+	fim_disp pm_25.png 8 &
+
+	wdl https://wx0.slackology.net/dev/plots/particle_cpm_48.png
+	wait
+	fim_disp particle_cpm_48.png 8 &
+
 	wdl https://www.hamqsl.com/solar101pic.php
 	wait
 	fim_disp solar101pic.php 8 &
