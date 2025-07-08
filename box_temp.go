@@ -3,8 +3,6 @@
 
 OS="$(uname -s)"
 HOST_N="$(hostname -s)"
-tmp_f="$(mktemp)" || exit 1
-chmod 0644 "${tmp_f}"
 
 MYHOME="/home/ghz"
 [ "${OS}" = "Linux" ] && {
