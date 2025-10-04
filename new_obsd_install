@@ -45,6 +45,9 @@ id "${2}"> /dev/null || usage
 [[ "${1}" == "pi" ]] && {
 	pkg_add wget git nmap rsync-- vim--no_x11 figlet zsh bzip2 curl gnuplot-- \
 	lynx got ipython3 aspell-de
+
+	echo -e "\n# updates" >> /var/cron/tabs/root
+	echo -e "~\t~\t*\t*\t5\tsysupgrade" >> /var/cron/tabs/root
 }
 
 rcctl disable check_quotas
@@ -82,3 +85,7 @@ cat <<- EOF >> /upgrade.site
 	echo 'pkg_add -IVvum' >> /etc/rc.firsttime
 EOF
 chmod +x /upgrade.site
+
+echo -e "~\t~\t*\t*\t*\tpkg_add -u" >> /var/cron/tabs/root
+echo -e "~\t*/8\t*\t*\t*\tsyspatch" >> /var/cron/tabs/root
+rcctl restart cron
