@@ -86,6 +86,14 @@ cat <<- EOF >> /upgrade.site
 EOF
 chmod +x /upgrade.site
 
+[[ "${1}" == "pi" ]] && {
+	cat <<- EOF >> /upgrade.site
+		echo 'sync' >> /etc/rc.firsttime
+		echo 'sync' >> /etc/rc.firsttime
+		echo 'reboot' >> /etc/rc.firsttime
+	EOF
+}
+
 echo -e "~\t~\t*\t*\t*\tpkg_add -u" >> /var/cron/tabs/root
 echo -e "~\t*/8\t*\t*\t*\tsyspatch" >> /var/cron/tabs/root
 rcctl restart cron
