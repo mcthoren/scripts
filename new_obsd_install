@@ -97,3 +97,5 @@ chmod +x /upgrade.site
 echo -e "~\t~\t*\t*\t*\tpkg_add -u" >> /var/cron/tabs/root
 echo -e "~\t*/8\t*\t*\t*\tsyspatch" >> /var/cron/tabs/root
 rcctl restart cron
+
+ssh-keygen -f /root/.ssh/id_ed25519 -C "$(hostname -s) ${USER} key $(date +%FT%T%Z)" -N ''
