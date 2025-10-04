@@ -3,20 +3,20 @@
 # scriptified so i can be _even_ _lazier_
 
 usage() {
-	echo "usage: $0: laptop|server|workstation username"
+	echo "usage: $0: laptop|server|workstation|pi username"
 	exit 1
 }
 
 (($#==2)) || usage
 
-[[ "${1}" == "laptop" || "${1}" == "server" || "${1}" == "workstation" ]] ||  usage
+[[ "${1}" == "laptop" || "${1}" == "server" || "${1}" == "workstation" || "${1}" == "pi" ]] || usage
 
 id "${2}"> /dev/null || usage
 
 [[ "${1}" == "laptop" || "${1}" == "workstation" ]] && {
-	pkg_add wget git firefox ImageMagick nmap rsync--iconv vim--no_x11 figlet zsh xplanet \
+	pkg_add wget git firefox ImageMagick nmap rsync-- vim--no_x11 figlet zsh xplanet \
 	avr-binutils avr-libc avr-gcc avr-gdb bzip2 curl magicpoint texlive_texmf-full unzip-- \
-	feh mplayer geeqie ipython xpdf ansible graphviz aspell-de lynx py3-matplotlib fvwm2 \
+	feh mplayer geeqie ipython3 xpdf ansible graphviz aspell-de lynx py3-matplotlib fvwm2 \
 	got mutt-- noto-cjk slock xmem
 	
 	[[ "${1}" == "laptop" ]] && {
@@ -32,7 +32,7 @@ id "${2}"> /dev/null || usage
 
 [[ "${1}" == "server" ]] && {
 	# vim for UTF-8 support
-	pkg_add wget git nmap rsync--iconv vim--no_x11 figlet zsh bzip2 curl
+	pkg_add wget git nmap rsync-- vim--no_x11 figlet zsh bzip2 curl
 
 	# dhcpleased and slaacd don't do anything w.o. an IF marked AUTO,
 	# but start with the assumption that we don't need them if our IFs are static
@@ -40,6 +40,11 @@ id "${2}"> /dev/null || usage
 	# the later often being the case with many of the local providers, which is why we
 	# turn off resolvd as well.
 	rcctl disable sndiod resolvd dhcpleased slaacd
+}
+
+[[ "${1}" == "pi" ]] && {
+	pkg_add wget git nmap rsync-- vim--no_x11 figlet zsh bzip2 curl gnuplot-- \
+	lynx got ipython3 aspell-de
 }
 
 rcctl disable check_quotas
