@@ -23,7 +23,13 @@ for tst_d in "${arch_d}" "${dst_d}"; do
 	}
 done
 
-[ "${OS}" = "OpenBSD" ] && temp="$(sysctl -n hw.sensors.bcmtmon0.temp0)"
+[ "${OS}" = "OpenBSD" ] && {
+	sysctl -n hw.sensors.bcmtmon0.temp0 2>&1 | grep -q degC && \
+		temp="$(sysctl -n hw.sensors.bcmtmon0.temp0)"
+
+	sysctl -n hw.sensors.bcmtemp0.temp0 2>&1 | grep -q degC && \
+		temp="$(sysctl -n hw.sensors.bcmtemp0.temp0)"
+}
 
 [ "${OS}" = "Linux" ] && {
 	temp=$(awk '{temp = ($1) / 1000; printf "%0.2f degC\n", temp}'  \
