@@ -5,7 +5,7 @@ OS="$(uname -s)"
 HOST_N="$(hostname -s)"
 
 MYHOME="/home/ghz"
-[ "${OS}" = "Linux" ] && {
+[ "${OS}" = "Linux" -o "${HOST_N}" = "orbit" ] && {
 	[ -d "/import/home/ghz" ] && MYHOME="/import/home/ghz"
 }
 
