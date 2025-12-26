@@ -10,7 +10,8 @@ set xrange [:] noextend
 set format x "%F\n%TZ"
 set timefmt "%Y-%m-%dT%H:%M:%SZ"
 set grid
-set term pngcairo size 2000, 800 font ",10"
+# set term pngcairo size 2000, 800 font ",10"
+set term svg size 1800, 800 font ",12" background '0xffffff'
 
 set format y "%.1f"
 set format y2 "%.1f"
@@ -22,21 +23,21 @@ set y2label "Pi Temp (°C)"
 # plot for [ f in fn ] '/box_temps/'.f.'_temp.48h' u 1:2 t f w lines lw 2 lc rgbcolor rand(0) * 16777215
 
 fn = "atom blast brink burn crater cutie"
-set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps0.png'
+set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps0.svg'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
-fn = "doomy dot elf fizzy glow golly"
-set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps1.png'
+fn = "doomy dot elf fizzy glow golly holly"
+set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps1.svg'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
-fn = "holly infinity jazz keen linty pepe"
-set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps2.png'
+fn = "infinity jazz keen linty mop null orbit"
+set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps2.svg'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
-fn = "pickles ragtime scooty scuttle spiffy squiggle"
-set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps3.png'
+fn = "pepe pickles ragtime scooty scuttle spiffy squiggle"
+set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps3.svg'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
 
-fn = "straylight tab teddy up wave zero"
-set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps4.png'
+fn = "straylight tab teddy up wave xray zero"
+set output '/var/www/htdocs/darkdata.org/ghz/box_temps/pitemps4.svg'
 plot for [ f in fn ] '/box_temps/'.f.'_temp.24_hours' u 1:2 t f w lines lw 2
