@@ -68,15 +68,15 @@ while true; do
 	wait
 	fim_disp all_gasses.png 8 &
 
-	wdl https://wx4.slackology.net/plots/room_co2.png
+	wdl https://wx4.slackology.net/plots/room_co2.svg
 	wait
 	fim_disp room_co2.png 8 &
 
-	wdl https://wx0.slackology.net/dust_wx/plots/pm_25.png
+	wdl https://wx0.slackology.net/dust_wx/plots/pm_25.svg
 	wait
 	fim_disp pm_25.png 8 &
 
-	wdl https://wx0.slackology.net/dev/plots/particle_cpm_48.png
+	wdl https://wx0.slackology.net/dev/plots/particle_cpm_48.svg
 	wait
 	fim_disp particle_cpm_48.png 8 &
 
