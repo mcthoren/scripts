@@ -6,15 +6,15 @@
 # only use a diff res for GOES-17 so it has a diff name and then -N works.
 earths=( \
 # 0°		noon = 12:43z
-'https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSG_RGBNatColourEnhncd_FullResolution.jpg' \
+'https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&layers=mtg_fd:rgb_geocolour,mtg_fd:li_afa,backgrounds:ne_10m_coastline,backgrounds:ne_boundary_lines_land&bbox=-5500000,-5500000,5500000,5500000&width=2500&height=2500&srs=AUTO:97004,9001,0,0&styles=&format=image/jpeg&bgcolor=0x000000' \
 # 75.2° West	noon = 17:44z
-'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg' \
+'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg?0' \
 # 137.2° West	noon = 21:52z
-'https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/5424x5424.jpg' \
+'https://cdn.star.nesdis.noaa.gov/GOES17/ABI/FD/GEOCOLOR/1808x1808.jpg?1' \
 # 219.3° West	noon = 03:20z
 'https://rammb.cira.colostate.edu/ramsdis/online/images/latest_hi_res/himawari-8/full_disk_ahi_true_color.jpg' \
 # 318.5° West	noon = 09:57z
-'https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_RGBNatColourEnhncd_FullResolution.jpg' \
+'https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&layers=msg_iodc:rgb_natural,backgrounds:ne_10m_coastline,backgrounds:ne_boundary_lines_land&bbox=-5500000,-5500000,5500000,5500000&width=1800&height=1800&srs=AUTO:97004,9001,45.5,0&styles=&format=image/jpeg&bgcolor=0x000001' \
 )
 
 usage() {
@@ -45,12 +45,21 @@ noon_pic () {
 	echo "${n_pic}"
 }
 
-# the americans and the japanese update every 10 min
-# the europeans are very european about it. sometimes the image is only _one_ hour old.
-# .us/.jp have a geocolor product (or sth like it) see:
-# https://journals.ametsoc.org/view/journals/atot/37/3/JTECH-D-19-0134.1.xml
-# the europeans do not have anything like a pretty geocolor product that i've found so far.
-# they all do date headers however, so tune the loop for 10min.
+msg_stamp(){
+	wget -qO - "https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetCapabilities" | \
+		grep -A20 "<Name>msg_iodc:rgb_natural</Name>" | \
+		egrep -o 'Dimension name="time" default="[0-9T:-]{19}Z' | \
+		sed 's/.*"//'
+}
+
+mtg_stamp(){
+	wget -qO - "https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetCapabilities" | \
+		grep -A20 "<Name>mtg_fd:rgb_geocolour</Name>" | \
+		egrep -o 'Dimension name="time" default="[0-9T:-]{19}Z' | \
+		sed 's/.*"//'
+}
+
+
 loop_wait=120 # 10min / 5 pics
 noon_follow=0
 verbose=0
@@ -70,8 +79,17 @@ done
 while true; do
 	for pic in $earths; do
 		[[ $noon_follow == "1" ]] && { pic="$(noon_pic)"; loop_wait=600; }
-		[[ $verbose == "0" ]] && wget -qN "${pic}"
-		[[ $verbose == "0" ]] || wget -N "${pic}"
+		[[ $verbose == "0" ]] && wget -qt 2 -T 32 "${pic}" -O "$(basename "${pic}")"
+		[[ $verbose == "0" ]] || wget -t 2 -T 32 "${pic}" -O "$(basename "${pic}")"
+
+		if [[ "$(basename "${pic}")" == 'jpeg&bgcolor=0x000000' ]]; then
+			mogrify -font DejaVu-Sans -stroke white -fill white -pointsize 36 \
+				-annotate +0+2480 "$(mtg_stamp)" "$(basename "${pic}")"
+		elif [[ "$(basename "${pic}")" == 'jpeg&bgcolor=0x000001' ]]; then
+			mogrify -font DejaVu-Sans -stroke white -fill white -pointsize 24 \
+				-annotate +0+1780 "$(msg_stamp)" "$(basename "${pic}")"
+		fi
+
 		feh --bg-max "$(basename "${pic}")"
 		sleep $loop_wait
 	done
