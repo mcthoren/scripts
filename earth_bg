@@ -78,19 +78,22 @@ done
 
 while true; do
 	for pic in $earths; do
+		_pic="$(basename "${pic}")"
 		[[ $noon_follow == "1" ]] && { pic="$(noon_pic)"; loop_wait=600; }
-		[[ $verbose == "0" ]] && wget -qt 2 -T 32 "${pic}" -O "$(basename "${pic}")"
-		[[ $verbose == "0" ]] || wget -t 2 -T 32 "${pic}" -O "$(basename "${pic}")"
+		[[ $verbose == "0" ]] && wget -qt 2 -T 32 "${pic}" -O "${_pic}"
+		[[ $verbose == "0" ]] || wget -t 2 -T 32 "${pic}" -O "${_pic}"
 
-		if [[ "$(basename "${pic}")" == 'jpeg&bgcolor=0x000000' ]]; then
-			mogrify -font DejaVu-Sans -stroke white -fill white -pointsize 36 \
-				-annotate +0+2480 "$(mtg_stamp)" "$(basename "${pic}")"
-		elif [[ "$(basename "${pic}")" == 'jpeg&bgcolor=0x000001' ]]; then
-			mogrify -font DejaVu-Sans -stroke white -fill white -pointsize 24 \
-				-annotate +0+1780 "$(msg_stamp)" "$(basename "${pic}")"
+		if [ -s "${_pic}" ]; then
+			if [[ "${_pic}" == 'jpeg&bgcolor=0x000000' ]]; then
+				mogrify -font DejaVu-Sans -stroke white -fill white -pointsize 36 \
+					-annotate +0+2480 "$(mtg_stamp)" "${_pic}"
+			elif [[ "${_pic}" == 'jpeg&bgcolor=0x000001' ]]; then
+				mogrify -font DejaVu-Sans -stroke white -fill white -pointsize 24 \
+					-annotate +0+1780 "$(msg_stamp)" "${_pic}"
+			fi
+
+			feh --bg-max "${_pic}"
 		fi
-
-		feh --bg-max "$(basename "${pic}")"
 		sleep $loop_wait
 	done
 done
