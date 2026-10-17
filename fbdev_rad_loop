@@ -1,7 +1,7 @@
 #!/usr/local/bin/zsh
 
-# this displays a loop of images on the kernelframe buffer of a raspberry pi
-# installing the following dependencies will get one startedr:
+# this displays a loop of images on the kernel frame buffer of a raspberry pi
+# installing the following dependencies will get one started:
 #	apt install ksh mplayer inkscape lolcat gnuplot fim imagemagick xplanet python3-pip zsh
 #	(as display user) pip3 install astral
 #
