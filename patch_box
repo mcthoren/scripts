@@ -2,25 +2,43 @@
 
 # this is meant to be run from cron.
 
-# the idea here is: when i'm on vacation my OpenBSD boxes take care of themselves.
-# XXX todo: only restart daemons when necessary
-#	until we figure out how to do that, just restart all the daemons
-# 	in case a crypto lib, the daemon itsself or sth important updated.
-
-echo "$0[$$]: checking for patches..."
+echo -n "$0[$$]: checking for patches..."
 
 restart_daemons() {
-	echo "\n$0[$$]: patches detected, restarting daemons"
 
-	# if we resstart smtpd at the same time, we don't the mail :x
-	echo "/usr/sbin/rcctl restart smtpd" | /usr/bin/at now +1 min
+	echo "$0[$$]: patches detected"
 
-	/usr/sbin/rcctl restart sshd
-	/usr/sbin/rcctl restart httpd
-	/usr/sbin/rcctl restart unwind
-	# /usr/sbin/rcctl restart nsd
-	# /usr/sbin/rcctl restart unbound
+	CR_OUT="$(mktemp)"
+
+	[ -n "${CR_OUT}" ] || {
+		echo "mktemp failed."
+		exit 1
+	}
+
+	/usr/local/sbin/checkrestart > "${CR_OUT}"
+
+	[ -s "${CR_OUT}" ] || {
+		rm "${CR_OUT}"
+		return 0
+	}
+
+	echo "$0[$$]: restarting daemons "
+
+	for _proc in sshd httpd unwind nsd unbound ntpd; do
+		grep "${_proc}" "${CR_OUT}" && rcctl restart "${_proc}"
+	done
+
+	# if we restart smtpd at the same time, we don't the mail :x
+	grep smptd "${CR_OUT}" && echo "/usr/sbin/rcctl restart smtpd" | \
+		/usr/bin/at now +1 min
+
+	rm "${CR_OUT}"
 }
 
-# is there a better way to tell if a daemon need restarting?
-SP_OUT="$(/usr/sbin/syspatch 2>&1 )" && [ ! -z "${SP_OUT}" ] && { echo "${SP_OUT}"; restart_daemons; }
+SP_OUT="$(/usr/sbin/syspatch 2>&1 )" && [ ! -z "${SP_OUT}" ] && {
+	echo
+	echo "${SP_OUT}"
+	restart_daemons
+}
+
+[ -z "${SP_OUT}" ] && echo " no patches found."
