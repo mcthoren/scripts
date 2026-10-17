@@ -24,7 +24,7 @@ restart_daemons() {
 
 	echo "$0[$$]: restarting daemons "
 
-	for _proc in sshd httpd unwind nsd unbound ntpd; do
+	for _proc in cron dhcpleased httpd nsd ntpd resolvd slaacd sshd syslogd unbound unwind; do
 		grep "${_proc}" "${CR_OUT}" && rcctl restart "${_proc}"
 	done
 
