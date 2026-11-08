@@ -1,12 +1,17 @@
-#!/bin/sh
+#!/bin/ksh
 
 # this is meant to be run from cron.
 
-echo -n "$0[$$]: checking for patches..."
+PROG=${0##*/}
+
+usage() {
+	echo "usage: $PROG [-vr]"
+	exit 1
+}
 
 restart_daemons() {
 
-	echo "$0[$$]: patches detected"
+	echo "$PROG[$$]: patches detected"
 
 	CR_OUT="$(mktemp)"
 
@@ -22,23 +27,60 @@ restart_daemons() {
 		return 0
 	}
 
-	echo "$0[$$]: restarting daemons "
+	echo "$PROG[$$]: restarting daemons "
 
-	for _proc in cron dhcpleased httpd nsd ntpd resolvd slaacd sshd syslogd unbound unwind; do
-		grep "${_proc}" "${CR_OUT}" && rcctl restart "${_proc}"
+	for _proc in cron dhcpleased httpd nsd ntpd resolvd slaacd sshd \
+		syslogd unbound unwind; do
+			grep "${_proc}" "${CR_OUT}" && rcctl restart "${_proc}"
 	done
 
-	# if we restart smtpd at the same time, we don't the mail :x
+	# if we restart smtpd at the same time, we don't get the mail :x
 	grep smptd "${CR_OUT}" && echo "/usr/sbin/rcctl restart smtpd" | \
 		/usr/bin/at now +1 min
 
 	rm "${CR_OUT}"
 }
 
-SP_OUT="$(/usr/sbin/syspatch 2>&1 )" && [ ! -z "${SP_OUT}" ] && {
-	echo
-	echo "${SP_OUT}"
-	restart_daemons
-}
+VERBOSE=false
+REBOOT=false
 
-[ -z "${SP_OUT}" ] && echo " no patches found."
+while getopts "vr" _opt; do
+        case "$_opt" in
+        v) VERBOSE=true ;;
+        r) REBOOT=true ;;
+        ?) usage ;;
+        esac
+done
+
+if [ $VERBOSE = true ]; then
+	echo -n "$PROG[$$]: checking for patches..."
+fi
+
+SP_OUT="$(mktemp)"
+
+syspatch > "${SP_OUT}" 2>&1
+
+# XXX TODO: find a way see if the running kernel is older than /bsd{,.mp}
+if [ -s "${SP_OUT}" ]; then
+	echo
+	cat "${SP_OUT}"
+
+	if [ $REBOOT = true ]; then
+		if fgrep -q 'reboot to load the new kernel' "${SP_OUT}" ; then
+			cat "${SP_OUT}" | mail -s "$PROG[$$]: rebooting for patches." root
+			sleep 2 # give our mail time to be queued or delivered
+			sync
+			sync # after adming old solaris boxes, it's hard not to do this
+			reboot
+			# not reached
+		fi
+	fi
+
+	restart_daemons
+fi
+
+rm "${SP_OUT}"
+
+if [ $VERBOSE = true -a ! -s "${SP_OUT}" ]; then
+	echo " no patches found."
+fi
