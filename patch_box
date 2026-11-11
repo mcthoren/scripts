@@ -79,8 +79,9 @@ if [ -s "${SP_OUT}" ]; then
 	restart_daemons
 fi
 
-rm "${SP_OUT}"
 
 if [ $VERBOSE = true -a ! -s "${SP_OUT}" ]; then
 	echo " no patches found."
 fi
+
+rm "${SP_OUT}"
